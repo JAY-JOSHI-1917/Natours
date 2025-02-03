@@ -1,0 +1,39 @@
+.search__bar {
+  border-radius: 50px;
+  width: 13rem;
+  background-color: #ffffffbb;
+  border: 3px solid var(--secondary-color);
+  line-height: 0;
+  transition: all 0.5s;
+}
+
+.search__bar:focus-within {
+  width: 20rem;
+  scale: 1.1;
+  box-shadow: rgba(17, 12, 46, 0.15) 0pc 30px 100px 0px;
+}
+
+.Location-Input {
+  background: transparent;
+}
+
+.form__group {
+  padding: 0.8rem 1rem;
+}
+
+.form__group span {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+}
+
+.form__group input {
+  border: none;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.form__group input:focus {
+  margin-top: 0;
+  outline: none;
+}
