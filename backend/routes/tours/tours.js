@@ -12,5 +12,5 @@ router.delete("/:id", deleteTour);
 //getSingle Tour
 router.get("/:id", getSingleTour);
 //getAll Tour
-router.get("/:id", getAllTour);
+router.get("/", getAllTour);
 export default router;
