@@ -75,12 +75,11 @@ export const getSingleTour = async (req, res) => {
 export const getAllTour = async (req, res) => {
 
   const page = parseInt(req.query.page)
-  console.log(page);
   try {
     const tours = await Tour.find({}).skip(page * 8).limit(8);
     res.status(200).json({
       success: true,
-      count:tours.length,
+      count: tours.length,
       message: "Successfully. ",
       data: tours,
     });
@@ -89,5 +88,59 @@ export const getAllTour = async (req, res) => {
       success: false,
       message: "Not Found ",
     });
+  }
+}
+
+//get tour by search
+export const getTourBySearch = async (req, res) => {
+  const city = new RegExp(req.query.city, 'i')
+  //cause we are only finding the tour based on the Location name so we do not need this 
+  // const distance = parseInt(req.query.distance)
+  // const maxGroupSize = parseInt(req.query.maxGroupSize)
+  try {
+    const tours = await Tour.find({ city })
+    //As of now we are finding the tour based on the location so we do not have to use
+    // const tours = await Tour.find({ city, distance: { $gte: distance }, maxGroupSize: { $gte: maxGroupSize } })
+    res.status(200).json({
+      success: true,
+      message: "Successfully.",
+      data: tours,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "Not Found ",
+    });
+  }
+  //getAll Tour
+}
+export const getFeaturedTour = async (req, res) => {
+
+  const page = parseInt(req.query.page)
+  console.log(page);
+  try {
+    const tours = await Tour.find({ featured: true }).limit(8);
+    res.status(200).json({
+      success: true,
+      message: "Successfully. ",
+      data: tours,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "Not Found ",
+    });
+  }
+}
+
+export const getTourCount = async (req, res) => {
+  try {
+    const tourCount = await Tour.estimatedDocumentCount()
+    res.status(200).json({
+      success: true,
+      data: tourCount
+    })
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch" })
   }
 }
