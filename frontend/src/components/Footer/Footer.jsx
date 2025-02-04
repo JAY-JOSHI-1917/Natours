@@ -104,7 +104,7 @@ const Footer = () => {
                     <i class="ri-map-pin-line"></i>
                   </span>
                   Address:
-                  <p className="mb-0">Gujarat, India</p>
+                  <a className="mb-0">Gujarat, India</a>
                 </h6>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
@@ -113,7 +113,7 @@ const Footer = () => {
                     <i class="ri-mail-line"></i>
                   </span>
                   Email:
-                  <p className="mb-0">natours.explore@gmail.com</p>
+                  <a className="mb-0">natours.explore@gmail.com</a>
                 </h6>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
@@ -122,7 +122,7 @@ const Footer = () => {
                     <i class="ri-phone-fill"></i>
                   </span>
                   Phone:
-                  <p className="mb-0">+91 9988776655</p>
+                  <a className="mb-0">+91 9988776655</a>
                 </h6>
               </ListGroupItem>
             </ListGroup>

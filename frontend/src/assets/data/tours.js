@@ -1,5 +1,5 @@
 import tourImg01 from "../images/kutch-rann-main.jpg";
-import tourImg02 from "../images/tour-img02.jpg";
+import tourImg02 from "../images/himalayas-main.jpg";
 import tourImg03 from "../images/tour-img03.jpg";
 import tourImg04 from "../images/tour-img04.jpg";
 import tourImg05 from "../images/tour-img05.jpg";
@@ -15,7 +15,7 @@ const tours = [
     address: "Gujarat",
     price: 99,
     maxGroupSize: 10,
-    desc: "this is the description",
+    desc: "The Rann of Kutch, also known as the Great White Desert, is a large, flat area located in the Kutch district of Gujarat, India. It becomes a bright white landscape during the dry season when the water dries up, leaving behind a layer of salt. It's famous for its stunning natural beauty and vibrant cultural festivals. People from all over the world visit this place to experience its magical, moon-like scenery, especially during the Rann Utsav, a cultural festival held every year.",
     reviews: [
       {
         name: "jhon doe",
@@ -32,10 +32,10 @@ const tours = [
   },
   {
     id: "02",
-    title: "Bali, Indonesia",
-    city: "Indonesia",
+    title: "Himalayas",
+    city: "Himalayas",
     distance: 400,
-    address: "somewhere",
+    address: "Himalayas",
     price: 99,
     maxGroupSize: 8,
     desc: "this is the description",

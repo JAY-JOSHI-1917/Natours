@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, ListGroup } from "reactstrap";
 import { useParams } from "react-router-dom";
 import tourData from "../assets/data/tours";
 import calculateAvgRating from "../utils/avgRating";
+import avatar from "../assets/images/avatar.jpg";
 
 const TourDetails = () => {
   const { id } = useParams();
@@ -21,6 +22,8 @@ const TourDetails = () => {
     distance,
     maxGroupSize,
   } = tour;
+
+  const options = { day: "numeric", month: "long", year: "numeric" };
 
   const { totalRating, avgRating } = calculateAvgRating(reviews);
 
@@ -58,11 +61,75 @@ const TourDetails = () => {
                   <div className="tour__extra-details">
                     <span>
                       <i class="ri-map-pin-2-line"></i> {city}
+                    </span>
+                    <span>
                       <i class="bx bx-rupee"></i> {price} / per person
+                    </span>
+                    <span>
                       <i class="ri-group-line"></i> {maxGroupSize}
                     </span>
                   </div>
+                  <h5>Description</h5>
+                  <p>{desc}</p>
                 </div>
+
+                {/* ================= Tour Reviews Section =============== */}
+                <div className="tour__reviews mt-4">
+                  <h4>Reviews ({reviews?.length} reviews)</h4>
+
+                  <Form>
+                    <div className="d-flex align-items-center gap-3 mb-4 rating__group">
+                      <span>
+                        1 <i class="ri-star-s-fill"></i>
+                      </span>
+                      <span>
+                        2 <i class="ri-star-s-fill"></i>
+                      </span>
+                      <span>
+                        3 <i class="ri-star-s-fill"></i>
+                      </span>
+                      <span>
+                        4 <i class="ri-star-s-fill"></i>
+                      </span>
+                      <span>
+                        5 <i class="ri-star-s-fill"></i>
+                      </span>
+                    </div>
+
+                    <div className="review__input">
+                      <input type="text" placeholder="share your thoughts" />
+                      <button
+                        className="btn primary__btn text-white"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </Form>
+
+                  <ListGroup className="user__reviews">
+                    {reviews?.map((review) => (
+                      <div className="review__item">
+                        <img src={avatar} alt="" />
+
+                        <div className="w-100">
+                          <div className="d-flex align-items-center justify-content-between">
+                            <div>
+                              <h5>Jay</h5>
+                              <p>
+                                {new Date("02-03-2025").toLocaleDateString(
+                                  "en-IN",
+                                  options
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </ListGroup>
+                </div>
+                {/* ================= Tour Reviews Section =============== */}
               </div>
             </Col>
           </Row>

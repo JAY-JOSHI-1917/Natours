@@ -25,7 +25,8 @@
   border-radius: 3px 0 0 0;
 }
 
-.card__top span i {
+.card__top span i,
+.card__bottom span i {
   color: var(--secondary-color);
 }
 
@@ -59,18 +60,6 @@
 
 .tour__title a:hover {
   color: var(--secondary-color);
-}
-
-.card__bottom h5 {
-  color: var(--secondary-color);
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-.card__bottom h5 span {
-  font-weight: 500;
-  color: var(--text-color);
-  font-size: 0.8rem;
 }
 
 .booking__btn {
