@@ -1,8 +1,8 @@
 import express from "express"
-import { CreateReview } from "../controllers/reviewController.js"
 import { verifyUser } from "../utils/verifyToken.js";
+import { createBooking } from "../controllers/bookingControllers.js";
 const router = express.Router()
 
-router.post('/:tourId',verifyUser, CreateReview);
+router.post('/:tourId',verifyUser, createBooking);
 
 export default router
