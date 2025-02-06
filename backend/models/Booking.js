@@ -9,10 +9,10 @@ const bookingSchema = new mongoose.Schema(
             type: String,
         },
         tourName: {
-            typeL: String,
-            required:true,
+            type: String,
+            required: true,
         },
-        fullname: {
+        fullName: {
             type: String,
             required: true,
         },
@@ -32,4 +32,4 @@ const bookingSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export default mongoose.model("booking", BookingSchema);
+export default mongoose.model("Booking", bookingSchema);
