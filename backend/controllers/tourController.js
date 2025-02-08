@@ -21,11 +21,15 @@ export const createTour = async (req, res) => {
 
 //update Tour
 export const updateTour = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   try {
-    const updatedTour = await Tour.findByIdAndUpdate(id, {
-      $set: req.body
-    }, { new: true })
+    const updatedTour = await Tour.findByIdAndUpdate(
+      id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
     res.status(200).json({
       success: true,
       message: "Successfully updated",
@@ -37,12 +41,12 @@ export const updateTour = async (req, res) => {
       message: "failed to update ",
     });
   }
-}
+};
 //delete Tour
 export const deleteTour = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   try {
-    await Tour.findByIdAndDelete(id)
+    await Tour.findByIdAndDelete(id);
     res.status(200).json({
       success: true,
       message: "Successfully deleted ",
@@ -53,16 +57,16 @@ export const deleteTour = async (req, res) => {
       message: "failed to delete ",
     });
   }
-}
+};
 //getSingle Tour
 export const getSingleTour = async (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   try {
-    const tour = await Tour.findById(id)
+    const tour = await Tour.findById(id).populate("reviews");
     res.status(200).json({
       success: true,
       message: "Successfully founded the tour. ",
-      data: tour
+      data: tour,
     });
   } catch (error) {
     res.status(404).json({
@@ -70,13 +74,15 @@ export const getSingleTour = async (req, res) => {
       message: "Not Found ",
     });
   }
-}
+};
 //getAll Tour
 export const getAllTour = async (req, res) => {
-
-  const page = parseInt(req.query.page)
+  const page = parseInt(req.query.page);
   try {
-    const tours = await Tour.find({}).skip(page * 8).limit(8);
+    const tours = await Tour.find({})
+      .populate("reviews")
+      .skip(page * 8)
+      .limit(8);
     res.status(200).json({
       success: true,
       count: tours.length,
@@ -89,16 +95,16 @@ export const getAllTour = async (req, res) => {
       message: "Not Found ",
     });
   }
-}
+};
 
 //get tour by search
 export const getTourBySearch = async (req, res) => {
-  const city = new RegExp(req.query.city, 'i')
-  //cause we are only finding the tour based on the Location name so we do not need this 
+  const city = new RegExp(req.query.city, "i");
+  //cause we are only finding the tour based on the Location name so we do not need this
   // const distance = parseInt(req.query.distance)
   // const maxGroupSize = parseInt(req.query.maxGroupSize)
   try {
-    const tours = await Tour.find({ city })
+    const tours = await Tour.find({ city }).populate("reviews");
     //As of now we are finding the tour based on the location so we do not have to use
     // const tours = await Tour.find({ city, distance: { $gte: distance }, maxGroupSize: { $gte: maxGroupSize } })
     res.status(200).json({
@@ -113,13 +119,14 @@ export const getTourBySearch = async (req, res) => {
     });
   }
   //getAll Tour
-}
+};
 export const getFeaturedTour = async (req, res) => {
-
-  const page = parseInt(req.query.page)
+  const page = parseInt(req.query.page);
   console.log(page);
   try {
-    const tours = await Tour.find({ featured: true }).limit(8);
+    const tours = await Tour.find({ featured: true })
+      .populate("reviews")
+      .limit(8);
     res.status(200).json({
       success: true,
       message: "Successfully. ",
@@ -131,16 +138,16 @@ export const getFeaturedTour = async (req, res) => {
       message: "Not Found ",
     });
   }
-}
+};
 
 export const getTourCount = async (req, res) => {
   try {
-    const tourCount = await Tour.estimatedDocumentCount()
+    const tourCount = await Tour.estimatedDocumentCount();
     res.status(200).json({
       success: true,
-      data: tourCount
-    })
+      data: tourCount,
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch" })
+    res.status(500).json({ success: false, message: "Failed to fetch" });
   }
-}
+};
