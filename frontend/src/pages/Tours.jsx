@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CommonSection from "../shared/CommonSection";
 
 import "../styles/tour.css";
-import tourData from "../assets/data/tours";
+import tourData from "../router/Routers";
 import TourCard from "./../shared/TourCard";
 import SearchBar from "./../shared/SearchBar";
 import NewsLetter from "./../shared/Newsletter";

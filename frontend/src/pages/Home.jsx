@@ -147,7 +147,6 @@ const Home = () => {
       {/* ============ Testimonial section end ============== */}
 
       <Newsletter />
-      
     </>
   );
 };

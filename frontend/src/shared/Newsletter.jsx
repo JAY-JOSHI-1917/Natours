@@ -19,10 +19,10 @@ const Newsletter = () => {
               </div>
 
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Explicabo corrupti totam eos tempora nobis voluptate quidem
-                molestias, expedita nostrum, quis placeat, itaque nam nesciunt
-                repudiandae voluptates quos fugiat. Aliquam, fuga!
+                Join <span class="p-title">NATOURS</span> for thrilling nature
+                tours that will ignite your sense of adventure! Let's explore
+                the great outdoors and make every moment count. Your epic
+                journey into nature starts now!
               </p>
             </div>
           </Col>
