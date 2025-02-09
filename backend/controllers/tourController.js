@@ -122,7 +122,6 @@ export const getTourBySearch = async (req, res) => {
 };
 export const getFeaturedTour = async (req, res) => {
   const page = parseInt(req.query.page);
-  console.log(page);
   try {
     const tours = await Tour.find({ featured: true })
       .populate("reviews")
