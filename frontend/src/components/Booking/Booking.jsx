@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 
+import { useNavigate } from "react-router-dom";
+
 const Booking = ({ tour, avgRating }) => {
   const { price, reviews } = tour;
-  const handleChange = (e) => {};
+  const navigate = useNavigate();
+
+  const [credentials, setCredentials] = useState({
+    userId: "01",
+    userEmail: "example@gmail.com",
+    fullName: "",
+    phone: "",
+    guestSize: 1,
+    bookAt: "",
+  });
+
+  const handleChange = (e) => {
+    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const totalAmount = Number(price) * Number(credentials.guestSize);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    navigate("/thank-you");
+  };
 
   return (
     <div className="booking">
@@ -21,7 +44,7 @@ const Booking = ({ tour, avgRating }) => {
       {/* ============= Booking Form ============== */}
       <div className="booking__form">
         <h5>Information</h5>
-        <Form className="booking__info-form">
+        <Form className="booking__info-form" onSubmit={handleClick}>
           <FormGroup>
             <input
               type="text"
@@ -67,25 +90,24 @@ const Booking = ({ tour, avgRating }) => {
             <h5 className="d-flex align-items-center gap-1">
               <i class="bx bx-rupee"></i>
               {price}
-              <i class="ri-close-line"> 1 person</i>
+              <i class="ri-close-line"></i>1 Person
             </h5>
             <span>
               <i class="bx bx-rupee"></i> {price}
             </span>
           </ListGroupItem>
-          <ListGroupItem className="border-0 px-0">
-            <h5>Service charge</h5>
-            <span>
-              <i class="bx bx-rupee"></i> 100
-            </span>
-          </ListGroupItem>
+
           <ListGroupItem className="border-0 px-0 total">
             <h5>Total</h5>
             <span>
-              <i class="bx bx-rupee"></i> 199
+              <i class="bx bx-rupee"></i> {totalAmount}
             </span>
           </ListGroupItem>
         </ListGroup>
+
+        <Button className="btn primary__btn w-100 mt-4" onClick={handleClick}>
+          Book Now
+        </Button>
       </div>
     </div>
   );

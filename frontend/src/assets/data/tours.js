@@ -16,6 +16,8 @@ const tours = [
     price: 99,
     maxGroupSize: 10,
     desc: "The Rann of Kutch, also known as the Great White Desert, is a large, flat area located in the Kutch district of Gujarat, India. It becomes a bright white landscape during the dry season when the water dries up, leaving behind a layer of salt. It's famous for its stunning natural beauty and vibrant cultural festivals. People from all over the world visit this place to experience its magical, moon-like scenery, especially during the Rann Utsav, a cultural festival held every year.",
+    desc2:
+      "Kalo Dungar, or Black Hill, is the highest point in Kutch, Gujarat. From here, you can see amazing views of the Great Rann of Kutch, which looks like a huge white salt desert.People love coming here to watch the beautiful sunset and enjoy the peaceful surroundings. It's a great place to relax and connect with nature.",
     reviews: [
       {
         name: "jhon doe",

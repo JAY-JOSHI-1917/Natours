@@ -7,6 +7,7 @@ import tourData from "../assets/data/tours";
 import calculateAvgRating from "../utils/avgRating";
 import avatar from "../assets/images/avatar.jpg";
 import Booking from "../components/Booking/Booking";
+import Newsletter from "../shared/Newsletter";
 
 const TourDetails = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const TourDetails = () => {
     photo,
     title,
     desc,
+    desc2,
     price,
     address,
     reviews,
@@ -81,6 +83,8 @@ const TourDetails = () => {
                   </div>
                   <h5>Description</h5>
                   <p>{desc}</p>
+                  <br />
+                  <p>{desc2}</p>
                 </div>
 
                 {/* ================= Tour Reviews Section =============== */}
@@ -160,6 +164,7 @@ const TourDetails = () => {
           </Row>
         </Container>
       </section>
+      <Newsletter />
     </>
   );
 };

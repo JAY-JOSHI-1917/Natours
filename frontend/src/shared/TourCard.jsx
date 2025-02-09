@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import calculateAvgRating from "../utils/avgRating";
-import tours from "../assets/data/tours";
+import tours from "../router/Routers";
 
 import "./tour-card.css";
 
