@@ -20,7 +20,7 @@ const FeaturedTourList = () => {
       {!loading &&
         !error &&
         featuredTours?.map((tour) => (
-          <Col lg="3" className="mb-4" key={tour.id}>
+          <Col lg="3" className="mb-4" key={tour.featured}>
             <TourCard tour={tour} />
           </Col>
         ))}

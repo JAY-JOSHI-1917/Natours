@@ -124,8 +124,7 @@ export const getFeaturedTour = async (req, res) => {
   const page = parseInt(req.query.page);
   try {
     const tours = await Tour.find({ featured: true })
-      .populate("reviews")
-      .limit(8);
+      .populate("reviews").limit(4);
     res.status(200).json({
       success: true,
       message: "Successfully. ",
