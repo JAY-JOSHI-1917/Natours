@@ -4,16 +4,38 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 const MasonryImagesGallery = () => {
   return (
-    <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 768: 3, 992: 4 }}>
+    <ResponsiveMasonry columnsCountBreakPoints={{ 400: 3 }}>
       <Masonry gutter="1rem">
         {galleryImages.map((item, index) => (
-          <img
-            className="masonry__img"
-            src={item}
+          <div
             key={index}
-            alt=""
-            style={{ width: "100%", display: "block", borderRadius: "10px" }}
-          />
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <img
+              className="masonry__img"
+              src={item.src}
+              alt=""
+              style={{
+                width: "100%",
+                display: "block",
+                borderRadius: "10px",
+                marginBottom: "10px",
+              }}
+            />
+            <span
+              style={{
+                fontWeight: "700",
+                fontSize: "1.2rem",
+              }}
+            >
+              {item.text}
+            </span>
+          </div>
         ))}
       </Masonry>
     </ResponsiveMasonry>

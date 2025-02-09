@@ -35,7 +35,7 @@ const TourCard = ({ tour }) => {
             </span>
           </div>
 
-          <div className="card__bottom d-flex align-items-center justify-content-between mt-3">
+          <div className="card__bottom d-flex align-items-center justify-content-between">
             <span className="tour__location d-flex align-items-center gap-1">
               <i class="ri-map-pin-line"></i> {city}, {address}
             </span>

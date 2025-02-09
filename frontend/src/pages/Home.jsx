@@ -49,12 +49,6 @@ const Home = () => {
               Travelling opens the door to creating
               <span className="highlight"> memories</span>
             </h1>
-            <p>
-              Join <span class="p-title">NATOURS</span> for thrilling nature
-              tours that will ignite your sense of adventure! Let's explore the
-              great outdoors and make every moment count. Your epic journey into
-              nature starts now!
-            </p>
           </div>
         </Container>
       </section>

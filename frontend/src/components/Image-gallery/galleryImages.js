@@ -1,20 +1,20 @@
-import galleryImg01 from "../../assets/images/gallery-01.jpg";
-import galleryImg03 from "../../assets/images/gallery-03.jpg";
-import galleryImg02 from "../../assets/images/gallery-02.jpg";
-import galleryImg04 from "../../assets/images/gallery-04.jpg";
-import galleryImg05 from "../../assets/images/gallery-05.jpg";
+import galleryImg01 from "../../assets/images/Gallery/White-Rann-Customer-1.jpg";
+import galleryImg02 from "../../assets/images/Gallery/White-Rann-Customer-2.jpg";
+import galleryImg03 from "../../assets/images/Gallery/White-Rann-Customer-3.jpg";
+import galleryImg04 from "../../assets/images/Gallery/Kalo-Dungar-Customer-1.jpg";
+import galleryImg05 from "../../assets/images/Gallery/Kalo-Dungar-Customer-2.jpg";
+
 import galleryImg06 from "../../assets/images/gallery-06.jpg";
 import galleryImg07 from "../../assets/images/gallery-07.jpg";
 
 const galleryImages = [
-  galleryImg01,
-  galleryImg07,
-  galleryImg02,
-  galleryImg03,
-  galleryImg04,
-  galleryImg05,
-  galleryImg06,
-  galleryImg07,
+  { src: galleryImg01, text: "White Rann Kutch" },
+  { src: galleryImg02, text: "White Rann Kutch" },
+  { src: galleryImg03, text: "White Rann Kutch" },
+  { src: galleryImg04, text: "Kalo Dungar Kutch" },
+  { src: galleryImg05, text: "Kalo Dungar Kutch" },
+  { src: galleryImg06, text: "Text for Image 6" },
+  { src: galleryImg07, text: "Text for Image 7" },
 ];
 
 export default galleryImages;
