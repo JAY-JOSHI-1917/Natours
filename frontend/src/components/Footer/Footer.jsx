@@ -19,10 +19,6 @@ const quick__links = [
 ];
 const quick__links2 = [
   {
-    path: "/gallery",
-    display: "Gallery",
-  },
-  {
     path: "/login",
     display: "Login",
   },
@@ -84,7 +80,7 @@ const Footer = () => {
             </ListGroup>
           </Col>
           <Col lg="3">
-            <h5 className="footer__link-title">Contact</h5>
+            <h5 className="footer__link-title">Login / Register</h5>
 
             <ListGroup className="footer__quick-links">
               {quick__links2.map((item, index) => (
@@ -95,7 +91,7 @@ const Footer = () => {
             </ListGroup>
           </Col>
           <Col lg="3">
-            <h5 className="footer__link-title"></h5>
+            <h5 className="footer__link-title">Contact</h5>
 
             <ListGroup className="footer__quick-links">
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
