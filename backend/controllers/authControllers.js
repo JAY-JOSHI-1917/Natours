@@ -9,8 +9,8 @@ export const register = async (req, res) => {
         const newUser = new User({
             username: req.body.username,
             email: req.body.email,
+            contact: req.body.contact,
             password: hash
-            // photo: req.body.photo
         })
         await newUser.save()
         res.status(200).json({

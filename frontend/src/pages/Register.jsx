@@ -1,24 +1,51 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Container, Row, Col, FormGroup, Button } from "reactstrap";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 import registerImg from "../assets/images/register.png";
 import userIcon from "../assets/images/user.png";
 
+import { AuthContext } from "./../context/AuthContext"
+import { BASE_URL } from "./../utils/config"
+
 const Register = () => {
   const [credentials, setCredentials] = useState({
-    userName: undefined,
+    username: undefined,
     email: undefined,
+    contact: undefined,
     password: undefined,
   });
+
+  const navigate = useNavigate();
+
+  const { dispatch } = useContext(AuthContext)
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await fetch(`${BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials),
+      }
+      );
+      const result = await res.json()
+
+      if (!res.ok) alert(result.message)
+
+      dispatch({ type: "REGISTER_SUCCESS" });
+      navigate("/login");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
@@ -52,6 +79,15 @@ const Register = () => {
                       placeholder="Email"
                       required
                       id="email"
+                      onChange={handleChange}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <input
+                      type="Contact"
+                      placeholder="Contact"
+                      required
+                      id="Contact"
                       onChange={handleChange}
                     />
                   </FormGroup>

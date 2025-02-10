@@ -23,7 +23,7 @@ const Tours = () => {
   useEffect(() => {
     const pages = Math.ceil(tourCount / 8);
     setPageCount(pages);
-  }, [page, tourCount]);
+  }, [page, tourCount,tours]);
 
   return (
     <>
