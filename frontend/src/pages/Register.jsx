@@ -16,9 +16,8 @@ const Register = () => {
     password: undefined,
   });
 
+  const { dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const { dispatch } = useContext(AuthContext)
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -28,18 +27,16 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      console.log("🟡 Sending Data:", credentials); // Debugging
 
       const res = await fetch(`${BASE_URL}/auth/register`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // Fixed content-type
+          "Content-Type": "application/json", 
         },
         body: JSON.stringify(credentials),
       });
 
       const result = await res.json();
-      console.log("🟢 Server Response:", result); // Debugging
 
       if (!res.ok) {
         alert(result.message);
@@ -49,7 +46,6 @@ const Register = () => {
       dispatch({ type: "REGISTER_SUCCESS" });
       navigate("/login");
     } catch (err) {
-      console.error("🔴 Fetch Error:", err);
       alert(err.message);
     }
   };
