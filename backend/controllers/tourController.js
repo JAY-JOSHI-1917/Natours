@@ -97,7 +97,7 @@ export const getAllTour = async (req, res) => {
   }
 };
 
-//get tour by search
+// get tour by search
 export const getTourBySearch = async (req, res) => {
   const city = new RegExp(req.query.city, "i");
   //cause we are only finding the tour based on the Location name so we do not need this
@@ -120,6 +120,47 @@ export const getTourBySearch = async (req, res) => {
   }
   //getAll Tour
 };
+
+// export const getTourBySearch = async (req, res) => {
+//   try {
+//     const { city, title, state } = req.query;
+
+//     // Prioritize only one search field
+//     let filter = {};
+//     if (city) filter.city = new RegExp(city, "i");
+//     else if (title) filter.title = new RegExp(title, "i");
+//     else if (state) filter.state = new RegExp(state, "i");
+//     else {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Please provide city, title, or state for searching.",
+//       });
+//     }
+
+//     const tours = await Tour.find(filter).populate("reviews");
+
+//     if (!tours.length) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "No matching tours found.",
+//       });
+//     }
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Search successful.",
+//       data: tours,
+//     });
+//   } catch (error) {
+//     console.error("🔴 Search Error:", error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Server error. Please try again.",
+//     });
+//   }
+// };
+
+
 export const getFeaturedTour = async (req, res) => {
   const page = parseInt(req.query.page);
   try {
