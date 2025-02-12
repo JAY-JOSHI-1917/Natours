@@ -13,7 +13,6 @@ const Register = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
     email: undefined,
-    contact: undefined,
     password: undefined,
   });
 
@@ -29,24 +28,32 @@ const Register = () => {
     e.preventDefault();
 
     try {
+      console.log("🟡 Sending Data:", credentials); // Debugging
+
       const res = await fetch(`${BASE_URL}/auth/register`, {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json", // Fixed content-type
         },
         body: JSON.stringify(credentials),
-      }
-      );
-      const result = await res.json()
+      });
 
-      if (!res.ok) alert(result.message)
+      const result = await res.json();
+      console.log("🟢 Server Response:", result); // Debugging
+
+      if (!res.ok) {
+        alert(result.message);
+        return;
+      }
 
       dispatch({ type: "REGISTER_SUCCESS" });
       navigate("/login");
     } catch (err) {
+      console.error("🔴 Fetch Error:", err);
       alert(err.message);
     }
   };
+
 
   return (
     <section>
@@ -84,19 +91,10 @@ const Register = () => {
                   </FormGroup>
                   <FormGroup>
                     <input
-                      type="Contact"
-                      placeholder="Contact"
-                      required
-                      id="Contact"
-                      onChange={handleChange}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <input
                       type="password"
                       placeholder="Password"
                       required
-                      id="Password"
+                      id="password"
                       onChange={handleChange}
                     />
                   </FormGroup>
