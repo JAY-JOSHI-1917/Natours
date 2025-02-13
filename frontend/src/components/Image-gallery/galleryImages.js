@@ -14,7 +14,7 @@ const galleryImages = [
   { src: galleryImg04, text: "Kalo Dungar Kutch" },
   { src: galleryImg05, text: "Kalo Dungar Kutch" },
   { src: galleryImg06, text: "Text for Image 6" },
-  { src: galleryImg07, text: "Text for Image 7" },
+  { src: galleryImg07, text: "" },
 ];
 
 export default galleryImages;
