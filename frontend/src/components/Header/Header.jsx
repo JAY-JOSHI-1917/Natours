@@ -5,8 +5,7 @@ import logo from "../../assets/images/Logo.png";
 import "./header.css";
 import SearchBar from "./../../shared/SearchBar.jsx";
 
-import { AuthContext } from "./../../context/AuthContext.js"
-
+import { AuthContext } from "./../../context/AuthContext.js";
 
 const nav__links = [
   {
@@ -21,6 +20,10 @@ const nav__links = [
     path: "/tours",
     display: "Tours",
   },
+  {
+    path: "/gallery",
+    display: "Gallery",
+  },
 ];
 
 const Header = () => {
@@ -28,9 +31,9 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(AuthContext);
   const logout = () => {
-    dispatch({ type: "LOGOUT" })
-    navigate("/")
-  }
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
 
   const stickyHeaderFunc = () => {
     window.addEventListener("scroll", () => {
@@ -84,22 +87,23 @@ const Header = () => {
 
             <div className="nav__right d-flex align-items-center gap-4">
               <div className="nav__btns d-flex align-items-center gap-4">
-
-                {
-                  user ? <>
+                {user ? (
+                  <>
                     <h5 className="mb-0">{user.username}</h5>
-                    <Button className="btn btn-dark" onClick={logout}>logout </Button>
-                  </> :
-                    <>
-                      <Button className="btn secondary__btn">
-                        <Link to="/login">Login</Link>
-                      </Button>
-                      <Button className="btn primary__btn">
-                        <Link to="/register">Register</Link>
-                      </Button>
-                    </>
-                }
-
+                    <Button className="btn btn-dark" onClick={logout}>
+                      logout{" "}
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button className="btn secondary__btn">
+                      <Link to="/login">Login</Link>
+                    </Button>
+                    <Button className="btn primary__btn">
+                      <Link to="/register">Register</Link>
+                    </Button>
+                  </>
+                )}
               </div>
               <span className="mobile__menu">
                 <i class="ri-menu-line"></i>
