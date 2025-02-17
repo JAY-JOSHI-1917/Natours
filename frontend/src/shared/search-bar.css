@@ -1,10 +1,13 @@
 .search__bar {
+  z-index: 100;
   border-radius: 50px;
   width: 13rem;
   background-color: #ffffffbb;
   border: 3px solid var(--secondary-color);
   line-height: 0;
   transition: all 0.5s;
+
+  position: relative;
 }
 
 .search__bar:focus-within {
@@ -36,4 +39,37 @@
 .form__group input:focus {
   margin-top: 0;
   outline: none;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: 20rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.suggestion {
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.suggestion:active + .suggestions-list {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.suggestion i {
+  color: var(--primary-color);
+}
+
+.suggestion:hover {
+  border-radius: 10px;
+  background-color: #f0f0f0;
 }
