@@ -21,6 +21,10 @@ const nav__links = [
     display: "Tours",
   },
   {
+    path: "/seasons",
+    display: "Seasons",
+  },
+  {
     path: "/gallery",
     display: "Gallery",
   },

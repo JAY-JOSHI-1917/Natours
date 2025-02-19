@@ -118,8 +118,8 @@ export const getTourBySearch = async (req, res) => {
       message: "Not Found ",
     });
   }
-  //getAll Tour
 };
+//getAll Tour
 
 // export const getTourBySearch = async (req, res) => {
 //   try {
@@ -179,6 +179,35 @@ export const getFeaturedTour = async (req, res) => {
   }
 };
 
+export const getToursBySeason = async (req, res) => {
+  const { season } = req.query; // Get season from query params
+
+  if (!season) {
+    return res.status(400).json({
+      success: false,
+      message: "Season query parameter is required.",
+    });
+  }
+
+  try {
+    const tours = await Tour.find({ season })
+      .populate("reviews") // Populate reviews if needed
+      .limit(4); // Adjust limit as needed
+
+    res.status(200).json({
+      success: true,
+      message: `Successfully fetched tours.`,
+      data: tours,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error. Could not fetch tours.",
+    });
+  }
+};
+
+
 export const getTourCount = async (req, res) => {
   try {
     const tourCount = await Tour.estimatedDocumentCount();
@@ -190,3 +219,6 @@ export const getTourCount = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to fetch" });
   }
 };
+
+
+//Seasonal Tour 

@@ -35,7 +35,10 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-
+    seasons: {
+      type: String,
+      required: true,
+    },
     reviews: [
       {
         type: mongoose.Types.ObjectId,

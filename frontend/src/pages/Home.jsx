@@ -83,7 +83,7 @@ const Home = () => {
             </Col>
           </Row>
           <Row className="season__card-row">
-            <Link class="season__card" to="/tours">
+            <Link class="season__card" to="/seasons">
               <img src={Winter} alt="Winter" />
               <span className="img-cap">
                 See Best Tour For <h3 className="h3-winter">Winter</h3>
@@ -100,7 +100,7 @@ const Home = () => {
                     </a>
                   </div>
                 </div> */}
-            <Link class="season__card" to="/tours">
+            <Link class="season__card" to="/seasons">
               <img src={Summer} alt="Summer" />
               <span className="img-cap">
                 See Best Tour For <h3 className="h3-summer">Summer</h3>
@@ -117,7 +117,7 @@ const Home = () => {
                     </a>
                   </div>
                 </div> */}
-            <Link class="season__card" to="/tours">
+            <Link class="season__card" to="/seasons">
               <img src={Monsoon} alt="Monsoon" />
               <span className="img-cap">
                 See Best Tour For <h3 className="h3-monsoon">Monsoon</h3>
