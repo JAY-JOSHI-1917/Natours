@@ -11,6 +11,7 @@ import Register from "./../pages/Register";
 import SearchResultList from "./../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
 import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery";
+import Profile from "../pages/Profile";
 
 const Routers = () => {
   return (
@@ -19,13 +20,14 @@ const Routers = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/tours" element={<Tours />} />
-      <Route path="/seasons" element={<Seasons />} />
       <Route path="/gallery" element={<MasonryImagesGallery />} />
       <Route path="/tours/:id" element={<TourDetails />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tours/search" element={<SearchResultList />} />
+      <Route path="/seasons" element={<Seasons />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 };

@@ -2,10 +2,12 @@ import React, { useRef, useEffect, useContext } from "react";
 import { Container, Row, Button } from "reactstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
+import userIcon from "../../assets/images/user.png";
 import "./header.css";
 import SearchBar from "./../../shared/SearchBar.jsx";
 
 import { AuthContext } from "./../../context/AuthContext.js";
+// import Profile from "../../pages/Profile.jsx";
 
 const nav__links = [
   {
@@ -93,9 +95,17 @@ const Header = () => {
               <div className="nav__btns d-flex align-items-center gap-4">
                 {user ? (
                   <>
-                    <h5 className="mb-0">{user.username}</h5>
+                    {/* <h5 className="mb-0">{user.username}</h5> */}
+                    {/* Profile Image with Link */}
+                    <Link to="/profile">
+                      <img
+                        src={user.photo || userIcon}
+                        alt="Profile"
+                        className="profile__image"
+                      />
+                    </Link>
                     <Button className="btn btn-dark" onClick={logout}>
-                      logout{" "}
+                      Logout
                     </Button>
                   </>
                 ) : (
@@ -110,9 +120,10 @@ const Header = () => {
                 )}
               </div>
               <span className="mobile__menu">
-                <i class="ri-menu-line"></i>
+                <i className="ri-menu-line"></i>
               </span>
             </div>
+
           </div>
         </Row>
       </Container>
