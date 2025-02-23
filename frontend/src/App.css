@@ -10,7 +10,7 @@
   --text-color: #333;
   --font-name: "Montserrat", sans-serif;
   --subtitle-font-name: "Island Moments", cursive;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 * {

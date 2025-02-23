@@ -168,11 +168,20 @@ const Home = () => {
             <Col lg="3">
               <div class="feature-box">
                 <i class="feature-box__icon ri-earth-line"></i>
-                <h3 class="mb-4">Explore the world</h3>
+                <h3 class="mb-5">Explore the hidden gems of India</h3>
                 <p class="feature-box__text">
-                  &rarr; Travel to amazing places and enjoy new experiences.{" "}
-                  <br />
-                  &rarr; See different cultures and make unforgettable memories.{" "}
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>{" "}
+                    <h6>
+                      Travel to amazing places and enjoy new experiences.{" "}
+                    </h6>
+                  </span>
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>{" "}
+                    <h6>
+                      See different cultures and make unforgettable memories.{" "}
+                    </h6>
+                  </span>
                 </p>
               </div>
             </Col>
@@ -180,11 +189,16 @@ const Home = () => {
             <Col lg="3">
               <div class="feature-box">
                 <i class="feature-box__icon ri-compass-3-line"></i>
-                <h3 class="mb-4">Meet nature</h3>
+                <h3 class="mb-5">Meet nature</h3>
                 <p class="feature-box__text">
-                  &rarr; Spend time in nature and see its beauty up close.
-                  <br />
-                  &rarr; Find peace and relaxation in the natural world.{" "}
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>
+                    <h6>Spend time in nature and see its beauty up close.</h6>
+                  </span>
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>{" "}
+                    <h6>Find peace and relaxation in the natural world. </h6>
+                  </span>
                 </p>
               </div>
             </Col>
@@ -192,10 +206,20 @@ const Home = () => {
             <Col lg="3">
               <div class="feature-box">
                 <i class="feature-box__icon ri-road-map-line"></i>
-                <h3 class="mb-4">Find your way</h3>
+                <h3 class="mb-5">Find your way to Nature</h3>
                 <p class="feature-box__text">
-                  &rarr; Discover your path and make your own adventures. <br />
-                  &rarr; Follow your instincts and create unique experiences.{" "}
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>
+                    <h6>
+                      Discover your path and make your own adventures.
+                    </h6>{" "}
+                  </span>
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>{" "}
+                    <h6>
+                      Follow your instincts and create unique experiences.{" "}
+                    </h6>
+                  </span>
                 </p>
               </div>
             </Col>
@@ -203,11 +227,20 @@ const Home = () => {
             <Col lg="3">
               <div class="feature-box">
                 <i class="feature-box__icon ri-heart-pulse-line"></i>
-                <h3 class="mb-4">Live a healthier life</h3>
+                <h3 class="mb-5">Live a healthier life</h3>
                 <p class="feature-box__text">
-                  &rarr; Make choices that help you feel better and be
-                  healthier. <br />
-                  &rarr; Take small steps towards a happier and healthier you.{" "}
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>
+                    <h6>
+                      Make choices that help you feel better and be healthier.
+                    </h6>{" "}
+                  </span>
+                  <span className="d-flex align-items-start gap-3">
+                    <span>&rarr;</span>
+                    <h6>
+                      Take small steps towards a happier and healthier you.
+                    </h6>{" "}
+                  </span>
                 </p>
               </div>
             </Col>

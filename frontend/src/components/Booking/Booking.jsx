@@ -26,6 +26,16 @@ const Booking = ({ tour, avgRating }) => {
   const handleClick = (e) => {
     e.preventDefault();
 
+    const name = document.getElementById("fullName").value;
+    const phone = document.getElementById("phone").value;
+    const bookAt = document.getElementById("bookAt").value;
+    const guestSize = document.getElementById("guestSize").value;
+
+    // Check if fields are empty
+    if (!name || !phone || !bookAt || !guestSize) {
+      alert("Please fill in all required fields.");
+      return;
+    }
     navigate("/thank-you");
   };
 
