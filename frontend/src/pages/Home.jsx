@@ -4,25 +4,26 @@ import "../styles/home.css";
 import { Container, Row, Col, Button } from "reactstrap";
 import heroImg from "../assets/images/hero-img01.jpg";
 import heroImg02 from "../assets/images/hero-img02.jpg";
-import heroVideo from "../assets/images/hero-video.mp4";
+// import heroVideo from "../assets/images/hero-video.mp4";
 import worldImg from "../assets/images/world.png";
-import experienceImg from "../assets/images/experience.png";
+// import experienceImg from "../assets/images/experience.png";
 
 import Winter from "../assets/images/Winter.jpg";
 import Summer from "../assets/images/Summer.jpg";
 import Monsoon from "../assets/images/Monsoon.jpg";
 
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
+// import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import Subtitle from "./../shared/Subtitle.jsx";
 
 import heroBGvid from "../assets/images/hero-bg-video.mp4";
 import FeaturedTourList from "../components/Featured-tours/FeaturedTourList.jsx";
-import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery.jsx";
+// import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery.jsx";
 import Gallery from "../shared/Gallery.jsx";
 import Testimonial from "../components/Testimonial/Testimonials.jsx";
 import Newsletter from "../shared/Newsletter.jsx";
-import Tours from "./Tours.jsx";
+// import Tours from "./Tours.jsx";
 
 const Home = () => {
   return (
@@ -83,7 +84,7 @@ const Home = () => {
             </Col>
           </Row>
           <Row className="season__card-row">
-            <Link class="season__card" to="/tours">
+            <Link class="season__card" to="/seasons">
               <img src={Winter} alt="Winter" />
               <span className="img-cap">
                 See Best Tour For <h3 className="h3-winter">Winter</h3>
@@ -100,7 +101,7 @@ const Home = () => {
                     </a>
                   </div>
                 </div> */}
-            <Link class="season__card" to="/tours">
+            <Link class="season__card" to="/seasons">
               <img src={Summer} alt="Summer" />
               <span className="img-cap">
                 See Best Tour For <h3 className="h3-summer">Summer</h3>
@@ -117,7 +118,7 @@ const Home = () => {
                     </a>
                   </div>
                 </div> */}
-            <Link class="season__card" to="/tours">
+            <Link class="season__card" to="/seasons">
               <img src={Monsoon} alt="Monsoon" />
               <span className="img-cap">
                 See Best Tour For <h3 className="h3-monsoon">Monsoon</h3>

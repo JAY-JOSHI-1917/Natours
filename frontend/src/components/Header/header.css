@@ -49,3 +49,11 @@
   box-shadow: 3px 3px 8px -3px #ddd;
   z-index: 999;
 }
+
+.profile__image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
