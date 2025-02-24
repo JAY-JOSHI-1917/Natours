@@ -5,6 +5,7 @@ import logo from "../../assets/images/Logo.png";
 import userIcon from "../../assets/images/user.png";
 import "./header.css";
 import SearchBar from "./../../shared/SearchBar.jsx";
+import Profile from "../../pages/Profile.jsx";
 
 import { AuthContext } from "./../../context/AuthContext.js";
 // import Profile from "../../pages/Profile.jsx";
