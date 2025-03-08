@@ -3,7 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 // import axios from 'axios';
 import './../styles/profile.css';
 import userIcon from '../assets/images/user.png';
-import profileback from '../assets/images/Profile-back.jpg';
+// import profileback from '../assets/images/Profile-back.jpg';
 import { BASE_URL } from '../utils/config';
 
 

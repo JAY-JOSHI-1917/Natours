@@ -3,18 +3,19 @@ import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 
 import { useNavigate } from "react-router-dom";
-import {AuthContext} from "../../context/AuthContext"
-import {BASE_URL} from "../../utils/config"
+import { AuthContext } from "../../context/AuthContext"
+import { BASE_URL } from "../../utils/config"
 
 const Booking = ({ tour, avgRating }) => {
-  const { price, reviews } = tour;
+  const { price, reviews, title } = tour;
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   const [booking, setBooking] = useState({
-    userId:user&&user._id,
-    userEmail: "example@gmail.com",
+    userId: user && user._id,
+    userEmail: user && user.email,
+    tourName: title,
     fullName: "",
     phone: "",
     guestSize: 1,
@@ -27,29 +28,35 @@ const Booking = ({ tour, avgRating }) => {
 
   const totalAmount = Number(price) * Number(booking.guestSize);
 
-  const handleClick =async (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-
+    console.log(booking);
     try {
+
+      if (!booking.fullName || !booking.phone || !booking.bookAt || !booking.guestSize) {
+        return alert("Please fill in all required fields before proceeding.");
+      }
+
       if (!user || user === undefined || user === null) {
         return alert("Please sign in ")
       }
-      const res = await fetch(`${BASE_URL}/review`, {
+      const res = await fetch(`${BASE_URL}/booking`, {
         method: "post",
         headers: {
-          "content-type":"application/json"
+          "content-type": "application/json"
         },
         credentials: "include",
-        body:JSON.stringify(booking)
+        body: JSON.stringify(booking)
       })
       const result = await res.json()
-      if (res.ok) {
+      if (!res.ok) {
         return alert(result.message)
       }
+      alert("Your Tour successfully booked.😊")
       navigate("/thank-you");
 
     } catch (err) {
-      
+      alert(err.message)
     }
 
     // const name = document.getElementById("fullName").value;
