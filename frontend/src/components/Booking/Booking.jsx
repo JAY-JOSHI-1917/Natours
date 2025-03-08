@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 
 import { useNavigate } from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext"
+import {BASE_URL} from "../../utils/config"
 
 const Booking = ({ tour, avgRating }) => {
   const { price, reviews } = tour;
   const navigate = useNavigate();
 
-  const [credentials, setCredentials] = useState({
-    userId: "01",
+  const { user } = useContext(AuthContext);
+  console.log(user);
+  const [booking, setBooking] = useState({
+    userId:user&&user._id,
     userEmail: "example@gmail.com",
     fullName: "",
     phone: "",
@@ -18,25 +22,46 @@ const Booking = ({ tour, avgRating }) => {
   });
 
   const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setBooking((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const totalAmount = Number(price) * Number(credentials.guestSize);
+  const totalAmount = Number(price) * Number(booking.guestSize);
 
-  const handleClick = (e) => {
+  const handleClick =async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById("fullName").value;
-    const phone = document.getElementById("phone").value;
-    const bookAt = document.getElementById("bookAt").value;
-    const guestSize = document.getElementById("guestSize").value;
+    try {
+      if (!user || user === undefined || user === null) {
+        return alert("Please sign in ")
+      }
+      const res = await fetch(`${BASE_URL}/review`, {
+        method: "post",
+        headers: {
+          "content-type":"application/json"
+        },
+        credentials: "include",
+        body:JSON.stringify(booking)
+      })
+      const result = await res.json()
+      if (res.ok) {
+        return alert(result.message)
+      }
+      navigate("/thank-you");
 
-    // Check if fields are empty
-    if (!name || !phone || !bookAt || !guestSize) {
-      alert("Please fill in all required fields.");
-      return;
+    } catch (err) {
+      
     }
-    navigate("/thank-you");
+
+    // const name = document.getElementById("fullName").value;
+    // const phone = document.getElementById("phone").value;
+    // const bookAt = document.getElementById("bookAt").value;
+    // const guestSize = document.getElementById("guestSize").value;
+
+    // // Check if fields are empty
+    // if (!name || !phone || !bookAt || !guestSize) {
+    //   alert("Please fill in all required fields.");
+    //   return;
+    // }
   };
 
   return (
