@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 // import axios from 'axios';
-import '../styles/profile.css';
+import './../styles/profile.css';
 import userIcon from '../assets/images/user.png';
 import profileback from '../assets/images/Profile-back.jpg';
 import { BASE_URL } from '../utils/config';
 
 
-const Profile = () => {
+const EditProfile = () => {
     const { user,dispatch } = useContext(AuthContext);
     const [username, setUsername] = useState(user.username || '');
     const [email, setEmail] = useState(user.email || '');
@@ -88,9 +88,7 @@ const Profile = () => {
                 </div>
                 <div className="Profile-Form">
                     <div className="Photo-box">
-                        <div className="Photo-box-back">
-                            <span>Your Photo</span>
-                        </div>
+                        
                         {photo ? (
                             <img
                                 src={user.photo}
@@ -171,10 +169,6 @@ const Profile = () => {
                             </button>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div>{user.username}</div>
-                    {user.email}
                 </div>
             </section></div>
         </>

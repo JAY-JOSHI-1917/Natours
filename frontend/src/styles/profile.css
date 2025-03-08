@@ -1,3 +1,8 @@
+
+.footer {
+    visibility: hidden;
+}
+
 .Profile {
     position: absolute;
     top: 52%;
@@ -27,14 +32,14 @@
     height: 10rem;
     width: 100%;
     border-radius: 20px;
-    margin-bottom: 10px;
     overflow: hidden;
 
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
 
-    background-color: rgba(200, 200, 200, 0.2);
+    background-color: #faa935;
 }
 
 .Photo-box-back {
@@ -50,7 +55,6 @@
     color: #fff;
     font-weight: 600;
 
-    background-image: url("../assets/images/Profile-back.jpg");
     background-position: bottom;
 }
 
@@ -58,7 +62,7 @@
     content: '';
     width: 100%;
     height: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
+  
   position: absolute;
   top: 0;
   left: 0
@@ -69,10 +73,6 @@
 }
 
 .Photo img {
-    position: absolute;
-    top: 50%;
-    left: 20%;
-    transform: translate(-50%, -50%);
 
     height: 8rem;
     width: 8rem;
@@ -112,19 +112,21 @@
 
 .title-box label {
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
     font-weight: bold;
     border: none;
 }
 
 .title-box input,
 .title-box textarea {
+    margin-top: 5px;
     width: 100%;
     font-size: 1rem;
     border: none;
     background-color: #fff;
     padding-left: 10px;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
 .title-box input:focus {
