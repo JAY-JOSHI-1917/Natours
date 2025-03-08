@@ -8,7 +8,6 @@ import TourCard from "./../shared/TourCard";
 // import NewsLetter from "./../shared/Newsletter";
 
 import { Container, Row, Col } from "reactstrap";
-import Newsletter from "./../shared/Newsletter";
 import useFetch from "../hooks/useFetch";
 import { BASE_URL } from "../utils/config";
 
@@ -23,7 +22,7 @@ const Tours = () => {
   useEffect(() => {
     const pages = Math.ceil(tourCount / 8);
     setPageCount(pages);
-  }, [page, tourCount,tours]);
+  }, [page, tourCount, tours]);
 
   return (
     <>
@@ -60,7 +59,6 @@ const Tours = () => {
         </Container>
       </section>
 
-      <Newsletter />
     </>
   );
 };

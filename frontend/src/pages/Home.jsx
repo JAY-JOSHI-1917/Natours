@@ -12,7 +12,7 @@ import Winter from "../assets/images/Winter.jpg";
 import Summer from "../assets/images/Summer.jpg";
 import Monsoon from "../assets/images/Monsoon.jpg";
 
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import Subtitle from "./../shared/Subtitle.jsx";
@@ -22,7 +22,6 @@ import FeaturedTourList from "../components/Featured-tours/FeaturedTourList.jsx"
 // import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery.jsx";
 import Gallery from "../shared/Gallery.jsx";
 import Testimonial from "../components/Testimonial/Testimonials.jsx";
-import Newsletter from "../shared/Newsletter.jsx";
 // import Tours from "./Tours.jsx";
 
 const Home = () => {
@@ -320,7 +319,6 @@ const Home = () => {
       </section>
       {/* ============ Testimonial section end ============== */}
 
-      <Newsletter />
     </>
   );
 };
