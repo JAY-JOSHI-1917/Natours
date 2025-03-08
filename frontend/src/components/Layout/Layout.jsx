@@ -5,15 +5,17 @@ import Routers from "../../router/Routers";
 import Footer from "./../Footer/Footer";
 
 const Layout = () => {
-  const location = useLocation(); // Debugging
+  const location = useLocation();
+  // const hideFooter = location.pathname === "/displayProfile" && "/editProfile"; // Check path
+  const hideFooter = ["/displayProfile", "/editProfile"].includes(location.pathname);
 
-  const hideFooter = location.pathname === "/profile"; // Check path
 
   return (
     <>
       <Header />
       <Routers />
       {!hideFooter && <Footer />}
+      {/* <Footer/> */}
     </>
   );
 };

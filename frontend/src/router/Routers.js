@@ -28,8 +28,8 @@ const Routers = () => {
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tours/search" element={<SearchResultList />} />
       <Route path="/seasons" element={<Seasons />} />
-      <Route path="/edit-profile" element={<EditProfile />} />
-      <Route path="/display-profile" element={<DisplayProfile />} />
+      <Route path="/editProfile" element={<EditProfile />} />
+      <Route path="/displayProfile" element={<DisplayProfile />} />
     </Routes>
   );
 };

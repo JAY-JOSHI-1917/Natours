@@ -5,7 +5,7 @@ import logo from "../../assets/images/Logo.png";
 import userIcon from "../../assets/images/user.png";
 import "./header.css";
 import SearchBar from "./../../shared/SearchBar.jsx";
-import DisplayProfile from "../../pages/DispProfile.jsx";
+// import DisplayProfile from "../../pages/DispProfile.jsx";~
 
 import { AuthContext } from "./../../context/AuthContext.js";
 // import Profile from "../../pages/Profile.jsx";
@@ -98,7 +98,7 @@ const Header = () => {
                   <>
                     {/* <h5 className="mb-0">{user.username}</h5> */}
                     {/* Profile Image with Link */}
-                    <Link to="/display-profile">
+                    <Link to="/displayProfile">
                       <img
                         src={user.photo || userIcon}
                         alt="Profile"
