@@ -61,32 +61,22 @@ const DisplayProfile = () => {
                                 </div>
                             )}
                       
-                            <input
-                                type="file"
-                                id="photoUpload"
-                                style={{ display: 'none' }}
-                            />
                         </div>
-                        <div className="Personal-details">
-    
-                            <div className="Username title-box">
                         
-                                <span className='username'>{username}</span>
+                            <div className="Username title-box">
+                                <span className='username'>Name: <span>{username}</span></span>
                             </div>
                             <div className="Email title-box">
-                              
-                                <span className='email'>{email}</span>
+                                <span className='email'>Email: <span>{email}</span></span>
                             </div>
                             <div className="Password title-box">
-                                
-                                <span className='password'>{password}</span>
+                                <span className='password'>Password: <span>{password}</span></span>
                             </div>
                             <div className="Address title-box">
-                               
-                                <span className='address'>{address?!address:"Not Provided"}</span>
+                                <span className='address'><b>Address:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam magnam at deleniti earum perspiciatis, accusamus culpa nihil expedita modi nobis eveniet illo ullam doloribus incidunt excepturi debitis, perferendis, labore ad. {address?!address:"Not Provided"}</span>
                             </div>
                         </div>
-                    </div>
+               
                     <Link to={"/edit-profile"} className='edit-profile btn primary__btn' >Edit Profile</Link>
                 </section></div>
 

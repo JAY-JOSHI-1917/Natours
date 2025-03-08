@@ -82,10 +82,10 @@ const EditProfile = () => {
 
     return (
         <>
-            <div><section className='Profile'>
-                <div>
+            <div><section className='EditProfile'>
+                {/* <div>
                     <h1>Edit User Profile</h1>
-                </div>
+                </div> */}
                 <div className="Profile-Form">
                     <div className="Photo-box">
                         
