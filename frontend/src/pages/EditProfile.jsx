@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
-import '../styles/profile.css';
+import '../styles/edit-profile.css';
 import userIcon from '../assets/images/user.png';
 import profileback from '../assets/images/Profile-back.jpg';
 
 
-const Profile = () => {
+const EditProfile = () => {
     const { user } = useContext(AuthContext);
     const [username, setUsername] = useState(user.username || '');
     const [email, setEmail] = useState(user.email || '');
@@ -152,4 +152,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default EditProfile;

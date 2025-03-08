@@ -11,7 +11,8 @@ import Register from "./../pages/Register";
 import SearchResultList from "./../pages/SearchResultList";
 import ThankYou from "../pages/ThankYou";
 import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery";
-import Profile from "../pages/Profile";
+import EditProfile from "../pages/EditProfile";
+import DisplayProfile from "../pages/DispProfile";
 
 const Routers = () => {
   return (
@@ -27,7 +28,8 @@ const Routers = () => {
       <Route path="/thank-you" element={<ThankYou />} />
       <Route path="/tours/search" element={<SearchResultList />} />
       <Route path="/seasons" element={<Seasons />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/edit-profile" element={<EditProfile />} />
+      <Route path="/display-profile" element={<DisplayProfile />} />
     </Routes>
   );
 };
