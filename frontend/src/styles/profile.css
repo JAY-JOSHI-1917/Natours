@@ -1,3 +1,8 @@
+.Profile-Container {
+    display: flex;
+    gap: 50px;
+}
+
 .Profile {
   height: 38rem;
   width: 45%;
@@ -10,13 +15,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .EditProfile {
   height: 38rem;
   width: 60%;
   font-size: 1.2rem;
+  margin: auto;
   line-height: 2.5;
 
   border-radius: 20px;
@@ -33,7 +39,7 @@
   width: 100%;
   padding: 2rem;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   flex-direction: column;
   border-radius: 20px;
@@ -99,22 +105,41 @@
   z-index: 999;
 }
 
-.username span {
-  text-transform: uppercase;
+.disp-box {
+    display: flex;
+    justify-content: start;   
 }
 
-.address {
-  font-size: 1rem;
-  line-height: 1;
-  margin-top: 10px;
-  height: 100%;
-  width: 80%;
-  overflow: hidden;
-  font-weight: 500;
+.disp-box span:first-child {
+    font-weight: 500;
+    /* margin-right: 50px; */
+}
+
+
+.disp-box span:last-child {
+    font-weight: 700;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.Username span:last-child {
+    text-transform: uppercase;
 }
 
 .Address {
-  width: 100%;
+    line-height: 1.2;
+    margin-top: 10px;
+    height: fit-content;
+    width: 100%;
+    overflow: hidden;
+    font-weight: 500;
+    gap: 10px;
+}
+
+.address {
+    font-size: 1rem;
+    font-weight: 500 !important;
 }
 
 .Upload-btn {
@@ -192,4 +217,23 @@
   cursor: pointer;
   border-radius: 20px;
   align-self: flex-end;
+}
+
+.edit-profile-btn {
+    letter-spacing: 1.5px;
+    color: #fff !important;
+}
+
+/* ============ Booked Tour Section =============== */
+
+.booked-tours {
+  padding: 1rem 4rem;
+  width: 45%;
+}
+
+.booked-tours h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1rem;
 }

@@ -39,7 +39,8 @@ const DisplayProfile = () => {
     // if (error) return <div>Error: {error}</div>;
 
     return (
-        <div><section className='Profile'>
+        <div className='Profile-Container'>
+            <section className='Profile'>
             <div>
                 <h1>Your Profile</h1>
             </div>
@@ -63,22 +64,32 @@ const DisplayProfile = () => {
 
                 </div>
 
-                <div className="Username title-box">
-                    <span className='username'>Name: <span>{username}</span></span>
+                <div className="Username disp-box">
+                    <span className='username'>Name: </span>
+                    <span>{username}</span>
                 </div>
-                <div className="Email title-box">
-                    <span className='email'>Email: <span>{email}</span></span>
+                <div className="Email disp-box">
+                    <span className='email'>Email: </span>
+                    <span>{email}</span>
                 </div>
-                <div className="Password title-box">
-                    <span className='password'>Password: <span>{password}</span></span>
+                <div className="Password disp-box">
+                    <span className='password'>Password: </span>
+                    <span>{password}</span>
                 </div>
-                <div className="Address title-box">
-                    <span className='address'><b>Address:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam magnam at deleniti earum perspiciatis, accusamus culpa nihil expedita modi nobis eveniet illo ullam doloribus incidunt excepturi debitis, perferendis, labore ad. {address ? !address : "Not Provided"}</span>
+                <div className="Address disp-box">
+                    <span>Address: </span>
+                    <span  className='address'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam maiores possimus aperiam? Quos molestias quas architecto error, illo, consectetur quaerat, impedit tenetur quod quae autem beatae voluptatum nemo esse doloremque?{address ? !address : "Not Provided"}</span>
                 </div>
             </div>
 
-            <Link to={"/editProfile"} className='edit-profile btn primary__btn' >Edit Profile</Link>
-        </section></div>
+            <Link to={"/editProfile"} className='edit-profile-btn btn primary__btn' ><b>Edit Profile</b></Link>
+        </section>
+        
+
+        <section className='booked-tours'>
+            <h1>Booked Tours</h1>
+        </section>
+        </div>
 
     );
 };
