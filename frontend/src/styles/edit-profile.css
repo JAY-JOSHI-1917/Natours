@@ -117,10 +117,14 @@
     border: none;
 }
 
-.title-box input {
+.title-box input,
+.title-box textarea {
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1rem;
     border: none;
+    background-color: #fff;
+    padding-left: 10px;
+    border-radius: 8px;
 }
 
 .title-box input:focus {
