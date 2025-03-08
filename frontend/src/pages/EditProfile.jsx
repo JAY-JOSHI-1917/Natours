@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 // import axios from 'axios';
-import '../styles/profile.css';
+import '../styles/edit-profile.css';
 import userIcon from '../assets/images/user.png';
-import profileback from '../assets/images/Profile-back.jpg';
+// import profileback from '../assets/images/Profile-back.jpg';
 import { BASE_URL } from '../utils/config';
 
 
-const Profile = () => {
+const EditProfile = () => {
     const { user,dispatch } = useContext(AuthContext);
     const [username, setUsername] = useState(user.username || '');
     const [email, setEmail] = useState(user.email || '');
