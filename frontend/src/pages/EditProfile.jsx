@@ -14,6 +14,12 @@ const EditProfile = () => {
     const [password, setPassword] = useState('');
     const [address, setAddress] = useState(user.address || '');
     const [photo, setPhoto] = useState(user.photo || '');
+
+    const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
     
     const handleUpdate = async (field, value) => {
         try {
@@ -108,7 +114,7 @@ const EditProfile = () => {
                         )}
                         {photo && (
                             <>
-                                <button onClick={() => document.getElementById('photoUpload').click()}>
+                                <button className='update-btn' onClick={() => document.getElementById('photoUpload').click()}>
                                     Change Photo
                                 </button>
                                 <button>
@@ -131,7 +137,7 @@ const EditProfile = () => {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                            <button onClick={() => handleUpdate('username', username)}>
+                            <button className='update-btn' onClick={() => handleUpdate('username', username)}>
                                 Update Username
                             </button>
                         </div>
@@ -142,18 +148,35 @@ const EditProfile = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <button onClick={() => handleUpdate('email', email)}>
+                            <button className='update-btn' onClick={() => handleUpdate('email', email)}>
                                 Update Email
                             </button>
                         </div>
-                        <div className="Password title-box">
+                        <div className="Password title-box" 
+                        style={{position: "relative"}}>
                             <label>Password:</label>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
+                                id='password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <button onClick={() => handleUpdate('password', password)}>
+                            <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                style={{
+                                position: "absolute",
+                                top: "25px",
+                                right: "10px",
+                                border: "none",
+                                background: "none",
+                                cursor: "pointer",
+                                fontSize: "1.5rem",
+
+          }}
+        >
+          <i className={showPassword ? "ri-eye-off-line" : "ri-eye-line"}></i></button>
+                            <button className='update-btn' onClick={() => handleUpdate('password', password)}>
                                 Update Password
                             </button>
                         </div>
@@ -164,7 +187,7 @@ const EditProfile = () => {
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                             />
-                            <button onClick={() => handleUpdate('address', address)}>
+                            <button className='update-btn' onClick={() => handleUpdate('address', address)}>
                                 Update Address
                             </button>
                         </div>

@@ -189,7 +189,7 @@ const Home = () => {
             <Col lg="3">
               <div class="feature-box">
                 <i class="feature-box__icon ri-compass-3-line"></i>
-                <h3 class="mb-5">Meet nature</h3>
+                <h3 class="mb-5">Meet the beauty of Nature</h3>
                 <p class="feature-box__text">
                   <span className="d-flex align-items-start gap-3">
                     <span>&rarr;</span>
@@ -227,7 +227,7 @@ const Home = () => {
             <Col lg="3">
               <div class="feature-box">
                 <i class="feature-box__icon ri-heart-pulse-line"></i>
-                <h3 class="mb-5">Live a healthier life</h3>
+                <h3 class="mb-5">Live a healthier and happier life</h3>
                 <p class="feature-box__text">
                   <span className="d-flex align-items-start gap-3">
                     <span>&rarr;</span>

@@ -11,7 +11,8 @@ const DisplayProfile = () => {
     const { user, dispatch } = useContext(AuthContext);
     const [username, setUsername] = useState(user.username || '');
     const [email, setEmail] = useState(user.email || '');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState(user.password || '');
+    const hiddenText = password.replace(/./g, "•");
     const [address, setAddress] = useState(user.address || '');
     const [photo, setPhoto] = useState(user.photo || '');
 
@@ -74,11 +75,11 @@ const DisplayProfile = () => {
                 </div>
                 <div className="Password disp-box">
                     <span className='password'>Password: </span>
-                    <span>{password}</span>
+                    <span>{hiddenText}</span>
                 </div>
                 <div className="Address disp-box">
                     <span>Address: </span>
-                    <span  className='address'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam maiores possimus aperiam? Quos molestias quas architecto error, illo, consectetur quaerat, impedit tenetur quod quae autem beatae voluptatum nemo esse doloremque?{address ? !address : "Not Provided"}</span>
+                    <span  className='address'>  {address ? address : "Not Provided"}</span>
                 </div>
             </div>
 
