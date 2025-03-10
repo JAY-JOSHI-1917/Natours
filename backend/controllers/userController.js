@@ -22,10 +22,32 @@ export const createUser = async (req, res) => {
 //update User
 export const updateUser = async (req, res) => {
     const id = req.params.id
+    // try {
+    //     const updatedUser = await User.findByIdAndUpdate(id, {
+    //         $set: req.body
+    //     }, { new: true })
+    //     res.status(200).json({
+    //         success: true,
+    //         message: "Successfully updated",
+    //         data: updatedUser,
+    //     });
+    // }
+
     try {
-        const updatedUser = await User.findByIdAndUpdate(id, {
-            $set: req.body
-        }, { new: true })
+        const updateData = { ...req.body };
+
+        // If password is being updated, hash it before saving
+        if (updateData.password) {
+            const salt = await bcrypt.genSalt(10);
+            updateData.password = await bcrypt.hash(updateData.password, salt);
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            { $set: updateData },
+            { new: true }
+        );
+
         res.status(200).json({
             success: true,
             message: "Successfully updated",
