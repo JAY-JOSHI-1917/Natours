@@ -3,6 +3,29 @@
     gap: 50px;
 }
 
+.back-btn{
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    padding: 0rem 1rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    line-height: 2;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.back-btn i {
+    font-size: 1.5rem;
+}
+
 .Profile {
   height: 38rem;
   width: 45%;
@@ -132,6 +155,7 @@
   overflow: hidden;
   font-weight: 500;
   display: flex;
+  gap: 10px;
 }
 
 .address {
@@ -169,6 +193,11 @@
   gap: 50px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.Personal-details .Address {
+  grid-column: 1 / -1;
+  grid-row: 3 / 4;
 }
 
 .title-box {

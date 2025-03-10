@@ -5,17 +5,21 @@ import './../styles/profile.css';
 import userIcon from '../assets/images/user.png';
 // import profileback from '../assets/images/Profile-back.jpg';
 import { BASE_URL } from '../utils/config';
+import { use } from 'react';
 
 
 const EditProfile = () => {
     const { user,dispatch } = useContext(AuthContext);
     const [username, setUsername] = useState(user.username || '');
     const [email, setEmail] = useState(user.email || '');
-    const [password, setPassword] = useState('');
+    const [contact,setContact ] = useState(user.contact || '');
+    const [password, setPassword] = useState(user.password || '');
     const [address, setAddress] = useState(user.address || '');
     const [photo, setPhoto] = useState(user.photo || '');
 
     const [showPassword, setShowPassword] = useState(false);
+
+    console.log(user);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -89,6 +93,9 @@ const EditProfile = () => {
     return (
         <>
             <div><section className='EditProfile'>
+                <button className='back-btn' onClick={() => window.history.back()}><i class="ri-arrow-left-s-fill"></i>  
+                <b>Go Back To Profile</b>
+                </button>
                 {/* <div>
                     <h1>Edit User Profile</h1>
                 </div> */}
@@ -180,9 +187,21 @@ const EditProfile = () => {
                                 Update Password
                             </button>
                         </div>
+                        <div className="Email title-box">
+                            <label>Contact No:</label>
+                            <input
+                                type="tel"
+                                value={contact}
+                                onChange={(e) => setContact(e.target.value)}
+                            />
+                            <button className='update-btn' onClick={() => handleUpdate('contact', contact)}>
+                                Update Contact
+                            </button>
+                        </div>
                         <div className="Address title-box">
                             <label>Address:</label>
                             <textarea
+                            className='address'
                                 type="text"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}

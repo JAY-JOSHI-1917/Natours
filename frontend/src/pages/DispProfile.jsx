@@ -12,7 +12,7 @@ const DisplayProfile = () => {
     const [username, setUsername] = useState(user.username || '');
     const [email, setEmail] = useState(user.email || '');
     const [password, setPassword] = useState(user.password || '');
-    const hiddenText = password.replace(/./g, "•");
+    const [contact,setContact ] = useState(user.contact || '');
     const [address, setAddress] = useState(user.address || '');
     const [photo, setPhoto] = useState(user.photo || '');
 
@@ -73,9 +73,9 @@ const DisplayProfile = () => {
                     <span className='email'>Email: </span>
                     <span>{email}</span>
                 </div>
-                <div className="Password disp-box">
-                    <span className='password'>Password: </span>
-                    <span>{hiddenText}</span>
+                <div className="Contact disp-box">
+                    <span className='contact'>Contact No: </span>
+                    <span>{contact}</span>
                 </div>
                 <div className="Address disp-box">
                     <span>Address: </span>
