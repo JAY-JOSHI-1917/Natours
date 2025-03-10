@@ -1,6 +1,7 @@
 .footer {
   padding-top: 70px;
   padding-bottom: 30px;
+  background-color: rgba(200, 200, 200, 0.2);
 }
 
 .foot__logo img {
@@ -21,6 +22,10 @@
 .footer__link-title {
   color: var(--heading-color);
   margin-bottom: 1rem;
+}
+
+.footer__quick-links li {
+  background-color: transparent;
 }
 
 .footer__quick-links li h6 {
