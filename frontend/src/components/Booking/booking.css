@@ -72,6 +72,66 @@
   font-weight: 500;
 }
 
+.payment__options {
+  display: grid;
+  justify-content: space-between;
+  row-gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0px,100px));
+  grid-template-rows: repeat(2, minmax(30px,40px));
+
+  border: 2px solid rgb(229, 231, 235);
+  padding: 1rem 1.5rem;
+
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.payment__options div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.payment__options div input {
+  width: 10px;
+}
+
+.payment-title {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.payment-btn {
+  height: 2rem;
+  width:  6rem;
+  background-color: transparent;
+  border: none;
+  /* border: 2px solid #fe3409; */
+  /* border-radius: 10px; */
+  outline: none;
+  background-position: 0px;
+  background-repeat: no-repeat;
+  background-size: 65%;
+}
+
+.paytm-btn {
+  background-image: url("../../assets/images/Paytm.svg");
+}
+
+.upi-btn {
+  background-image: url("../../assets/images/UPI-Color.svg");
+}
+
+.paypal-btn {
+  background-image: url("../../assets/images/Paypal.svg");
+  background-size: 80%;
+}
+
+.phonepe-btn {
+  background-image: url("../../assets/images/PhonePe.svg");
+  background-size: 80%;
+}
+
 .booking__bottom {
   margin-top: 1rem;
 }

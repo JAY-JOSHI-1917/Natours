@@ -2,11 +2,31 @@ import React, { useContext, useState } from "react";
 import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 
+
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext"
 import { BASE_URL } from "../../utils/config"
 
+
+
+
 const Booking = ({ tour, avgRating }) => {
+
+    const handleCheckboxClick = (checkboxId) => {
+      // Get all checkboxes in the page
+      const checkboxes = document.querySelectorAll("input[type='checkbox']");
+      
+      // Uncheck all checkboxes
+      checkboxes.forEach((checkbox) => (checkbox.checked = false));
+  
+      // Check the clicked checkbox
+      const clickedCheckbox = document.getElementById(checkboxId);
+      if (clickedCheckbox) {
+        clickedCheckbox.checked = true;
+      }
+    };
+  
+
   const { price, reviews, title } = tour;
   const navigate = useNavigate();
 
@@ -69,6 +89,9 @@ const Booking = ({ tour, avgRating }) => {
     //   alert("Please fill in all required fields.");
     //   return;
     // }
+
+
+
   };
 
   return (
@@ -122,6 +145,35 @@ const Booking = ({ tour, avgRating }) => {
             />
           </FormGroup>
         </Form>
+
+        <h5 className="payment-title">Payment Options</h5>
+        <div className="payment__options">
+          <div>
+            <input type="checkbox" id="checkbox1"/>
+            <button className="payment-btn paytm-btn" id="myButton" onClick={() => handleCheckboxClick("checkbox1")}>
+            {/* <img src={paytmImg} alt="" className="payment-img"/> */}
+            </button>
+          </div>
+          <div>
+            <input type="checkbox" id="checkbox2"/>
+            <button className="payment-btn upi-btn" id="myButton" onClick={() => handleCheckboxClick("checkbox2")}>
+              {/* <img src={upiImg} alt="" className="payment-img"/> */}
+            </button>
+          </div>
+          <div>
+            <input type="checkbox" id="checkbox3"/>
+            <button className="payment-btn paypal-btn"  id="myButton" onClick={() => handleCheckboxClick("checkbox3")}>
+            {/* <img src={paypalImg} alt="" className="payment-img"/> */}
+            </button>
+          </div>
+          <div>
+            <input type="checkbox" id="checkbox4"/>
+            <button className="payment-btn phonepe-btn" id="myButton" onClick={() => handleCheckboxClick("checkbox4")}>
+            {/* <img src={phonepayImg} alt="" className="payment-img"/> */}
+            </button>
+          </div>
+          </div>
+
       </div>
       {/* ============= Booking Form End ============== */}
 
