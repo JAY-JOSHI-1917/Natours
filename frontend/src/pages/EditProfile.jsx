@@ -9,22 +9,20 @@ import { use } from 'react';
 
 
 const EditProfile = () => {
-    const { user,dispatch } = useContext(AuthContext);
+    const { user, dispatch } = useContext(AuthContext);
     const [username, setUsername] = useState(user.username || '');
     const [email, setEmail] = useState(user.email || '');
-    const [contact,setContact ] = useState(user.contact || '');
+    const [contact, setContact] = useState(user.contact || '');
     const [password, setPassword] = useState(user.password || '');
     const [address, setAddress] = useState(user.address || '');
     const [photo, setPhoto] = useState(user.photo || '');
 
     const [showPassword, setShowPassword] = useState(false);
 
-    console.log(user);
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-    
     const handleUpdate = async (field, value) => {
         try {
             // if (!user || user === undefined || user === null) {
@@ -36,7 +34,7 @@ const EditProfile = () => {
             console.log(updateObj);
             const user_id = user._id;
             const res = await fetch(`${BASE_URL}/users/${user_id}`, {
-                method: "put",
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -93,15 +91,15 @@ const EditProfile = () => {
     return (
         <>
             <div><section className='EditProfile'>
-                <button className='back-btn' onClick={() => window.history.back()}><i class="ri-arrow-left-s-fill"></i>  
-                <b>Go Back To Profile</b>
+                <button className='back-btn' onClick={() => window.history.back()}><i class="ri-arrow-left-s-fill"></i>
+                    <b>Go Back To Profile</b>
                 </button>
                 {/* <div>
                     <h1>Edit User Profile</h1>
                 </div> */}
                 <div className="Profile-Form">
                     <div className="Photo-box">
-                        
+
                         {photo ? (
                             <img
                                 src={user.photo}
@@ -159,8 +157,8 @@ const EditProfile = () => {
                                 Update Email
                             </button>
                         </div>
-                        <div className="Password title-box" 
-                        style={{position: "relative"}}>
+                        <div className="Password title-box"
+                            style={{ position: "relative" }}>
                             <label>Password:</label>
                             <input
                                 type={showPassword ? "text" : "password"}
@@ -172,17 +170,17 @@ const EditProfile = () => {
                                 type="button"
                                 onClick={togglePasswordVisibility}
                                 style={{
-                                position: "absolute",
-                                top: "25px",
-                                right: "10px",
-                                border: "none",
-                                background: "none",
-                                cursor: "pointer",
-                                fontSize: "1.5rem",
+                                    position: "absolute",
+                                    top: "25px",
+                                    right: "10px",
+                                    border: "none",
+                                    background: "none",
+                                    cursor: "pointer",
+                                    fontSize: "1.5rem",
 
-          }}
-        >
-          <i className={showPassword ? "ri-eye-off-line" : "ri-eye-line"}></i></button>
+                                }}
+                            >
+                                <i className={showPassword ? "ri-eye-off-line" : "ri-eye-line"}></i></button>
                             <button className='update-btn' onClick={() => handleUpdate('password', password)}>
                                 Update Password
                             </button>
@@ -201,7 +199,7 @@ const EditProfile = () => {
                         <div className="Address title-box">
                             <label>Address:</label>
                             <textarea
-                            className='address'
+                                className='address'
                                 type="text"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
