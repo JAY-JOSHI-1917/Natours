@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-
+import bcrypt from "bcryptjs"
 // create new User
 export const createUser = async (req, res) => {
     const newUser = new User(req.body);
@@ -35,11 +35,11 @@ export const updateUser = async (req, res) => {
 
     try {
         const updateData = { ...req.body };
-
+        console.log(updateData);
         // If password is being updated, hash it before saving
-        if (updateData.password) {
+        if (updateData) {
             const salt = await bcrypt.genSalt(10);
-            updateData.password = await bcrypt.hash(updateData.password, salt);
+            updateData = await bcrypt.hash(updateData, salt);
         }
 
         const updatedUser = await User.findByIdAndUpdate(

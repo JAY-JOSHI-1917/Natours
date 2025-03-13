@@ -5,7 +5,6 @@ import './../styles/profile.css';
 import userIcon from '../assets/images/user.png';
 // import profileback from '../assets/images/Profile-back.jpg';
 import { BASE_URL } from '../utils/config';
-import { use } from 'react';
 
 
 const EditProfile = () => {
