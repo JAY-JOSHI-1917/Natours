@@ -55,6 +55,39 @@ const EditProfile = () => {
             alert(`Failed to update ${field}: ${err.message}`);
         }
     };
+    const handlePasswordUpdate = async (field, value) => {
+        try {
+            // if (!user || user === undefined || user === null) {
+            //     alert("Please Login");
+            //     return;
+            // }
+
+            const updateObj = { [field]: value };
+            console.log(updateObj);
+            const user_id = user._id;
+            const res = await fetch(`${BASE_URL}/users/${user_id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(updateObj),
+            });
+
+            const result = await res.json();
+            if (!res.ok) alert(result.message);
+            alert(result.message)
+
+            alert(`${field} updated successfully!`);
+
+            dispatch({
+                type: "UPDATE_USER",
+                payload: { ...user, [field]: value }, // Merge old user data with new field
+            });
+        } catch (err) {
+            alert(`Failed to update ${field}: ${err.message}`);
+        }
+    };
 
 
     // const handlePhotoChange = async (event) => {
@@ -180,7 +213,7 @@ const EditProfile = () => {
                                 }}
                             >
                                 <i className={showPassword ? "ri-eye-off-line" : "ri-eye-line"}></i></button>
-                            <button className='update-btn' onClick={() => handleUpdate('password', password)}>
+                            <button className='update-btn' onClick={() => handlePasswordUpdate('password', password)}>
                                 Update Password
                             </button>
                         </div>
