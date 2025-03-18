@@ -43,7 +43,6 @@ const EditProfile = () => {
 
             const result = await res.json();
             if (!res.ok) alert(result.message);
-            alert(result.message)
 
             alert(`${field} updated successfully!`);
 
@@ -91,59 +90,60 @@ const EditProfile = () => {
 
     //main logic beheind the uploading of User profile
     const handlePhotoChange = async (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
+        const uploadedPhoto = event.target.files[0];
+        if (!uploadedPhoto) return;
 
-        const reader = new FileReader();
+        try {
+            const user_id = user._id;
+            const formData = new FormData();
+            formData.append("image", uploadedPhoto);
 
-        reader.onloadend = async () => {
-            const base64Image = reader.result; // Convert image to base64
+            const res = await fetch(`${BASE_URL}/users/upload-photo/${user_id}`, {
+                method: "PUT",
+                credentials: "include",
+                body: formData,
+            });
 
-            try {
-                const user_id = user._id;
-                const res = await fetch(`${BASE_URL}/users/upload-photo/${user_id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({ image: base64Image }),
-                });
-
-                const result = await res.json();
-                if (!res.ok) alert(result.message);
-
-                alert('Photo uploaded successfully!');
-                setPhoto(result.url); // Update the state with the URL received from Cloudinary
-
-                dispatch({
-                    type: "UPDATE_USER",
-                    payload: { ...user, photo: result.url }, // Update user state with the new photo URL
-                });
-
-            } catch (error) {
-                console.error("Error uploading photo:", error);
-                alert('Failed to upload photo.');
+            const result = await res.json();
+            if (!res.ok) {
+                alert(result.message);
+                return;
             }
-        };
 
-        reader.readAsDataURL(file); // Read the file as Data URL (base64)
+            alert('Photo uploaded successfully!');
+            setPhoto(result.url); // Update the state with the URL received from Cloudinary
+
+            dispatch({
+                type: "UPDATE_USER",
+                payload: { ...user, photo: result.url }, // Update user state with the new photo URL
+            });
+
+        } catch (error) {
+            console.error("Error uploading photo:", error);
+            alert('Failed to upload photo.');
+        }
     };
 
 
 
 
-    // const handlePhotoChange = async (uploadedPhoto,event) => {
+
+
+    // const handlePhotoChange = async (uploadedPhoto, event) => {
     //     // const file = event.target.files[0];
     //     const uploadPhoto = uploadedPhoto;
 
     //     try {
     //         const user_id = user._id;
-    //         console.log(user_id);
+    //         // console.log(user_id);
     //         const response = await fetch(`${BASE_URL}/users/upload-photo/${user_id}`, {
     //             method: "PUT",
-    //             image:uploadPhoto
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: { image: uploadPhoto, },
     //         });
+    //         console.log(response);
     //         setPhoto(response.data.photo);
     //         alert('Photo uploaded successfully!');
     //     } catch (error) {
