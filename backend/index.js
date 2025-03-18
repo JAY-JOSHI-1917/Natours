@@ -13,9 +13,10 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 const corsOptions = {
-  origin: true,
+  origin: true,  // Allow requests from your frontend
   credentials: true
 }
+
 //for testing
 app.get("/", (req, res) => {
   res.send("api is working");
@@ -37,6 +38,8 @@ const connect = async () => {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/tours", tourRoute);
 app.use("/api/v1/users", userRoute);

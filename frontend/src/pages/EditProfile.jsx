@@ -30,7 +30,7 @@ const EditProfile = () => {
             // }
 
             const updateObj = { [field]: value };
-            console.log(updateObj);
+            // console.log(updateObj);
             const user_id = user._id;
             const res = await fetch(`${BASE_URL}/users/${user_id}`, {
                 method: "PUT",
@@ -63,7 +63,7 @@ const EditProfile = () => {
             // }
 
             const updateObj = { [field]: value };
-            console.log(updateObj);
+            // console.log(updateObj);
             const user_id = user._id;
             const res = await fetch(`${BASE_URL}/users/${user_id}`, {
                 method: "PATCH",
@@ -89,17 +89,60 @@ const EditProfile = () => {
         }
     };
 
+    //main logic beheind the uploading of User profile
+    const handlePhotoChange = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
 
-    // const handlePhotoChange = async (event) => {
-    //     const file = event.target.files[0];
-    //     const formData = new FormData();
-    //     formData.append('photo', file);
+        const reader = new FileReader();
+
+        reader.onloadend = async () => {
+            const base64Image = reader.result; // Convert image to base64
+
+            try {
+                const user_id = user._id;
+                const res = await fetch(`${BASE_URL}/users/upload-photo/${user_id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({ image: base64Image }),
+                });
+
+                const result = await res.json();
+                if (!res.ok) alert(result.message);
+
+                alert('Photo uploaded successfully!');
+                setPhoto(result.url); // Update the state with the URL received from Cloudinary
+
+                dispatch({
+                    type: "UPDATE_USER",
+                    payload: { ...user, photo: result.url }, // Update user state with the new photo URL
+                });
+
+            } catch (error) {
+                console.error("Error uploading photo:", error);
+                alert('Failed to upload photo.');
+            }
+        };
+
+        reader.readAsDataURL(file); // Read the file as Data URL (base64)
+    };
+
+
+
+
+    // const handlePhotoChange = async (uploadedPhoto,event) => {
+    //     // const file = event.target.files[0];
+    //     const uploadPhoto = uploadedPhoto;
 
     //     try {
-    //         const response = await axios.post('/api/user/upload-photo', formData, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
+    //         const user_id = user._id;
+    //         console.log(user_id);
+    //         const response = await fetch(`${BASE_URL}/users/upload-photo/${user_id}`, {
+    //             method: "PUT",
+    //             image:uploadPhoto
     //         });
     //         setPhoto(response.data.photo);
     //         alert('Photo uploaded successfully!');
@@ -108,6 +151,8 @@ const EditProfile = () => {
     //         alert('Failed to upload photo.');
     //     }
     // };
+
+
 
     // const handlePhotoDelete = async () => {
     //     try {
@@ -131,6 +176,49 @@ const EditProfile = () => {
                 </div> */}
                 <div className="Profile-Form">
                     <div className="Photo-box">
+                        {photo ? (
+                            <img
+                                src={user.photo}
+                                alt="Profile"
+                                className="Photo"
+                            />
+                        ) : (
+                            <div className="Photo">
+                                <img
+                                    src={userIcon}
+                                    alt="Profile"
+                                />
+                                <button
+                                    className='Upload-btn'
+                                    onClick={() => document.getElementById('photoUpload').click()}
+                                >
+                                    Upload Photo
+                                </button>
+                            </div>
+                        )}
+                        {photo && (
+                            <>
+                                <button
+                                    className='update-btn'
+                                    onClick={() => document.getElementById('photoUpload').click()}
+                                >
+                                    Change Photo
+                                </button>
+                                <button>
+                                    Delete Photo
+                                </button>
+                            </>
+                        )}
+                        <input
+                            type="file"
+                            id="photoUpload"
+                            style={{ display: 'none' }}
+                            onChange={handlePhotoChange}
+                            accept="image/png, image/jpeg, image/jpg, image/jfif"
+                        />
+                    </div>
+
+                    {/* <div className="Photo-box">
 
                         {photo ? (
                             <img
@@ -144,14 +232,14 @@ const EditProfile = () => {
                                     src={userIcon}
                                     alt="Profile"
                                 />
-                                <button className='Upload-btn' onClick={() => document.getElementById('photoUpload').click()}>
+                                <button className='Upload-btn' onClick={() => handlePhotoChange('photoUpload')}>
                                     Upload Photo
                                 </button>
                             </div>
                         )}
                         {photo && (
                             <>
-                                <button className='update-btn' onClick={() => document.getElementById('photoUpload').click()}>
+                                <button className='update-btn' onClick={() => handlePhotoChange('photoUpload')}>
                                     Change Photo
                                 </button>
                                 <button>
@@ -163,8 +251,9 @@ const EditProfile = () => {
                             type="file"
                             id="photoUpload"
                             style={{ display: 'none' }}
+                        onChange={handleChange} required accept="image/png,image/jpeg, image/jpg, image/jfif"
                         />
-                    </div>
+                    </div> */}
                     <div className="Personal-details">
 
                         <div className="Username title-box">

@@ -1,5 +1,9 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs"
+import multer from 'multer';
+import cloudinary from "../Cloudinary/cloudinary.js";
+
+
 // create new User
 export const createUser = async (req, res) => {
     const newUser = new User(req.body);
@@ -127,6 +131,49 @@ export const updateUserPassword = async (req, res) => {
         });
     }
 }
+
+
+// uploadPhoto
+
+
+export const uploadPhoto = async (req, res) => {
+    const { image } = req.body;
+    const userId = req.params.id;
+    console.log(userId);// Assuming user ID is passed as a URL parameter
+
+    if (!image) {
+        return res.status(400).json({ error: "Image is required" });
+    }
+
+    try {
+        // Upload image to Cloudinary
+        const result = await cloudinary.uploader.upload(image, {
+            upload_preset: "Natour_User_Profile",
+            allowed_formats: ["png", "jpg", "jpeg", "svg", "ico", "jfif", "webp"]
+        });
+
+        console.log("Upload Successful:", result);
+
+        // Update user in the database with the uploaded image URL
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $set: { photo: result.secure_url } },  // Assuming you have a 'profileImage' field in your User model
+            { new: true }
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Image received successfully!",
+            url: result.secure_url,
+            data: updatedUser,
+        });
+    } catch (error) {
+        console.error("Error uploading image:", error);
+        res.status(500).json({ error: "Image upload failed" });
+    }
+};
+
+
 
 //delete User
 export const deleteUser = async (req, res) => {
