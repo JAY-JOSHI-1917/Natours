@@ -75,10 +75,10 @@
   padding: 0.2rem 0.5rem !important;
 }
 
-.booking__btn a {
+.booking__btn {
   text-decoration: none;
   font-size: 0.9rem;
-  color: #fff;
+  color: #fff !important;
 }
 
 .booking__btn a:hover {

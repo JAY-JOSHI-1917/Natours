@@ -204,7 +204,9 @@ const EditProfile = () => {
                                 >
                                     Change Photo
                                 </button>
-                                <button>
+                                <button
+                                className='update-btn'
+                                >
                                     Delete Photo
                                 </button>
                             </>

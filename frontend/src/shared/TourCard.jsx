@@ -6,7 +6,7 @@ import tours from "../router/Routers";
 
 import "./tour-card.css";
 
-const TourCard = ({ tour }) => {
+const TourCard = ({ tour, isBookedTour }) => {
   const { _id, title, city, photo, price, address, featured, reviews } = tour;
 
   const { totalRating, avgRating } = calculateAvgRating(reviews);
@@ -40,9 +40,14 @@ const TourCard = ({ tour }) => {
               <i class="ri-map-pin-line"></i> {city}, {address}
             </span>
 
-            <button className="btn booking__btn">
-              <Link to={`/tours/${_id}`}>Book Now</Link>
-            </button>
+            {isBookedTour ? (
+                <>
+                    <Link to={"/home"} className="btn booking__btn update__btn">Update Tour Details</Link>
+                    <Link to={"/home"} className="btn booking__btn">Cancel Tour</Link>
+                </>
+            ) : (
+                <Link to={`/tours/${tour._id}`} className="btn booking__btn">Book Now</Link>
+            )}
           </div>
         </CardBody>
       </Card>

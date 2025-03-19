@@ -87,6 +87,14 @@
   position: relative;
 }
 
+.Photo-box img {
+  height: 12rem;
+  width: 12rem;
+  object-fit: cover;
+  border-radius: 20px;
+  z-index: 10;
+}
+
 .Photo-box::before {
   content: "";
   width: 100%;
@@ -119,13 +127,6 @@
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.Photo img {
-  height: 12rem;
-  width: 12rem;
-  border-radius: 20px;
-  z-index: 999;
 }
 
 .disp-box {
@@ -267,4 +268,12 @@
     text-align: center;
     font-weight: 600;
     margin-bottom: 1rem;
+}
+
+
+.tour-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
 }

@@ -95,15 +95,13 @@ const DisplayProfile = () => {
                 {error && <p>Error: {error}</p>}
 
                 {bookedTours.length > 0 ? (
-                    <div className="tour-list">
-                        {bookedTours.map((tour, index) => (
-                            tour && tour._id ? <TourCard key={tour._id} tour={tour} /> : <p key={index}>Failed to load tour data.</p>
-                            // <div>{ tour.title}</div>
-                            // <div>{ tour}</div>
-                        ))}
-                    </div>
+                <div className="tour-list">
+                    {bookedTours.map((tour, index) => (
+                        tour && tour._id ? <TourCard key={tour._id} tour={tour} isBookedTour={true} /> : <p key={index}>Failed to load tour data.</p>
+                    ))}
+                </div>
                 ) : (
-                    !loading && <p>No booked tours found.</p>
+                !loading && <p>No booked tours found.</p>
                 )}
             </section>
         </div>
