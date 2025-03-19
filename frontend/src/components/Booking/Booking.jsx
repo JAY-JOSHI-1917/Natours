@@ -1,37 +1,36 @@
 import React, { useContext, useState } from "react";
 import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
-
-
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext"
-import { BASE_URL } from "../../utils/config"
-
-
-
+import { AuthContext } from "../../context/AuthContext";
+import { BASE_URL } from "../../utils/config";
 
 const Booking = ({ tour, avgRating }) => {
 
-    const handleCheckboxClick = (checkboxId) => {
-      // Get all checkboxes in the page
-      const checkboxes = document.querySelectorAll("input[type='checkbox']");
-      
-      // Uncheck all checkboxes
-      checkboxes.forEach((checkbox) => (checkbox.checked = false));
-  
-      // Check the clicked checkbox
-      const clickedCheckbox = document.getElementById(checkboxId);
-      if (clickedCheckbox) {
-        clickedCheckbox.checked = true;
-      }
-    };
-  
+  const handleCheckboxClick = (checkboxId, paymentMode) => {
+    console.log(`Clicked Checkbox ID: ${checkboxId}, Payment Mode: ${paymentMode}`);
+
+    // Get all checkboxes in the page
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+
+    // Uncheck all checkboxes
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+
+    // Check the clicked checkbox
+    const clickedCheckbox = document.getElementById(checkboxId);
+    if (clickedCheckbox) {
+      clickedCheckbox.checked = true;
+
+      // Update the booking state with the selected payment mode
+      setBooking((prev) => ({ ...prev, paymentMode }));
+      console.log(`Booking State Updated: `, { ...booking, paymentMode });
+    }
+  };
 
   const { price, reviews, title } = tour;
   const navigate = useNavigate();
-
   const { user } = useContext(AuthContext);
-  // console.log(user);
+
   const [booking, setBooking] = useState({
     userId: user && user._id,
     userEmail: user && user.email,
@@ -40,6 +39,7 @@ const Booking = ({ tour, avgRating }) => {
     phone: "",
     guestSize: 1,
     bookAt: "",
+    paymentMode: "",
   });
 
   const handleChange = (e) => {
@@ -50,152 +50,96 @@ const Booking = ({ tour, avgRating }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    console.log(booking);
-    try {
+    console.log("Booking Data before submission:", booking);
 
-      if (!booking.fullName || !booking.phone || !booking.bookAt || !booking.guestSize) {
-        return alert("Please fill in all required fields before proceeding.");
-      }
-
-      if (!user || user === undefined || user === null) {
-        return alert("Please sign in ")
-      }
-      const res = await fetch(`${BASE_URL}/booking`, {
-        method: "post",
-        headers: {
-          "content-type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify(booking)
-      })
-      const result = await res.json()
-      if (!res.ok) {
-        return alert(result.message)
-      }
-      alert("Your Tour successfully booked.😊")
-      navigate("/thank-you");
-
-    } catch (err) {
-      alert(err.message)
+    if (!booking.fullName || !booking.phone || !booking.bookAt || !booking.guestSize) {
+      return alert("Please fill in all required fields before proceeding.");
     }
 
-    // const name = document.getElementById("fullName").value;
-    // const phone = document.getElementById("phone").value;
-    // const bookAt = document.getElementById("bookAt").value;
-    // const guestSize = document.getElementById("guestSize").value;
+    if (!booking.paymentMode) {
+      return alert("Please select a payment mode.");
+    }
 
-    // // Check if fields are empty
-    // if (!name || !phone || !bookAt || !guestSize) {
-    //   alert("Please fill in all required fields.");
-    //   return;
-    // }
+    if (!user || user === undefined || user === null) {
+      return alert("Please sign in ");
+    }
 
+    try {
+      const user_id = user._id;
+      const res = await fetch(`${BASE_URL}/booking`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        // credentials: "include",
+        body: JSON.stringify(booking),
+      });
 
+      const result = await res.json();
+      if (!res.ok) return alert(result.message);
 
+      alert("Your Tour successfully booked. 😊");
+      navigate("/thank-you");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
     <div className="booking">
       <div className="booking__top d-flex align-items-center justify-content-between">
-        <h3>
-          <i class="bx bx-rupee"></i> {price} <span>/per person</span>
-        </h3>
+        <h3>₹{price} <span>/per person</span></h3>
         <span className="tour__rating d-flex align-items-center">
-          <i class="ri-star-fill"></i> {avgRating === 0 ? null : avgRating} (
-          {reviews?.length})
+          <i className="ri-star-fill"></i> {avgRating === 0 ? null : avgRating} ({reviews?.length})
         </span>
       </div>
 
-      {/* ============= Booking Form ============== */}
       <div className="booking__form">
         <h5>Information</h5>
         <Form className="booking__info-form" onSubmit={handleClick}>
           <FormGroup>
-            <input
-              type="text"
-              placeholder="Full Name"
-              id="fullName"
-              required
-              onChange={handleChange}
-            />
+            <input type="text" placeholder="Full Name" id="fullName" required onChange={handleChange} />
           </FormGroup>
           <FormGroup>
-            <input
-              type="number"
-              placeholder="Phone"
-              id="phone"
-              required
-              onChange={handleChange}
-            />
+            <input type="number" placeholder="Phone" id="phone" required onChange={handleChange} />
           </FormGroup>
           <FormGroup className="d-flex align-items-center gap-3">
-            <input
-              type="date"
-              placeholder=""
-              id="bookAt"
-              required
-              onChange={handleChange}
-            />
-            <input
-              type="number"
-              placeholder="Number of Guest"
-              id="guestSize"
-              required
-              onChange={handleChange}
-            />
+            <input type="date" id="bookAt" required onChange={handleChange} />
+            <input type="number" placeholder="Number of Guest" id="guestSize" required onChange={handleChange} />
           </FormGroup>
         </Form>
 
         <h5 className="payment-title">Payment Options</h5>
         <div className="payment__options">
           <div>
-            <input type="checkbox" id="checkbox1"/>
-            <button className="payment-btn paytm-btn" id="myButton" onClick={() => handleCheckboxClick("checkbox1")}>
-            {/* <img src={paytmImg} alt="" className="payment-img"/> */}
-            </button>
+            <input type="checkbox" id="checkbox1" onClick={() => handleCheckboxClick("checkbox1", "Paytm")} />
+            <button className="payment-btn paytm-btn"></button>
           </div>
           <div>
-            <input type="checkbox" id="checkbox2"/>
-            <button className="payment-btn upi-btn" id="myButton" onClick={() => handleCheckboxClick("checkbox2")}>
-              {/* <img src={upiImg} alt="" className="payment-img"/> */}
-            </button>
+            <input type="checkbox" id="checkbox2" onClick={() => handleCheckboxClick("checkbox2", "UPI")} />
+            <button className="payment-btn upi-btn"></button>
           </div>
           <div>
-            <input type="checkbox" id="checkbox3"/>
-            <button className="payment-btn paypal-btn"  id="myButton" onClick={() => handleCheckboxClick("checkbox3")}>
-            {/* <img src={paypalImg} alt="" className="payment-img"/> */}
-            </button>
+            <input type="checkbox" id="checkbox3" onClick={() => handleCheckboxClick("checkbox3", "PayPal")} />
+            <button className="payment-btn paypal-btn"></button>
           </div>
           <div>
-            <input type="checkbox" id="checkbox4"/>
-            <button className="payment-btn phonepe-btn" id="myButton" onClick={() => handleCheckboxClick("checkbox4")}>
-            {/* <img src={phonepayImg} alt="" className="payment-img"/> */}
-            </button>
+            <input type="checkbox" id="checkbox4" onClick={() => handleCheckboxClick("checkbox4", "PhonePe")} />
+            <button className="payment-btn phonepe-btn"></button>
           </div>
-          </div>
-
+        </div>
       </div>
-      {/* ============= Booking Form End ============== */}
 
-      {/* ============= Booking Bottom ============ */}
       <div className="booking__bottom">
         <ListGroup>
           <ListGroupItem className="border-0 px-0">
             <h5 className="d-flex align-items-center gap-1">
-              <i class="bx bx-rupee"></i>
-              {price}
-              <i class="ri-close-line"></i>1 Person
+              ₹{price} <i className="ri-close-line"></i> {booking.guestSize} Person(s)
             </h5>
-            <span>
-              <i class="bx bx-rupee"></i> {price}
-            </span>
+            <span>₹{price}</span>
           </ListGroupItem>
 
           <ListGroupItem className="border-0 px-0 total">
             <h5>Total</h5>
-            <span>
-              <i class="bx bx-rupee"></i> {totalAmount}
-            </span>
+            <span>₹{totalAmount}</span>
           </ListGroupItem>
         </ListGroup>
 

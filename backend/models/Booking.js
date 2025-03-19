@@ -28,6 +28,10 @@ const bookingSchema = new mongoose.Schema(
             type: Date,
             required: true,
         },
+        paymentMode: {
+            type: String,
+            required: true,
+        },
     },
     { timestamps: true }
 );

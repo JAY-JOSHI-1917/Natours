@@ -1,4 +1,5 @@
 import Booking from "../models/Booking.js"
+import User from "../models/User.js"
 
 
 // create a Booking
@@ -24,12 +25,15 @@ export const createBooking = async (req, res) => {
 export const getBooking = async (req, res) => {
     const id = req.params.id
     try {
-        const book = await Booking.findById(id)
+        // console.log(id);
+        // const book = await Booking.findById(id);
+        const bookings = await Booking.find({ userId: id });
         res.status(200).json({
             success: true,
             message: "successful",
-            data: book,
+            data: bookings,
         })
+        console.log("gjhsf", bookings);
     } catch (err) {
         res.status(404).json({
             success: false,
