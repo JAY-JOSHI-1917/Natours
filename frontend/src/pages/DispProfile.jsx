@@ -97,7 +97,7 @@ const DisplayProfile = () => {
                 {bookedTours.length > 0 ? (
                 <div className="tour-list">
                     {bookedTours.map((tour, index) => (
-                        tour && tour._id ? <TourCard key={tour._id} tour={tour} isBookedTour={true} /> : <p key={index}>Failed to load tour data.</p>
+                        tour && tour._id ? <TourCard className="profile-tour-card" key={tour._id} tour={tour} isBookedTour={true} /> : <p key={index}>Failed to load tour data.</p>
                     ))}
                 </div>
                 ) : (

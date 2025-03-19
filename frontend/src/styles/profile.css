@@ -277,3 +277,12 @@
   gap: 20px;
   width: 100%;
 }
+
+.profile-tour-card {
+  height: 80rem;
+}
+
+.profile-tour-card .tour__rating {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}

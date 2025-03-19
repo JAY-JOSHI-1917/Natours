@@ -13,6 +13,7 @@ import ThankYou from "../pages/ThankYou";
 import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery";
 import EditProfile from "../pages/EditProfile";
 import DisplayProfile from "../pages/DispProfile";
+import UpdateBooking from "../components/Booking/updateBooking";
 
 const Routers = () => {
   return (
@@ -30,6 +31,7 @@ const Routers = () => {
       <Route path="/seasons" element={<Seasons />} />
       <Route path="/editProfile" element={<EditProfile />} />
       <Route path="/displayProfile" element={<DisplayProfile />} />
+      <Route path="/updateBooking" element={<updateBooking />} />
     </Routes>
   );
 };
