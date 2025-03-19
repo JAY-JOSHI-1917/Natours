@@ -27,13 +27,14 @@ const Booking = ({ tour, avgRating }) => {
     }
   };
 
-  const { price, reviews, title } = tour;
+  const { _id, price, reviews, title } = tour;
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
   const [booking, setBooking] = useState({
     userId: user && user._id,
     userEmail: user && user.email,
+    tourId:_id,
     tourName: title,
     fullName: "",
     phone: "",
