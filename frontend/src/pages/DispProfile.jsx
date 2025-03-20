@@ -24,6 +24,7 @@ const DisplayProfile = () => {
         const fetchBookedTours = async () => {
             try {
                 const userId = user._id;
+                console.log(user);
                 const res = await fetch(`${BASE_URL}/booking/${userId}`);
 
                 if (!res.ok) {

@@ -40,6 +40,45 @@ export const getBooking = async (req, res) => {
     }
 }
 
+// export const getBookingByTourId = async (req, res) => {
+//     const { userId, tourId } = req.params;
+
+//     try {
+//         const booking = await Booking.findOne({ userId, tourId });
+
+//         if (!booking) {
+//             return res.status(404).json({ message: 'Booking not found.' });
+//         }
+
+//         res.status(200).json({ data: booking });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Server Error.', error: error.message });
+//     }
+// };
+
+// // Update Booking By Tour ID and User ID
+// export const updateBookingByTourId = async (req, res) => {
+//     const { userId, tourId } = req.params;
+//     const { name, email, date, guests } = req.body;
+
+//     try {
+//         const booking = await Booking.findOneAndUpdate(
+//             { userId, tourId },
+//             { name, email, date, guests },
+//             { new: true }
+//         );
+
+//         if (!booking) {
+//             return res.status(404).json({ message: 'Booking not found.' });
+//         }
+
+//         res.status(200).json({ message: 'Booking updated successfully.', data: booking });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Server Error.', error: error.message });
+//     }
+// }
+
+
 // Getting all booking 
 
 export const getAllBooking = async (req, res) => {

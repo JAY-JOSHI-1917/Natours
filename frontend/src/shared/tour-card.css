@@ -44,7 +44,7 @@
 
 .card__bottom-btn {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between !important;
 }
 
 .tour__rating {
@@ -82,9 +82,9 @@
 .booking__btn {
   background: var(--secondary-color) !important;
   cursor: pointer;
-  padding: 0.2rem 0.5rem !important;
+  padding: 0.5rem 0.5rem !important;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.9rem !important;
   color: #fff !important;
   transition: all 0.5s !important;
 }
