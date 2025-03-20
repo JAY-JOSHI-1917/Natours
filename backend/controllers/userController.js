@@ -223,6 +223,41 @@ export const uploadPhoto = async (req, res) => {
 };
 
 
+export const deletePhoto = async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Check if user has a photo to delete
+        if (!user.photo) {
+            return res.status(400).json({ message: 'No photo found to delete.' });
+        }
+
+        // Extract public_id from the photo URL
+        const photoUrl = user.photo;
+        const publicId = photoUrl.split('/').pop().split('.')[0];
+
+        // Delete photo from Cloudinary
+        await cloudinary.uploader.destroy(publicId);
+
+        // Remove photo URL from user dataset
+        user.photo = '';
+        await user.save();
+
+        res.status(200).json({ message: 'Photo deleted successfully!' });
+
+    } catch (error) {
+        console.error("Error deleting photo:", error);
+        res.status(500).json({ message: 'Failed to delete photo.' });
+    }
+};
+
 ////////////////////////    User Photo Logics ends   ////////////////////////////
 
 //delete User

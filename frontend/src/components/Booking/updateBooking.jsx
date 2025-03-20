@@ -14,7 +14,7 @@ const UpdateBooking = () => {
         email: '',
         date: '',
         guests: 1,
-        
+
     });
     const [updatedBookingData, setupdatedBookingData] = useState({
         name: '',
@@ -90,7 +90,7 @@ const UpdateBooking = () => {
                 },
                 body: JSON.stringify(updatedBookingData)
             });
-
+            console.log(response)
             if (!response.ok) {
                 throw new Error('Failed to update booking.');
             }
@@ -112,59 +112,59 @@ const UpdateBooking = () => {
     return (
         <div className='updateBooking-Container'>
             <button className='back-btn' onClick={() => window.history.back()}><i class="ri-arrow-left-s-fill"></i>
-                    <b>Back</b>
-                </button>
+                <b>Back</b>
+            </button>
             <div className="BookedTourInformation">
                 <div className="update-title-box">
                     <h2>Booked Tour Information</h2>
                 </div>
                 <div className="disp-details">
-                <h5><b>Tour Title</b> <span>{bookingData.tourName}</span></h5>
-                <h5><b>Full Name</b> <span>{bookingData.fullName}</span></h5>
-                <h5><b>User Email</b> <span>{bookingData.userEmail}</span></h5>
-                <h5><b>Total guest Size</b> <span>{bookingData.guestSize}</span></h5>
-                <h5><b>Contact</b> <span>{bookingData.phone}</span></h5>
-                <h5><b>Tour confirm date</b> <span>{bookingData.bookAt}</span></h5>
-                <h5><b>Payment Mode~</b> <span>{bookingData.paymentMode}</span></h5>
+                    <h5><b>Tour Title</b> <span>{bookingData.tourName}</span></h5>
+                    <h5><b>Full Name</b> <span>{bookingData.fullName}</span></h5>
+                    <h5><b>User Email</b> <span>{bookingData.userEmail}</span></h5>
+                    <h5><b>Total guest Size</b> <span>{bookingData.guestSize}</span></h5>
+                    <h5><b>Contact</b> <span>{bookingData.phone}</span></h5>
+                    <h5><b>Tour confirm date</b> <span>{bookingData.bookAt}</span></h5>
+                    <h5><b>Payment Mode~</b> <span>{bookingData.paymentMode}</span></h5>
                 </div>
             </div>
             <div className="updateBooking">
                 <div className="update-title-box">
                     <h2>Update Booking</h2>
                 </div>
-            <div className="update-details">
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Name:</label>
-                        <input type="text" name="name" value={updatedBookingData.name} onChange={handleChange} required />
-                    </div>
-                    <div>
-                        <label>Email:</label>
-                        <input type="email" name="email" value={updatedBookingData.email} onChange={handleChange} required />
-                    </div>
-                    <div>
-                        <label>Date:</label>
-                        <input type="date" name="date" value={updatedBookingData.date} onChange={handleChange} required min={minDate} />
-                    </div>
-                    <div>
-                        <label>Guests:</label>
-                        <input type="number" name="guests" value={updatedBookingData.guests} onChange={handleChange} min="1" required />
-                    </div>
-                </form>
-                   
-                <div className="payment">
-                    <label className='payment-title'>Payment Options:</label>
-                    <div className="payment__options">
-                        <div><input type="checkbox" id="checkbox1" onClick={() => handleCheckboxClick("checkbox1", "Paytm")} /> <button className="payment-btn paytm-btn"></button></div>
-                        <div><input type="checkbox" id="checkbox2" onClick={() => handleCheckboxClick("checkbox2", "UPI")} /> <button className="payment-btn upi-btn"></button></div>
-                        <div><input type="checkbox" id="checkbox3" onClick={() => handleCheckboxClick("checkbox3", "PayPal")} /> <button className="payment-btn paypal-btn"></button></div>
-                        <div><input type="checkbox" id="checkbox4" onClick={() => handleCheckboxClick("checkbox4", "PhonePe")} /> <button className="payment-btn phonepe-btn"></button></div>
-                    </div>
-                    <button type="submit">Update Booking</button>
+                <div className="update-details">
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>Name:</label>
+                            <input type="text" name="name" value={updatedBookingData.name} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label>Email:</label>
+                            <input type="email" name="email" value={updatedBookingData.email} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <label>Date:</label>
+                            <input type="date" name="date" value={updatedBookingData.date} onChange={handleChange} required min={minDate} />
+                        </div>
+                        <div>
+                            <label>Guests:</label>
+                            <input type="number" name="guests" value={updatedBookingData.guests} onChange={handleChange} min="1" required />
+                        </div>
+
+                        <div className="payment">
+                            <label className='payment-title'>Payment Options:</label>
+                            <div className="payment__options">
+                                <div><input type="checkbox" id="checkbox1" onClick={() => handleCheckboxClick("checkbox1", "Paytm")} /> <button className="payment-btn paytm-btn"></button></div>
+                                <div><input type="checkbox" id="checkbox2" onClick={() => handleCheckboxClick("checkbox2", "UPI")} /> <button className="payment-btn upi-btn"></button></div>
+                                <div><input type="checkbox" id="checkbox3" onClick={() => handleCheckboxClick("checkbox3", "PayPal")} /> <button className="payment-btn paypal-btn"></button></div>
+                                <div><input type="checkbox" id="checkbox4" onClick={() => handleCheckboxClick("checkbox4", "PhonePe")} /> <button className="payment-btn phonepe-btn"></button></div>
+                            </div>
+                            <button type="submit">Update Booking</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            </div>
-        </div>
+        </div >
     );
 };
 

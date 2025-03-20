@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deletePhoto,
   deleteUser, getSingleUser, updateUser, updateUserPassword, uploadPhoto,
 } from "../controllers/userController.js";
 import upload from "../middleware/multerConfig.js";
@@ -15,6 +16,8 @@ router.patch("/:id", verifyUser, updateUserPassword);
 // router.put('/upload-to-cloudinary/:id', upload.single('image'), uploadPhoto);
 
 router.put('/upload-photo/:id', upload.single('image'), verifyUser, uploadPhoto);
+
+router.delete('/delete-photo/:userId', deletePhoto);
 
 //delete user
 router.delete("/:id", verifyUser, deleteUser);

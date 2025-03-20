@@ -86,6 +86,28 @@ export const updateBookingByTourId = async (req, res) => {
 }
 
 
+//Deleting the BookedTour
+
+export const cancelBooking = async (req, res) => {
+    try {
+        const { userId, tourId } = req.params;
+
+        // Find and delete the booking
+        const deletedBooking = await Booking.findOneAndDelete({ userId, tourId });
+
+        if (!deletedBooking) {
+            return res.status(404).json({ message: 'Booking not found.' });
+        }
+
+        res.status(200).json({ message: 'Tour cancelled successfully!' });
+
+    } catch (error) {
+        console.error("Error cancelling tour:", error);
+        res.status(500).json({ message: 'Failed to cancel tour.' });
+    }
+};
+
+
 // Getting all booking 
 
 export const getAllBooking = async (req, res) => {

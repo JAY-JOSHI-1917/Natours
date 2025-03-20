@@ -109,7 +109,7 @@ const EditProfile = () => {
                 alert(result.message);
                 return;
             }
-
+            alert("please wait for some times as the Your Profile Photo is uploaded to Cloud.....")
             alert('Photo uploaded successfully!');
             setPhoto(result.url); // Update the state with the URL received from Cloudinary
 
@@ -154,16 +154,64 @@ const EditProfile = () => {
 
 
 
-    // const handlePhotoDelete = async () => {
-    //     try {
-    //         await axios.delete('/api/user/delete-photo');
-    //         setPhoto('');
-    //         alert('Photo deleted successfully!');
-    //     } catch (error) {
-    //         console.error(error);
-    //         alert('Failed to delete photo.');
-    //     }
-    // };
+    const handlePhotoDelete = async () => {
+        try {
+            const user_id = user._id;
+            const res = await fetch(`${BASE_URL}/users/delete-photo/${user_id}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            const result = await res.json();
+            if (!res.ok) {
+                alert(result.message);
+                return;
+            }
+
+            alert("please wait for some times as the Your Profile Photo is removing  to Cloud.....")
+            setPhoto('');
+            alert('Photo deleted successfully!');
+
+            dispatch({
+                type: "UPDATE_USER",
+                payload: { ...user, photo: '' },
+            });
+        } catch (error) {
+            console.error("Error deleting photo:", error);
+            alert('Failed to delete photo.');
+        }
+    };
+
+    ////handle  delete Profile
+    const handleDeleteProfile = async () => {
+        const confirmed = window.confirm("Are you sure you want to delete your profile?");
+        if (!confirmed) return;
+
+        try {
+            const user_id = user._id;
+            const res = await fetch(`${BASE_URL}/users/${user_id}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            const result = await res.json();
+            if (!res.ok) {
+                alert(result.message);
+                return;
+            }
+
+            alert('Profile deleted successfully!');
+
+            // Clear user state from AuthContext and redirect to login page or home
+            dispatch({ type: "LOGOUT" });
+            window.location.href = "/login";  // Redirecting user to login page
+        } catch (error) {
+            console.error("Error deleting profile:", error);
+            alert('Failed to delete profile.');
+        }
+    };
+
+
 
     return (
         <>
@@ -198,18 +246,19 @@ const EditProfile = () => {
                         )}
                         {photo && (
                             <>
-                            <div className='photo-update-btn-box'>
-                                <button
-                                    className='update-btn'
-                                    onClick={() => document.getElementById('photoUpload').click()}
-                                >
-                                    Change Photo
-                                </button>
-                                <button
-                                className='update-btn'
-                                >
-                                    Delete Photo
-                                </button>
+                                <div className='photo-update-btn-box'>
+                                    <button
+                                        className='update-btn'
+                                        onClick={() => document.getElementById('photoUpload').click()}
+                                    >
+                                        Change Photo
+                                    </button>
+                                    <button
+                                        className='update-btn'
+                                        onClick={handlePhotoDelete}
+                                    >
+                                        Delete Photo
+                                    </button>
                                 </div>
                             </>
                         )}
@@ -336,9 +385,10 @@ const EditProfile = () => {
                     </div>
                 </div>
 
-                <button  className='delete-btn' onClick={() => window.confirm("Are you sure you want to delete your profile?")}>
-                <i class="ri-delete-bin-6-line"></i> Delete Profile
+                <button className='delete-btn' onClick={handleDeleteProfile}>
+                    <i class="ri-delete-bin-6-line"></i> Delete Profile
                 </button>
+
             </section></div>
         </>
     );
