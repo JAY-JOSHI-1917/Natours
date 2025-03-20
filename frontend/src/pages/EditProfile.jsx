@@ -198,6 +198,7 @@ const EditProfile = () => {
                         )}
                         {photo && (
                             <>
+                            <div className='photo-update-btn-box'>
                                 <button
                                     className='update-btn'
                                     onClick={() => document.getElementById('photoUpload').click()}
@@ -209,6 +210,7 @@ const EditProfile = () => {
                                 >
                                     Delete Photo
                                 </button>
+                                </div>
                             </>
                         )}
                         <input
@@ -333,6 +335,10 @@ const EditProfile = () => {
                         </div>
                     </div>
                 </div>
+
+                <button  className='delete-btn' onClick={() => window.confirm("Are you sure you want to delete your profile?")}>
+                <i class="ri-delete-bin-6-line"></i> Delete Profile
+                </button>
             </section></div>
         </>
     );

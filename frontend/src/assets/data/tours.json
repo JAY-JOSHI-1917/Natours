@@ -148,7 +148,7 @@
       }
     ],
     "avgRating": 4.5,
-    "photo": "/images/kutch-rann-main.jpg",
+    "photo": "../images/kutch-rann-main.jpg",
     "featured": true
   },
   {
@@ -260,5 +260,109 @@
     "avgRating": 4.5,
     "photo": "../images/Jambughoda-Wildlife-Sanctuary-main.jpg",
     "featured": false
+  },
+  {
+    "title": "Dal Lake",
+    "city": "Srinagar",
+    "address": "Jammu and Kashmir",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "Dal Lake's enchanting ambiance and cultural richness make it a must-visit destination for those seeking natural beauty and a glimpse into Kashmiri heritage.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Dal-Lake-main.jpg",
+    "featured": true,
+    "season": "summer"
+  },
+  {
+    "title": "Lonar Lake",
+    "city": "Maharashtra",
+    "address": "Buldhana district",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "Lonar Lake is a breathtaking natural wonder that whispers tales of celestial impact and timeless beauty. Formed over 50,000 years ago by a meteorite collision, this emerald-hued lake is cradled within lush greenery, creating a surreal escape into nature’s embrace.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Lonar-lake-main.jpg",
+    "featured": true,
+    "season": "monsoon"
+  },
+  {
+    "title": "Manali",
+    "city": "Kullu",
+    "address": "Himachal Pradesh",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "A breathtakingly beautiful destination offering pristine snow-covered peaks, valleys, and exciting winter sports. Manali is a beautiful hill station with snowy mountains, green valleys, and a cool breeze. The sound of flowing rivers and tall pine trees makes it feel magical. Whether you want adventure or just relax, Manali is the perfect place.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Manali-main.jpg",
+    "featured": true,
+    "season": "winter"
+  },
+  {
+    "title": "Munnar",
+    "city": "Kerala",
+    "address": "Kerala",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "Munnar's natural beauty, pleasant climate, and tranquil atmosphere make it an ideal getaway for nature lovers, honeymooners, and those seeking relaxation.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Munnar-main.jpg",
+    "featured": true,
+    "season": "winter"
+  },
+  {
+    "title": "Ooty Lakes",
+    "city": "Ooty",
+    "address": "Tamil Nadu",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "A scenic and serene hill station surrounded by rolling hills, lush green forests, and sparkling lakes.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Ooty-main.jpg",
+    "featured": true,
+    "season": "Monsoon"
+  },
+  {
+    "title": "Sundarbans",
+    "city": "West Bengal",
+    "address": "Sundarbans",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "Explore the largest mangrove forest in the world, home to the majestic Royal Bengal Tiger, crocodiles, and rare bird species. Enjoy a thrilling boat safari through the dense waterways and experience the beauty of nature in its rawest form.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Sundarbans-main.jpg",
+    "featured": true,
+    "season": "winter"
+  },
+  {
+    "title": "Valley of Flowers",
+    "city": "Ooty",
+    "address": "Uttarakhand",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "Valley of Flowers is like a natural garden in the mountains, full of colorful wildflowers. The air smells fresh, and the soft breeze makes the flowers dance. It is a perfect place for nature lovers and those who love quiet, beautiful views.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Valley-of-flower-main.jpg",
+    "featured": true,
+    "season": "Winter"
+  },
+  {
+    "title": "Ziro Valley",
+    "city": "Arunachal Pradesh",
+    "address": "Arunachal Pradesh",
+    "price": 2000,
+    "maxGroupSize": 10,
+    "desc": "Ziro Valley is a hidden paradise with rolling green hills and golden rice fields. The place is calm, with birds chirping and fresh mountain air all around. It feels like stepping into a peaceful world far away from the city. A picturesque and serene valley in Arunachal Pradesh, surrounded by lush green hills, rice fields, and bamboo forests.",
+    "reviews": [],
+    "avgRating": 4.5,
+    "photo": "../images/Ziro-valley-main.jpg",
+    "featured": true,
+    "season": "Monsoon"
   }
 ]

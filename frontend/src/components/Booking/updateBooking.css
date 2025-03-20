@@ -1,0 +1,186 @@
+.updateBooking-Container {
+    margin: 4rem 6rem;
+    display: flex;
+    gap: 50px;
+}
+
+.updateBooking-Container .back-btn {
+    top: 4rem;
+    left: 2rem;
+}
+
+.BookedTourInformation {
+    width: 45%;
+    font-size: 1.2rem;
+    line-height: 2.5;
+    border-radius: 20px;
+    padding: 2rem 2rem;
+    background-color: rgba(200, 200, 200, 0.2);
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.update-title-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-color);
+    border-radius: 20px 20px 0 0;
+
+    width: 100%;
+    height: 6rem;
+}
+
+.update-title-box h2 {
+    color: white;
+    font-weight: 600;
+}
+/* 
+.update-title-box::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 10%;
+    background-color: var(--secondary-color);
+    border-radius: 20px 20px 0 0;
+    z-index: -1;
+} */
+
+.BookedTourInformation h5 {
+    margin-bottom: 30px;
+    border: 2px solid #6666667b;
+    text-align: center;
+    padding: 0.5rem 0;
+    background-color: #fff;
+    position: relative;
+}
+
+.BookedTourInformation h5:last-child {
+    margin-bottom: 0;
+}
+
+.BookedTourInformation h5 b {
+    color: var(--primary-color);
+    position: absolute;
+    top: -1.2rem;
+    left: 1rem;
+    background: linear-gradient( #eee,#fff);
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.BookedTourInformation h5 span {
+    font-size: 1.2rem;
+    text-align: center;
+    /* border: 5px solid transparent;
+    border-top: 5px solid rgba(250, 169, 53, 0.5); */
+    padding-left: 10px;
+    border-radius: 5px;
+    transition: all 0.5s;
+    margin-bottom: 1rem;
+}
+
+.updateBooking {
+    width: 45%;
+    font-size: 1.2rem;
+    line-height: 2.5;
+    border-radius: 20px;
+    padding: 2rem 2rem;
+    background-color: rgba(200, 200, 200, 0.2);
+    position: relative;
+}
+
+.updateBooking form {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.updateBooking form div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.updateBooking form label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.payment-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    margin-bottom: 0;
+}
+
+.updateBooking form input,
+.updateBooking form textarea {
+    font-size: 1rem;
+    border: 5px solid transparent;
+    border-top: 5px solid rgba(250, 169, 53, 0.5);
+    background-color: #fff;
+    padding-left: 10px;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.updateBooking form input:focus,
+.updateBooking form textarea:focus {
+    outline: none;
+    border: 5px solid rgba(250, 169, 53, 0.5);
+}
+
+.updateBooking .payment__options {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
+    justify-items: center;
+    gap: 30px;
+    padding: 2rem 0;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.updateBooking .payment__options div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    height: 3rem;
+    width: auto;
+} 
+
+.payment__options .payment-btn {
+    height: 3rem !important;
+    width: 8rem;
+}
+
+.payment__options div input {
+    height: 0.8rem;
+    width: 0.8rem;
+}
+
+.updateBooking button[type="submit"] {
+    background-color: orange;
+    color: #fff;
+    border: none;
+    padding: 0rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
