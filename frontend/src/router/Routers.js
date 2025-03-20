@@ -14,6 +14,7 @@ import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGalle
 import EditProfile from "../pages/EditProfile";
 import DisplayProfile from "../pages/DispProfile";
 import UpdateBooking from "../components/Booking/updateBooking";
+import ForgetPass from "../pages/forgetPass";
 
 const Routers = () => {
   return (
@@ -32,6 +33,7 @@ const Routers = () => {
       <Route path="/editProfile" element={<EditProfile />} />
       <Route path="/displayProfile" element={<DisplayProfile />} />
       <Route path="/updateBooking" element={<UpdateBooking />} />
+      <Route path="/forgetPass" element={<ForgetPass />} />
     </Routes>
   );
 };

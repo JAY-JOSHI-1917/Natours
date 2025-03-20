@@ -10,7 +10,7 @@ const Testimonial = () => {
     dots: true,
     infinite: true,
     autoplay: true,
-    speed: 1000,
+    speed: 5000,
     swipeToSlide: true,
     autoplaySpeed: 2000,
     slidesToShow: 3,
@@ -39,48 +39,38 @@ const Testimonial = () => {
     <Slider {...settings}>
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-          aliquam eaque ex labore illo id eveniet! Dolorem molestias minus
-          consectetur officia dolorum ipsa, quasi quia placeat rerum, asperiores
-          laboriosam illum.
-        </p>
+        The team at Natours went above and beyond to create a relaxing and memorable experience. We explored India’s beauty like never before, thanks to their perfectly planned itineraries. A heartfelt thank you!        </p>
 
         <div className="d-flex align-items-center gap-4 mt-3">
           <img src={ava01} alt="" className="w-25 h-25 rounded-2" />
           <div>
-            <h6 className="mb-0 mt-3">John Doe</h6>
+            <h6 className="mb-0 mt-3">Arjun Verma</h6>
             <p>Customer</p>
           </div>
         </div>
       </div>
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-          aliquam eaque ex labore illo id eveniet! Dolorem molestias minus
-          consectetur officia dolorum ipsa, quasi quia placeat rerum, asperiores
-          laboriosam illum.
+        Natours offers the best service! From easy bookings to fantastic on-site support, they made sure we had an incredible experience. The destinations they recommended were breathtaking!
         </p>
 
         <div className="d-flex align-items-center gap-4 mt-3">
           <img src={ava02} alt="" className="w-25 h-25 rounded-2" />
           <div>
-            <h6 className="mb-0 mt-3">Lia Franklin</h6>
+            <h6 className="mb-0 mt-3">Priya Kapoor</h6>
             <p>Customer</p>
           </div>
         </div>
       </div>
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-          aliquam eaque ex labore illo id eveniet! Dolorem molestias minus
-          consectetur officia dolorum ipsa, quasi quia placeat rerum, asperiores
-          laboriosam illum.
+        Our Natours experience was amazing! They provided us with well-structured itineraries and took care of all the little details, making our trip hassle-free and enjoyable. Highly recommend!
         </p>
 
         <div className="d-flex align-items-center gap-4 mt-3">
           <img src={ava03} alt="" className="w-25 h-25 rounded-2" />
           <div>
-            <h6 className="mb-0 mt-3">John Doe</h6>
+            <h6 className="mb-0 mt-3">Ravi Patel</h6>
             <p>Customer</p>
           </div>
         </div>
@@ -88,16 +78,13 @@ const Testimonial = () => {
 
       <div className="testimonial py-4 px-3">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-          aliquam eaque ex labore illo id eveniet! Dolorem molestias minus
-          consectetur officia dolorum ipsa, quasi quia placeat rerum, asperiores
-          laboriosam illum.
+        Booking with Natours felt like a celebration of India's diverse landscapes. From serene views to exciting activities, everything was arranged perfectly. Their service truly captured the essence of Indian warmth.
         </p>
 
         <div className="d-flex align-items-center gap-4 mt-3">
           <img src={ava02} alt="" className="w-25 h-25 rounded-2" />
           <div>
-            <h6 className="mb-0 mt-3">Lia Franklin</h6>
+            <h6 className="mb-0 mt-3">Ananya Sharma</h6>
             <p>Customer</p>
           </div>
         </div>
