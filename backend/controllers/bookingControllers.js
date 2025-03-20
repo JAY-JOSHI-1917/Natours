@@ -66,15 +66,15 @@ export const getBookingByTourId = async (req, res) => {
 // Update Booking By Tour ID and User ID
 export const updateBookingByTourId = async (req, res) => {
     const { userId, tourId } = req.params;
-    const { name, email, date, guests } = req.body;
+    const { name, email, date, guests, paymentMode } = req.body;
 
     try {
         const booking = await Booking.findOneAndUpdate(
             { userId, tourId },
-            { name, email, date, guests },
+            { fullName: name, userEmail: email, bookAt: date, guestSize: guests, paymentMode: paymentMode },
             { new: true }
         );
-
+        console.log(booking)
         if (!booking) {
             return res.status(404).json({ message: 'Booking not found.' });
         }

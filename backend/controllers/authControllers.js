@@ -38,7 +38,7 @@ export const login = async (req, res) => {
                 message: "User Not Found"
             })
         }
-        console.log(user);
+        // console.log(user);
         const checkCorrectPassword = await bcrypt.compare(req.body.password, user.password)
 
         //if password is incorrect 

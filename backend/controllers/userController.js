@@ -201,7 +201,7 @@ export const uploadPhoto = async (req, res) => {
         const result = await cloudinary.uploader.upload(fileUri.content);
 
 
-        console.log("Upload Successful:", result);
+        // console.log("Upload Successful:", result);
         const userId = req.params.id;
         // Update user in the database with the uploaded image URL
         const updatedUser = await User.findByIdAndUpdate(
