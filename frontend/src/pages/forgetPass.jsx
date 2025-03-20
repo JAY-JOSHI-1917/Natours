@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../utils/config';
 
 const ForgetPass = () => {
     const [email, setEmail] = useState('');
@@ -10,8 +11,17 @@ const ForgetPass = () => {
 
     const checkEmail = async () => {
         try {
-            const response = await axios.post('/api/check-email', { email });
-            if (response.data.exists) {
+            const response = await fetch(`${BASE_URL}/users/check-email/${email}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('An error occurred. Please try again.');
+            }
+
+            const data = await response.json();
+
+            if (data.exists) {
                 setIsEmailValid(true);
                 setMessage('Email exists. You can now update your password.');
             } else {
@@ -19,9 +29,10 @@ const ForgetPass = () => {
                 setMessage('Email does not exist.');
             }
         } catch (error) {
-            setMessage('An error occurred. Please try again.');
+            setMessage(error.message);
         }
     };
+
 
     const updatePassword = async () => {
         if (password !== confirmPassword) {

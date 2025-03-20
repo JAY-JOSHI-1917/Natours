@@ -276,11 +276,63 @@ export const deleteUser = async (req, res) => {
         });
     }
 }
+
+//////forgot password logic
+
+export const checkEmail = async (req, res) => {
+    try {
+        const { email } = req.params; // Extract email from query parameters
+        if (!email) {
+            return res.status(400).json({ message: "Email is required." });
+        }
+
+        const user = await User.findOne({ email: email });
+
+        if (user) {
+            return res.json({ exists: true });
+        } else {
+            return res.json({ exists: false });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Server error. Please try again later." });
+    }
+};
+
+// Update user's password
+export const updatePassword = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required." });
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update the user's password
+        user.password = hashedPassword;
+        await user.save();
+
+        res.json({ message: "Password updated successfully." });
+    } catch (error) {
+        res.status(500).json({ message: "Server error. Please try again later." });
+    }
+};
+
+
+
 //getSingle User
 export const getSingleUser = async (req, res) => {
     const id = req.params.id
     try {
-        const user = await user.findById(id)
+        const user = await user.findById(id);
         res.status(200).json({
             success: true,
             message: "Successfully founded the user. ",
