@@ -231,6 +231,8 @@ const Login = () => {
                     )}
                   </FormGroup>
 
+                  <Link to="/forgetPass">Forget Password ?</Link>
+
                   <Button className="btn secondary__btn auth__btn" type="submit">
                     Login
                   </Button>
