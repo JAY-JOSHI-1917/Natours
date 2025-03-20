@@ -24,7 +24,7 @@ const DisplayProfile = () => {
         const fetchBookedTours = async () => {
             try {
                 const userId = user._id;
-                console.log(user);
+                // console.log(user);
                 const res = await fetch(`${BASE_URL}/booking/${userId}`);
 
                 if (!res.ok) {
@@ -34,7 +34,7 @@ const DisplayProfile = () => {
 
                 const result = await res.json();
                 const finalResult = result.data || [];
-
+                // console.log(finalResult);
                 const tours = await Promise.all(finalResult.map(async (booking) => {
                     const tourId = booking.tourId;
                     if (!tourId) return null;
@@ -96,13 +96,13 @@ const DisplayProfile = () => {
                 {error && <p>Error: {error}</p>}
 
                 {bookedTours.length > 0 ? (
-                <div className="tour-list">
-                    {bookedTours.map((tour, index) => (
-                        tour && tour._id ? <TourCard className="profile-tour-card" key={tour._id} tour={tour} isBookedTour={true} /> : <p key={index}>Failed to load tour data.</p>
-                    ))}
-                </div>
+                    <div className="tour-list">
+                        {bookedTours.map((tour, index) => (
+                            tour && tour._id ? <TourCard className="profile-tour-card" key={tour._id} tour={tour} isBookedTour={true} /> : <p key={index}>Failed to load tour data.</p>
+                        ))}
+                    </div>
                 ) : (
-                !loading && <p>No booked tours found.</p>
+                    !loading && <p>No booked tours found.</p>
                 )}
             </section>
         </div>
