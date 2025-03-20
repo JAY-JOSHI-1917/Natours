@@ -235,6 +235,14 @@ const UpdateBooking = () => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [minDate, setMinDate] = useState("");
+
+    useEffect(() => {
+        const today = new Date();
+        today.setDate(today.getDate() + 2);
+        const minDateStr = today.toISOString().split("T")[0];
+        setMinDate(minDateStr);
+    }, []);
 
     const handleCheckboxClick = (checkboxId, paymentMode) => {
         const checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -334,7 +342,7 @@ const UpdateBooking = () => {
                     </div>
                     <div>
                         <label>Date:</label>
-                        <input type="date" name="date" value={updatedBookingData.date} onChange={handleChange} required />
+                        <input type="date" name="date" value={updatedBookingData.date} onChange={handleChange} required min={minDate} />
                     </div>
                     <div>
                         <label>Guests:</label>

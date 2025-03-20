@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./booking.css";
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
@@ -6,27 +6,6 @@ import { AuthContext } from "../../context/AuthContext";
 import { BASE_URL } from "../../utils/config";
 
 const Booking = ({ tour, avgRating }) => {
-
-  const handleCheckboxClick = (checkboxId, paymentMode) => {
-    console.log(`Clicked Checkbox ID: ${checkboxId}, Payment Mode: ${paymentMode}`);
-
-    // Get all checkboxes in the page
-    const checkboxes = document.querySelectorAll("input[type='checkbox']");
-
-    // Uncheck all checkboxes
-    checkboxes.forEach((checkbox) => (checkbox.checked = false));
-
-    // Check the clicked checkbox
-    const clickedCheckbox = document.getElementById(checkboxId);
-    if (clickedCheckbox) {
-      clickedCheckbox.checked = true;
-
-      // Update the booking state with the selected payment mode
-      setBooking((prev) => ({ ...prev, paymentMode }));
-      console.log(`Booking State Updated: `, { ...booking, paymentMode });
-    }
-  };
-
   const { _id, price, reviews, title } = tour;
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -34,7 +13,7 @@ const Booking = ({ tour, avgRating }) => {
   const [booking, setBooking] = useState({
     userId: user && user._id,
     userEmail: user && user.email,
-    tourId:_id,
+    tourId: _id,
     tourName: title,
     fullName: "",
     phone: "",
@@ -43,8 +22,27 @@ const Booking = ({ tour, avgRating }) => {
     paymentMode: "",
   });
 
+  const [minDate, setMinDate] = useState("");
+
+  useEffect(() => {
+    const today = new Date();
+    today.setDate(today.getDate() + 2);
+    const minDateStr = today.toISOString().split("T")[0];
+    setMinDate(minDateStr);
+  }, []);
+
   const handleChange = (e) => {
     setBooking((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleCheckboxClick = (checkboxId, paymentMode) => {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.id !== checkboxId) {
+        checkbox.checked = false;
+      }
+    });
+    setBooking((prev) => ({ ...prev, paymentMode }));
   };
 
   const totalAmount = Number(price) * Number(booking.guestSize);
@@ -66,11 +64,10 @@ const Booking = ({ tour, avgRating }) => {
     }
 
     try {
-      // const user_id = user._id;
+      const user_id = user._id;
       const res = await fetch(`${BASE_URL}/booking`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
-        // credentials: "include",
         body: JSON.stringify(booking),
       });
 
@@ -103,7 +100,7 @@ const Booking = ({ tour, avgRating }) => {
             <input type="number" placeholder="Phone" id="phone" required onChange={handleChange} />
           </FormGroup>
           <FormGroup className="d-flex align-items-center gap-3">
-            <input type="date" id="bookAt" required onChange={handleChange} />
+            <input type="date" id="bookAt" required onChange={handleChange} min={minDate} />
             <input type="number" placeholder="Number of Guest" id="guestSize" required onChange={handleChange} />
           </FormGroup>
         </Form>
