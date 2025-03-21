@@ -77,6 +77,17 @@
   font-weight: 500;
 }
 
+.forget-pass-btn {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.5s;
+}
+
+.forget-pass-btn:hover {
+  color: #555;
+}
+
 .error {
   color: red;
   font-size: 0.9rem;
