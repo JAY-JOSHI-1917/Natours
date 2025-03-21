@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, CardBody } from "reactstrap";
 import { Link } from "react-router-dom";
 import calculateAvgRating from "../utils/avgRating";
@@ -6,11 +6,39 @@ import calculateAvgRating from "../utils/avgRating";
 // import UpdateBooking from "../components/Booking/updateBooking";
 
 import "./tour-card.css";
+import { BASE_URL } from "../utils/config";
+import { AuthContext } from "../context/AuthContext";
 
 const TourCard = ({ tour, isBookedTour }) => {
-  const { _id, title, city, photo, price, address, featured, reviews } = tour;
+  const { user } = useContext(AuthContext);
+  // const user_Id = user._id;
+  const { _id, title, city, photo, address, featured, reviews } = tour;
 
+  const tourId = _id;
   const { totalRating, avgRating } = calculateAvgRating(reviews);
+
+  const handleCancelTour = async (tourId) => {
+    try {
+      const bookedTourId = tourId.tourId;
+      const response = await fetch(`${BASE_URL}/booking/cancel/${user._id}/${bookedTourId}`, {
+        method: "DELETE",
+        credentials: "include"
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        alert(result.message);
+        return;
+      }
+
+      alert('Tour cancelled successfully!');
+      window.location.reload();
+    } catch (error) {
+      console.error("Error cancelling tour:", error);
+      alert('Failed to cancel tour.');
+    }
+  };
+
 
   return (
     <div className="tour__card">
@@ -49,7 +77,13 @@ const TourCard = ({ tour, isBookedTour }) => {
                   {/* <Link to={`/updateBooking/${_id}`} className="booking__btn update__btn btn">Update Tour Details</Link> */}
                   <Link to="/updateBooking" state={{ tourId: _id }} className="booking__btn update__btn btn">Update Tour Details</Link>
 
-                  <Link to={"/home"} className="booking__btn btn">Cancel Tour</Link>
+                  <button
+                    className="booking__btn btn"
+                    onClick={() => handleCancelTour({ tourId: _id })}
+                  >
+                    Cancel Tour
+                  </button>
+
                 </div>
               </>
             ) : (

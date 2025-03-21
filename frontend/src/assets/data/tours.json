@@ -350,7 +350,7 @@
     "avgRating": 4.5,
     "photo": "../images/Valley-of-flower-main.jpg",
     "featured": true,
-    "season": "Winter"
+    "season": "winter"
   },
   {
     "title": "Ziro Valley",
@@ -363,6 +363,6 @@
     "avgRating": 4.5,
     "photo": "../images/Ziro-valley-main.jpg",
     "featured": true,
-    "season": "Monsoon"
+    "season": "monsoon"
   }
 ]
