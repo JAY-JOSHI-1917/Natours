@@ -150,10 +150,11 @@ const UpdateBooking = () => {
                             <label>Guests:</label>
                             <input type="number" name="guests" value={updatedBookingData.guests} onChange={handleChange} min="1" required />
                         </div>
+                    </form>
 
-                        <div className="payment">
-                            <label className='payment-title'>Payment Options:</label>
-                            <div className="payment__options">
+                            <div className="payment">
+                                <label className='payment-title'>Payment Options:</label>
+                                <div className="payment__options">
                                 <div><input type="checkbox" id="checkbox1" onClick={() => handleCheckboxClick("checkbox1", "Paytm")} /> <button className="payment-btn paytm-btn"></button></div>
                                 <div><input type="checkbox" id="checkbox2" onClick={() => handleCheckboxClick("checkbox2", "UPI")} /> <button className="payment-btn upi-btn"></button></div>
                                 <div><input type="checkbox" id="checkbox3" onClick={() => handleCheckboxClick("checkbox3", "PayPal")} /> <button className="payment-btn paypal-btn"></button></div>
@@ -161,7 +162,6 @@ const UpdateBooking = () => {
                             </div>
                             <button type="submit">Update Booking</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </div >

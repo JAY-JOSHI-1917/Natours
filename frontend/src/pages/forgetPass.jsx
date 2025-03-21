@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../utils/config';
+import '../styles/forgetPass.css';
 
 const ForgetPass = () => {
     const [email, setEmail] = useState('');
@@ -49,7 +50,8 @@ const ForgetPass = () => {
     };
 
     return (
-        <div>
+        <div className="forget-pass-container">
+        <div className='forget-pass'>
             <h2>Forget Password</h2>
             <div>
                 <label>Email:</label>
@@ -78,6 +80,7 @@ const ForgetPass = () => {
                 </div>
             )}
             {message && <p>{message}</p>}
+        </div>
         </div>
     );
 };

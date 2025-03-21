@@ -1,0 +1,61 @@
+/* forgetPass.css */
+
+.forget-pass-container {
+    width: 100vw;
+    height: 80vh;
+    position: relative;
+}
+
+.forget-pass {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.forget-pass h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.forget-pass input[type="email"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.forget-pass button {
+    background-color: var(--secondary-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.forget-pass button:hover {
+    background-color: var(--primary-color);
+}
+
+.forget-pass a {
+    display: block;
+    margin-top: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.forget-pass a:hover {
+    text-decoration: underline;
+}

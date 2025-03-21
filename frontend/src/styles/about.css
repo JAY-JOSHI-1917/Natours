@@ -1,0 +1,31 @@
+/* about.css */
+
+.about-section {
+    margin: 20px 0;
+    padding: 2rem 10rem;
+}
+
+.section h2 {
+    font-size: 2em;
+    color: #555;
+}
+
+.about-section p {
+    font-size: 1.4em;
+    line-height: 1.5;
+    color: #666;
+}
+
+.about-us-title {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    /* justify-content: center; */
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.about-us-title span {
+    font-size: 1.6em;
+    color: #555;
+}
