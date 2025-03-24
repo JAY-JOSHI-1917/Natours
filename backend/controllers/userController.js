@@ -281,7 +281,8 @@ export const deleteUser = async (req, res) => {
 
 export const checkEmail = async (req, res) => {
     try {
-        const { email } = req.params; // Extract email from query parameters
+        const { email } = req.params;
+        console.log(email)// Extract email from query parameters
         if (!email) {
             return res.status(400).json({ message: "Email is required." });
         }
@@ -301,13 +302,17 @@ export const checkEmail = async (req, res) => {
 // Update user's password
 export const updatePassword = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email } = req.params;
+        const { password } = req.body;
+
+        console.log(email)
+        console.log(password)
 
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password are required." });
         }
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email });
 
         if (!user) {
             return res.status(404).json({ message: "User not found." });
@@ -318,11 +323,13 @@ export const updatePassword = async (req, res) => {
 
         // Update the user's password
         user.password = hashedPassword;
+
+        console.log(user)
         await user.save();
 
-        res.json({ message: "Password updated successfully." });
+        res.status(200).json({ success: true, message: "Password updated successfully." });
     } catch (error) {
-        res.status(500).json({ message: "Server error. Please try again later." });
+        res.status(500).json({ success: false, message: "Server error. Please try again later." });
     }
 };
 

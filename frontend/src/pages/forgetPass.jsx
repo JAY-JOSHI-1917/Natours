@@ -12,9 +12,8 @@ const ForgetPass = () => {
 
     const checkEmail = async () => {
         try {
-            const response = await fetch(`${BASE_URL}/users/check-email/${email}`, {
-                method: 'GET'
-            });
+            // console.log(email);
+            const response = await fetch(`${BASE_URL}/users/checkEmail/${email}`);
 
             if (!response.ok) {
                 throw new Error('An error occurred. Please try again.');
@@ -24,7 +23,9 @@ const ForgetPass = () => {
 
             if (data.exists) {
                 setIsEmailValid(true);
-                setMessage('Email exists. You can now update your password.');
+                alert("Your mail id is found ✅...")
+                // alert("Now You are able to update the password")
+                // setMessage('Email exists. You can now update your password.');
             } else {
                 setIsEmailValid(false);
                 setMessage('Email does not exist.');
@@ -42,8 +43,30 @@ const ForgetPass = () => {
         }
 
         try {
-            await axios.post('/api/update-password', { email, password });
-            setMessage('Password updated successfully.');
+            console.log(email)
+            console.log(password)
+            const response = await fetch(`${BASE_URL}/users/updatePassword/${email}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ password }),
+            });
+            // await ('/users/update-password', { email, password });
+
+            const data = await response.json();
+            console.log(response)
+
+            if (data.success) {
+                setIsEmailValid(true);
+                alert("Your Password successfully updated ... ✅")
+
+                window.location.href = "/login"
+                // setMessage('Password updated successfully.');
+            } else {
+                setIsEmailValid(false);
+                setMessage('Email does not exist.');
+            }
         } catch (error) {
             setMessage('An error occurred. Please try again.');
         }
@@ -51,36 +74,36 @@ const ForgetPass = () => {
 
     return (
         <div className="forget-pass-container">
-        <div className='forget-pass'>
-            <h2>Forget Password</h2>
-            <div>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <button onClick={checkEmail}>Check Email</button>
-            </div>
-            {isEmailValid && (
+            <div className='forget-pass'>
+                <h2>Forget Password</h2>
                 <div>
-                    <label>New Password:</label>
+                    <label>Email:</label>
                     <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
-                    <label>Confirm Password:</label>
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    <button onClick={updatePassword}>Update Password</button>
+                    <button onClick={checkEmail}>Check Email</button>
                 </div>
-            )}
-            {message && <p>{message}</p>}
-        </div>
+                {isEmailValid && (
+                    <div>
+                        <label>New Password:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <label>Confirm Password:</label>
+                        <input
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        <button onClick={updatePassword}>Update Password</button>
+                    </div>
+                )}
+                {message && <h4>{message}</h4>}
+            </div>
         </div>
     );
 };

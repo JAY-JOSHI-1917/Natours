@@ -9,7 +9,11 @@ const router = express.Router();
 
 import { verifyUser } from "../utils/verifyToken.js";
 
-router.get('/check-email:email', checkEmail);
+//Route to check User's Email is registered or not
+
+router.get('/checkEmail/:email', checkEmail);
+// Route to update the user's password
+router.put('/updatePassword/:email', updatePassword);
 //update user
 router.put("/:id", verifyUser, updateUser);
 //update password of user
@@ -28,8 +32,6 @@ router.delete("/:id", verifyUser, deleteUser);
 router.get("/:id", verifyUser, getSingleUser);
 
 
-// Route to update the user's password
-router.post('/update-password', updatePassword);
 
 
 export default router;
