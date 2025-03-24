@@ -204,7 +204,8 @@ const EditProfile = () => {
 
             // Clear user state from AuthContext and redirect to login page or home
             dispatch({ type: "LOGOUT" });
-            window.location.href = "/login";  // Redirecting user to login page
+            console.log("after dispatch")
+            window.location.href = "/home";
         } catch (error) {
             console.error("Error deleting profile:", error);
             alert('Failed to delete profile.');

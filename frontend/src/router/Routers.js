@@ -33,7 +33,7 @@ const Routers = () => {
       <Route path="/editProfile" element={<EditProfile />} />
       <Route path="/displayProfile" element={<DisplayProfile />} />
       <Route path="/updateBooking" element={<UpdateBooking />} />
-      <Route path="/forgetPass" element={<ForgetPass />} />
+      {/* <Route path="/forgetPass" element={<ForgetPass />} /> */}
     </Routes>
   );
 };

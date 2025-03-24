@@ -231,10 +231,10 @@ const Login = () => {
                     )}
                   </FormGroup>
 
-                  <FormGroup>
+                  {/* <FormGroup>
                   <Link to="/forgetPass" className="forget-pass-btn">Forget Password ?</Link>
-                  </FormGroup>
-                  
+                  </FormGroup> */}
+
                   <Button className="btn secondary__btn auth__btn" type="submit">
                     Login
                   </Button>
