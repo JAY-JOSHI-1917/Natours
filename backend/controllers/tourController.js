@@ -99,12 +99,20 @@ export const getAllTour = async (req, res) => {
 
 // get tour by search
 export const getTourBySearch = async (req, res) => {
-  const city = new RegExp(req.query.city, "i");
+
+  const query = req.query.query.toLowerCase();
+const tours = await Tour.find({
+  $or: [
+    { city: { $regex: query, $options: "i" } },
+    { title: { $regex: query, $options: "i" } },
+  ],
+});
+  // const city = new RegExp(req.query.city, "i");
   //cause we are only finding the tour based on the Location name so we do not need this
   // const distance = parseInt(req.query.distance)
   // const maxGroupSize = parseInt(req.query.maxGroupSize)
   try {
-    const tours = await Tour.find({ city }).populate("reviews");
+    // const tours = await Tour.find({ city }).populate("reviews");
     //As of now we are finding the tour based on the location so we do not have to use
     // const tours = await Tour.find({ city, distance: { $gte: distance }, maxGroupSize: { $gte: maxGroupSize } })
     res.status(200).json({

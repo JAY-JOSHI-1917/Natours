@@ -51,6 +51,27 @@
   border-radius: 10px;
   background-color: #fff;
   z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.suggestions-list::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  margin-right: 20px;
+}
+
+.suggestions-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+  border-radius: 10px;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb {
+  background: var(--secondary-color); /* Color of the scrollbar thumb */
+  border-radius: 5px;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color); /* Color of the scrollbar thumb on hover */
 }
 
 .suggestion {

@@ -4,13 +4,37 @@ import { BASE_URL } from "../utils/config.js";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const allSuggestions = [
-  "Saputara",
-  "Safed Rann",
-  "Dang",
+  "Safed Rann, Kalo Dungar",
   "Kutch",
+  "Shoolpaneshwar Wildlife",
+  "Bharuch",
+  "Saputara",
+  "Dang",
+  "Don Hill Station",
+  "Wilson Hills",
+  "Valsad",
+  "Mount Abu",
+  "Sirohi",
   "Polo Forest",
-  "Philadelphia",
-  "San Antonio",
+  "Sabarkantha",
+  "Jambughoda Wildlife Sanctuary",
+  "Panchmahal",
+  "Dal Lake",
+  "Srinagar",
+  "Lonar Lake",
+  "Maharashtra",
+  "Manali",
+  "Kullu",
+  "Munnar",
+  "Kerala",
+  "Ooty Lakes",
+  "Ooty",
+  "Sundarbans",
+  "West Bengal",
+  "Valley of Flowers",
+  "Uttarakhand",
+  "Ziro Valley",
+  "Arunachal Pradesh",
   // Add more suggestions as needed
 ];
 
@@ -41,17 +65,24 @@ const SearchBar = () => {
     }
   }, [location]);
 
-  const searchHandler = async (location) => {
-    if (location === "") {
-      return alert("Please Enter The Location!");
+  const searchHandler = async (query) => {
+    if (query === "") {
+      return alert("Please enter a city or title!");
     }
-    const res = await fetch(
-      `${BASE_URL}/tours/search/getTourBySearch?city=${location}`
-    );
-    if (!res.ok) alert("Something went wrong");
 
-    const result = await res.json();
-    navigate(`/tours/search?city=${location}`, { state: result.data });
+    try {
+      const res = await fetch(
+        `${BASE_URL}/tours/search/getTourBySearch?query=${query}`
+      );
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      const result = await res.json();
+      navigate(`/tours/search?query=${query}`, { state: result.data });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleKeyPress = (event) => {

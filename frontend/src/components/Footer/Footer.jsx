@@ -40,8 +40,13 @@ const Footer = () => {
               <img src={logo} alt="" />
             </div>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Quisquam, eligendi vel.
+            Join <b style={
+              {
+                color: "var(--primary-color)",
+              }
+            }>NATOURS</b> for thrilling nature tours that will ignite your sense of adventure!
+            Let's explore the great outdoors and make every moment count. Your epic
+            journey into nature starts now!
             </p>
             <div className="social__links d-flex align-items-center gap-4">
               <span>

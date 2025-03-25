@@ -110,6 +110,10 @@
     gap: 10px;
 }
 
+.updateBooking form div:nth-child(5) {
+    grid-column: 1 / -1; /* Span the full width of the grid */
+}
+
 .updateBooking form label {
     font-size: 0.7rem;
     text-transform: uppercase;
