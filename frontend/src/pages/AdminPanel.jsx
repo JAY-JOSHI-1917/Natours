@@ -10,6 +10,7 @@ const AdminPanel = () => {
   const [currentTour, setCurrentTour] = useState(null);
 
   const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/bookedtour`);
+  console.log(fetchedTours)
   const { data: fetchedUsers } = useFetch(`${BASE_URL}/users`);
   useEffect(() => {
     setTours(fetchedTours || []);
@@ -88,6 +89,9 @@ const AdminPanel = () => {
               <th>Title</th>
               <th>City</th>
               <th>Price</th>
+              <th>Address</th>
+              <th>Season</th>
+              <th>Featured</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -97,6 +101,9 @@ const AdminPanel = () => {
                 <td>{tour.title}</td>
                 <td>{tour.city}</td>
                 <td>₹{tour.price}</td>
+                <td>{tour.address}</td>
+                <td>{tour.season}</td>
+                <td>{tour.featured ? "True" : "False"}</td>
                 <td>
                   <Button color="warning" onClick={() => { setCurrentTour(tour); setShowTourModal(true); }}>Edit</Button>
                   <Button color="danger" onClick={() => handleDeleteTour(tour._id)}>Delete</Button>
@@ -117,6 +124,7 @@ const AdminPanel = () => {
               <th>Email</th>
               <th>contact</th>
               <th>Address</th>
+              <th>role</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -127,6 +135,7 @@ const AdminPanel = () => {
                 <td>{user.email}</td>
                 <td>{user.contact || <pre>    -    </pre>}</td>
                 <td>{user.address || <pre>    -    </pre>}</td>
+                <td>{user.role}</td>
                 <td>
                   <Button color="danger" onClick={() => handleDeleteUser(user._id)}>Delete</Button>
                 </td>
@@ -157,6 +166,10 @@ const AdminPanel = () => {
               <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
             </FormGroup>
             <FormGroup>
+              <label>Address</label>
+              <input type="string" name="Photo" defaultValue={currentTour?.address || ""} required />
+            </FormGroup>
+            <FormGroup>
               <label>Price</label>
               <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
             </FormGroup>
@@ -170,12 +183,12 @@ const AdminPanel = () => {
             </FormGroup>
             <FormGroup>
               <label>Season</label>
-                <select name="season" defaultValue={currentTour?.season || ""} required>
-                  <option value="">Select Season</option>
-                  <option value="summer">Summer</option>
-                  <option value="winter">Winter</option>
-                  <option value="monsoon">Monsoon</option>
-                </select>
+              <select name="season" defaultValue={currentTour?.season || ""} required>
+                <option value="">Select Season</option>
+                <option value="summer">Summer</option>
+                <option value="winter">Winter</option>
+                <option value="monsoon">Monsoon</option>
+              </select>
             </FormGroup>
             <FormGroup>
               <label>Featured</label>
