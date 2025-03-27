@@ -26,7 +26,7 @@ router.put('/upload-photo/:id', upload.single('image'), verifyUser, uploadPhoto)
 router.delete('/delete-photo/:userId', deletePhoto);
 
 //delete user
-router.delete("/:id", verifyUser, deleteUser);
+router.delete("/:id", deleteUser);
 
 //getSingle user
 router.get("/:id", verifyUser, getSingleUser);
