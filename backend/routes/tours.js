@@ -1,5 +1,5 @@
 import express from "express";
-import { createTour, deleteTour, getAllTour, getFeaturedTour, getSingleTour, getTourBySearch, getTourCount, getToursBySeason, updateTour } from "../controllers/tourController.js";
+import { createTour, deleteTour, getAllTour, getAllTourForUser, getFeaturedTour, getSingleTour, getTourBySearch, getTourCount, getToursBySeason, updateTour } from "../controllers/tourController.js";
 // import { verifyAdmin } from "../utils/verifyToken.js"
 
 const router = express.Router();
@@ -17,7 +17,8 @@ router.delete("/:id", deleteTour);
 router.get("/:id", getSingleTour);
 
 //getAll Tour
-router.get("/", getAllTour);
+router.get("/admin/bookedtour", getAllTour);
+router.get("/", getAllTourForUser);
 
 router.get("/search/getTourBySearch", getTourBySearch);
 router.get("/search/getFeaturedTours", getFeaturedTour);

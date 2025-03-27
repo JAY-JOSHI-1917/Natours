@@ -9,7 +9,7 @@ const AdminPanel = () => {
   const [showTourModal, setShowTourModal] = useState(false);
   const [currentTour, setCurrentTour] = useState(null);
 
-  const { data: fetchedTours } = useFetch(`${BASE_URL}/tours`);
+  const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/bookedtour`);
   const { data: fetchedUsers } = useFetch(`${BASE_URL}/users`);
 
   useEffect(() => {

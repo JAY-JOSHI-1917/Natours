@@ -76,7 +76,26 @@ export const getSingleTour = async (req, res) => {
   }
 };
 //getAll Tour
+
 export const getAllTour = async (req, res) => {
+  const page = parseInt(req.query.page);
+  try {
+    const tours = await Tour.find({});
+    res.status(200).json({
+      success: true,
+      count: tours.length,
+      message: "Successfully. ",
+      data: tours,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "Not Found ",
+    });
+  }
+};
+
+export const getAllTourForUser = async (req, res) => {
   const page = parseInt(req.query.page);
   try {
     const tours = await Tour.find({})
@@ -101,12 +120,12 @@ export const getAllTour = async (req, res) => {
 export const getTourBySearch = async (req, res) => {
 
   const query = req.query.query.toLowerCase();
-const tours = await Tour.find({
-  $or: [
-    { city: { $regex: query, $options: "i" } },
-    { title: { $regex: query, $options: "i" } },
-  ],
-});
+  const tours = await Tour.find({
+    $or: [
+      { city: { $regex: query, $options: "i" } },
+      { title: { $regex: query, $options: "i" } },
+    ],
+  });
   // const city = new RegExp(req.query.city, "i");
   //cause we are only finding the tour based on the Location name so we do not need this
   // const distance = parseInt(req.query.distance)
@@ -127,46 +146,6 @@ const tours = await Tour.find({
     });
   }
 };
-//getAll Tour
-
-// export const getTourBySearch = async (req, res) => {
-//   try {
-//     const { city, title, state } = req.query;
-
-//     // Prioritize only one search field
-//     let filter = {};
-//     if (city) filter.city = new RegExp(city, "i");
-//     else if (title) filter.title = new RegExp(title, "i");
-//     else if (state) filter.state = new RegExp(state, "i");
-//     else {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Please provide city, title, or state for searching.",
-//       });
-//     }
-
-//     const tours = await Tour.find(filter).populate("reviews");
-
-//     if (!tours.length) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "No matching tours found.",
-//       });
-//     }
-
-//     res.status(200).json({
-//       success: true,
-//       message: "Search successful.",
-//       data: tours,
-//     });
-//   } catch (error) {
-//     console.error("🔴 Search Error:", error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Server error. Please try again.",
-//     });
-//   }
-// };
 
 
 export const getFeaturedTour = async (req, res) => {
