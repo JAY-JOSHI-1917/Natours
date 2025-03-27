@@ -2,7 +2,7 @@ import express from "express";
 import {
   checkEmail,
   deletePhoto,
-  deleteUser, getSingleUser, updatePassword, updateUser, updateUserPassword, uploadPhoto,
+  deleteUser, getAllUser, getSingleUser, updatePassword, updateUser, updateUserPassword, uploadPhoto,
 } from "../controllers/userController.js";
 import upload from "../middleware/multerConfig.js";
 const router = express.Router();
@@ -30,6 +30,7 @@ router.delete("/:id", verifyUser, deleteUser);
 
 //getSingle user
 router.get("/:id", verifyUser, getSingleUser);
+router.get("/", getAllUser);
 
 
 

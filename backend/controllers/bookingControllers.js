@@ -125,3 +125,22 @@ export const getAllBooking = async (req, res) => {
         })
     }
 }
+
+export const deleteBooking = async (req, res) => {
+    try {
+        const { bookingId } = req.params;  // Renamed to bookingId (since it's an _id)
+
+        // Find and delete the booking by its _id
+        const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+
+        if (!deletedBooking) {
+            return res.status(404).json({ success: false, message: 'Booking not found.' });
+        }
+
+        res.status(200).json({ success: true, message: 'Booking deleted successfully!' });
+
+    } catch (error) {
+        console.error("Error deleting booking:", error);
+        res.status(500).json({ success: false, message: 'Failed to delete booking.' });
+    }
+};
