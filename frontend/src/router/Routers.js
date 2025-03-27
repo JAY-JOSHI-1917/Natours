@@ -15,6 +15,8 @@ import EditProfile from "../pages/EditProfile";
 import DisplayProfile from "../pages/DispProfile";
 import UpdateBooking from "../components/Booking/updateBooking";
 import ForgetPass from "../pages/forgetPass";
+import AdminPanel from "../pages/AdminPanel";
+
 
 const Routers = () => {
   return (
@@ -34,6 +36,7 @@ const Routers = () => {
       <Route path="/displayProfile" element={<DisplayProfile />} />
       <Route path="/updateBooking" element={<UpdateBooking />} />
       <Route path="/forgetPass" element={<ForgetPass />} />
+      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   );
 };

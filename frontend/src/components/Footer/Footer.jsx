@@ -36,9 +36,9 @@ const Footer = () => {
       <Container>
         <Row>
           <Col lg="3">
-            <div className="foot__logo">
+            <Link to={"/home"} className="foot__logo">
               <img src={logo} alt="" />
-            </div>
+            </Link>
             <p>
             Join <b style={
               {
