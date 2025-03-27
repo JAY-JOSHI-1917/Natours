@@ -119,8 +119,7 @@ const AdminPanel = () => {
 
       {/*Managed Booked Tours*/}
       <section>
-        <h2 style={{ backgroundColor: "lightcoral" }}>Manage Booked Tours</h2>
-        <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button>
+        <h2 style={{ backgroundColor: "lightcoral", marginBottom: "20px" }}>Manage Booked Tours</h2>
         <Table>
           <thead>
             <tr>
