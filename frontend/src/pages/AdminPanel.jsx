@@ -136,29 +136,62 @@ const AdminPanel = () => {
 
       {/* Add/Edit Tour Modal */}
       <Modal isOpen={showTourModal} toggle={() => setShowTourModal(false)}>
-        <Form onSubmit={handleAddOrUpdateTour}>
-          <div className="modal-header">
-            <h5>{currentTour ? "Edit Tour" : "Add Tour"}</h5>
-            <Button close onClick={() => setShowTourModal(false)} />
-          </div>
-          <div className="modal-body">
-            <FormGroup>
-              <label>Title</label>
-              <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>City</label>
-              <input type="text" name="city" defaultValue={currentTour?.city || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>Price</label>
-              <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
-            </FormGroup>
-          </div>
-          <div className="modal-footer">
-            <Button type="submit" color="primary">{currentTour ? "Update" : "Add"}</Button>
-          </div>
-        </Form>
+      <Form onSubmit={handleAddOrUpdateTour}>
+  <div className="modal-header">
+    <h5>{currentTour ? "Edit Tour" : "Add Tour"}</h5>
+    <Button close onClick={() => setShowTourModal(false)} />
+  </div>
+  <div className="modal-body">
+    <FormGroup>
+      <label>Title</label>
+      <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
+    </FormGroup>
+    <FormGroup>
+      <label>City</label>
+      <input type="text" name="city" defaultValue={currentTour?.city || ""} required />
+    </FormGroup>
+    <FormGroup>
+      <label>Address</label>
+      <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
+    </FormGroup>
+    <FormGroup>
+      <label>Distance</label>
+      <input type="number" name="distance" defaultValue={currentTour?.distance || ""} required />
+    </FormGroup>
+    <FormGroup>
+      <label>Photo</label>
+      <input type="file" name="photo" accept="image/*" required={!currentTour} />
+    </FormGroup>
+    <FormGroup>
+      <label>Description</label>
+      <textarea name="desc" defaultValue={currentTour?.desc || ""} required />
+    </FormGroup>
+    <FormGroup>
+      <label>Price</label>
+      <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
+    </FormGroup>
+    <FormGroup>
+      <label>Max Group Size</label>
+      <input type="number" name="maxGroupSize" defaultValue={currentTour?.maxGroupSize || ""} required />
+    </FormGroup>
+    <FormGroup>
+      <label>Season</label>
+      <select name="season" defaultValue={currentTour?.season || ""} required>
+        <option value="">Select Season</option>
+        <option value="summer">Summer</option>
+        <option value="winter">Winter</option>
+        <option value="monsoon">Monsoon</option>
+      </select>
+    </FormGroup>
+    <FormGroup>
+      <label>Featured</label>
+      <input type="checkbox" name="featured" defaultChecked={currentTour?.featured || false} />
+    </FormGroup>
+  </div>
+  <div className="modal-footer">
+    <Button type="submit" color="primary">{currentTour ? "Update" : "Add"}</Button>
+  </div>
+</Form>
       </Modal>
     </div>
   );
