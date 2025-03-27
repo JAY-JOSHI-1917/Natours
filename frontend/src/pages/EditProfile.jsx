@@ -31,7 +31,7 @@ const EditProfile = () => {
 
             const updateObj = { [field]: value };
             // console.log(updateObj);
-            const user_id = user._id;
+            const user_id = user.data._id;
             const res = await fetch(`${BASE_URL}/users/${user_id}`, {
                 method: "PUT",
                 headers: {
@@ -63,7 +63,7 @@ const EditProfile = () => {
 
             const updateObj = { [field]: value };
             // console.log(updateObj);
-            const user_id = user._id;
+            const user_id = user.data._id;
             const res = await fetch(`${BASE_URL}/users/${user_id}`, {
                 method: "PATCH",
                 headers: {
@@ -94,7 +94,7 @@ const EditProfile = () => {
         if (!uploadedPhoto) return;
 
         try {
-            const user_id = user._id;
+            const user_id = user.data._id;
             const formData = new FormData();
             formData.append("image", uploadedPhoto);
 
@@ -156,7 +156,7 @@ const EditProfile = () => {
 
     const handlePhotoDelete = async () => {
         try {
-            const user_id = user._id;
+            const user_id = user.data._id;
             const res = await fetch(`${BASE_URL}/users/delete-photo/${user_id}`, {
                 method: "DELETE",
                 credentials: "include"
@@ -188,7 +188,7 @@ const EditProfile = () => {
         if (!confirmed) return;
 
         try {
-            const user_id = user._id;
+            const user_id = user.data._id;
             const res = await fetch(`${BASE_URL}/users/${user_id}`, {
                 method: "DELETE",
                 credentials: "include"

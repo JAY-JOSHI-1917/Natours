@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./../pages/Home";
@@ -16,12 +16,41 @@ import DisplayProfile from "../pages/DispProfile";
 import UpdateBooking from "../components/Booking/updateBooking";
 import ForgetPass from "../pages/forgetPass";
 import AdminPanel from "../pages/AdminPanel";
+import { AuthContext } from "../context/AuthContext";
 
 
 const Routers = () => {
+  const { user } = useContext(AuthContext);
+  const resultRole = user?.role || "user";
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/home " />} />
+      {/* <Route path="/" element={<Navigate to="home" />} /> */}
+      {resultRole === "admin" ? (
+        <><Route path="/admin" element={<AdminPanel />} />
+          <Route path="*" element={<Navigate to="/admin" />} />
+        </>
+      ) : (
+        <>
+          <Route path="/" element={<Navigate to="/home " />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/tours" element={<Tours />} />
+          <Route path="/gallery" element={<MasonryImagesGallery />} />
+          <Route path="/tours/:id" element={<TourDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/tours/search" element={<SearchResultList />} />
+          <Route path="/seasons" element={<Seasons />} />
+          <Route path="/editProfile" element={<EditProfile />} />
+          <Route path="/displayProfile" element={<DisplayProfile />} />
+          <Route path="/updateBooking" element={<UpdateBooking />} />
+          <Route path="/forgetPass" element={<ForgetPass />} />
+          <Route path="/admin" element={<Navigate to="/home" />} /></>
+      )
+
+      }
+      {/* <Route path="/" element={<Navigate to="/home " />} />
       <Route path="/home" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/tours" element={<Tours />} />
@@ -36,7 +65,7 @@ const Routers = () => {
       <Route path="/displayProfile" element={<DisplayProfile />} />
       <Route path="/updateBooking" element={<UpdateBooking />} />
       <Route path="/forgetPass" element={<ForgetPass />} />
-      <Route path="/admin" element={<AdminPanel />} />
+      <Route path="/admin" element={<AdminPanel />} /> */}
     </Routes>
   );
 };

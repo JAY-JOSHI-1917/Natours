@@ -179,8 +179,7 @@ const Login = () => {
         alert(result.message);
         return;
       }
-
-      dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
+      dispatch({ type: "LOGIN_SUCCESS", payload: result });
       navigate("/");
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE", payload: err.message });
@@ -232,7 +231,7 @@ const Login = () => {
                   </FormGroup>
 
                   <FormGroup>
-                  <Link to="/forgetPass" className="forget-pass-btn">Forget Password ?</Link>
+                    <Link to="/forgetPass" className="forget-pass-btn">Forget Password ?</Link>
                   </FormGroup>
 
                   <Button className="btn secondary__btn auth__btn" type="submit">

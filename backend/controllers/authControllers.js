@@ -49,6 +49,7 @@ export const login = async (req, res) => {
             })
         }
         const { password, role, ...rest } = user._doc
+        // console.log(...rest)
         const token = jwt.sign({
             id: user._id,
             role: user.role

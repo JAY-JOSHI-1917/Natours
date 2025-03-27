@@ -354,18 +354,36 @@ export const getSingleUser = async (req, res) => {
 }
 //getAll User
 export const getAllUser = async (req, res) => {
-
     try {
-        const users = await User.find({});
+        // Fetch all users except those with role "admin"
+        const users = await User.find({ role: { $ne: "admin" } });
+
         res.status(200).json({
             success: true,
-            message: "Successfully. ",
+            message: "Users retrieved successfully.",
             data: users,
         });
     } catch (error) {
-        res.status(404).json({
+        res.status(500).json({
             success: false,
-            message: "Not Found ",
+            message: "Server Error: Unable to fetch users.",
         });
     }
-}
+};
+
+// export const getAllUser = async (req, res) => {
+
+//     try {
+//         const users = await User.find({});
+//         res.status(200).json({
+//             success: true,
+//             message: "Successfully. ",
+//             data: users,
+//         });
+//     } catch (error) {
+//         res.status(404).json({
+//             success: false,
+//             message: "Not Found ",
+//         });
+//     }
+// }

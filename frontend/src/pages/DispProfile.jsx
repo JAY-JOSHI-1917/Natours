@@ -10,11 +10,12 @@ import TourCard from '../shared/TourCard';
 
 const DisplayProfile = () => {
     const { user, dispatch } = useContext(AuthContext);
-    const [username, setUsername] = useState(user.username || '');
-    const [email, setEmail] = useState(user.email || '');
-    const [contact, setContact] = useState(user.contact || '');
-    const [address, setAddress] = useState(user.address || '');
-    const [photo, setPhoto] = useState(user.photo || '');
+    console.log(user.data._id)
+    const [username, setUsername] = useState(user.data.username || '');
+    const [email, setEmail] = useState(user.data.email || '');
+    const [contact, setContact] = useState(user.data.contact || '');
+    const [address, setAddress] = useState(user.data.address || '');
+    const [photo, setPhoto] = useState(user.data.photo || '');
 
     const [bookedTours, setBookedTours] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ const DisplayProfile = () => {
     useEffect(() => {
         const fetchBookedTours = async () => {
             try {
-                const userId = user._id;
+                const userId = user.data._id;
                 // console.log(user);
                 const res = await fetch(`${BASE_URL}/booking/${userId}`);
 
