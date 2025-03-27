@@ -166,10 +166,6 @@ const AdminPanel = () => {
               <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
             </FormGroup>
             <FormGroup>
-              <label>Address</label>
-              <input type="string" name="Photo" defaultValue={currentTour?.address || ""} required />
-            </FormGroup>
-            <FormGroup>
               <label>Price</label>
               <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
             </FormGroup>
