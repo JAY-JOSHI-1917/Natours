@@ -125,8 +125,8 @@ const AdminPanel = () => {
               <tr key={user._id}>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>{user.contact || <pre>-</pre>}</td>
-                <td>{user.address || <pre>-</pre>}</td>
+                <td>{user.contact || <pre>    -    </pre>}</td>
+                <td>{user.address || <pre>    -    </pre>}</td>
                 <td>
                   <Button color="danger" onClick={() => handleDeleteUser(user._id)}>Delete</Button>
                 </td>
@@ -153,8 +153,33 @@ const AdminPanel = () => {
               <input type="text" name="city" defaultValue={currentTour?.city || ""} required />
             </FormGroup>
             <FormGroup>
+              <label>Address</label>
+              <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
+            </FormGroup>
+            <FormGroup>
               <label>Price</label>
               <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>Description</label>
+              <textarea name="desc" defaultValue={currentTour?.desc || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>Max Group Size</label>
+              <input type="number" name="maxGroupSize" defaultValue={currentTour?.maxGroupSize || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>Season</label>
+                <select name="season" defaultValue={currentTour?.season || ""} required>
+                  <option value="">Select Season</option>
+                  <option value="summer">Summer</option>
+                  <option value="winter">Winter</option>
+                  <option value="monsoon">Monsoon</option>
+                </select>
+            </FormGroup>
+            <FormGroup>
+              <label>Featured</label>
+              <input type="checkbox" name="featured" defaultChecked={currentTour?.featured || false} />
             </FormGroup>
           </div>
           <div className="modal-footer">
