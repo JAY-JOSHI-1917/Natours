@@ -4,39 +4,21 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
 import userIcon from "../../assets/images/user.png";
 import "./header.css";
-import SearchBar from "./../../shared/SearchBar.jsx";
-// import DisplayProfile from "../../pages/DispProfile.jsx";~
-
 import { AuthContext } from "./../../context/AuthContext.js";
-// import Profile from "../../pages/Profile.jsx";
 
 const nav__links = [
-  {
-    path: "/home",
-    display: "Home",
-  },
-  {
-    path: "/about",
-    display: "About",
-  },
-  {
-    path: "/tours",
-    display: "Tours",
-  },
-  {
-    path: "/seasons",
-    display: "Seasons",
-  },
-  {
-    path: "/gallery",
-    display: "Gallery",
-  },
+  { path: "/home", display: "Home" },
+  { path: "/about", display: "About" },
+  { path: "/tours", display: "Tours" },
+  { path: "/seasons", display: "Seasons" },
+  { path: "/gallery", display: "Gallery" },
 ];
 
 const Header = () => {
   const headerRef = useRef(null);
   const navigate = useNavigate();
   const { user, dispatch } = useContext(AuthContext);
+
   const logout = () => {
     dispatch({ type: "LOGOUT" });
     navigate("/");
@@ -57,47 +39,46 @@ const Header = () => {
 
   useEffect(() => {
     stickyHeaderFunc();
-
-    return window.removeEventListener("scroll", stickyHeaderFunc);
+    return () => window.removeEventListener("scroll", stickyHeaderFunc);
   });
+
+  const isAdmin = user?.role === "admin"; // Check if the user is an admin
 
   return (
     <header className="header" ref={headerRef}>
       <Container>
         <Row>
           <div className="nav__wrapper d-flex align-items-center justify-content-between">
-            {/* ======== Logo ======== */}
+            {/* Logo */}
             <Link to={"/home"} className="logo">
-              <img src={logo} alt="" />
+              <img src={logo} alt="Logo" />
             </Link>
-            {/* ======== Logo ======== */}
 
-            {/* ======== Menu ======== */}
-            <div className="navigation">
-              <ul className="menu d-flex align-items-center gap-5">
-                <SearchBar />
-                {nav__links.map((item, index) => (
-                  <li className="nav__item" key={index}>
-                    <NavLink
-                      to={item.path}
-                      className={(navClass) =>
-                        navClass.isActive ? "active__link" : ""
-                      }
-                    >
-                      {item.display}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* ======== Menu END======== */}
+            {/* Navigation Links */}
+            {!isAdmin && (
+              <div className="navigation">
+                <ul className="menu d-flex align-items-center gap-5">
+                  {nav__links.map((item, index) => (
+                    <li className="nav__item" key={index}>
+                      <NavLink
+                        to={item.path}
+                        className={(navClass) =>
+                          navClass.isActive ? "active__link" : ""
+                        }
+                      >
+                        {item.display}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
+            {/* Profile and Logout */}
             <div className="nav__right d-flex align-items-center gap-4">
               <div className="nav__btns d-flex align-items-center gap-4">
                 {user ? (
                   <>
-                    {/* <h5 className="mb-0">{user.username}</h5> */}
-                    {/* Profile Image with Link */}
                     <Link to="/displayProfile">
                       <img
                         src={user.photo || userIcon}
@@ -124,7 +105,6 @@ const Header = () => {
                 <i className="ri-menu-line"></i>
               </span>
             </div>
-
           </div>
         </Row>
       </Container>
