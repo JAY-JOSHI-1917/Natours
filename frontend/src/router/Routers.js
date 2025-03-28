@@ -27,6 +27,8 @@ const Routers = () => {
       {/* <Route path="/" element={<Navigate to="home" />} /> */}
       {resultRole === "admin" ? (
         <><Route path="/admin" element={<AdminPanel />} />
+            <Route path="/displayProfile" element={<DisplayProfile />} />
+            <Route path="/editProfile" element={<EditProfile />} />
           <Route path="*" element={<Navigate to="/admin" />} />
         </>
       ) : (
