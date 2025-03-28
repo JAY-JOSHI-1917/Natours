@@ -5,6 +5,7 @@ import logo from "../../assets/images/Logo.png";
 import userIcon from "../../assets/images/user.png";
 import "./header.css";
 import { AuthContext } from "./../../context/AuthContext.js";
+import SearchBar from "../../shared/SearchBar.jsx";
 
 const nav__links = [
   { path: "/home", display: "Home" },
@@ -58,6 +59,7 @@ const Header = () => {
             {!isAdmin && (
               <div className="navigation">
                 <ul className="menu d-flex align-items-center gap-5">
+                  <SearchBar/>
                   {nav__links.map((item, index) => (
                     <li className="nav__item" key={index}>
                       <NavLink

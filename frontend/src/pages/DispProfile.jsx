@@ -11,6 +11,9 @@ import TourCard from '../shared/TourCard';
 const DisplayProfile = () => {
     const { user, dispatch } = useContext(AuthContext);
     console.log(user.data._id)
+
+    const isAdmin = user?.role === "admin";
+
     const [username, setUsername] = useState(user.data.username || '');
     const [email, setEmail] = useState(user.data.email || '');
     const [contact, setContact] = useState(user.data.contact || '');
@@ -91,7 +94,8 @@ const DisplayProfile = () => {
                 </Link>
             </section>
 
-            <section className='booked-tours'>
+            {!isAdmin && ( 
+                <section className='booked-tours'>
                 <h1>Booked Tours</h1>
                 {loading && <p>Loading booked tours...</p>}
                 {error && <p>Error: {error}</p>}
@@ -106,6 +110,7 @@ const DisplayProfile = () => {
                     !loading && <p>No booked tours found.</p>
                 )}
             </section>
+            )}
         </div>
     );
 };

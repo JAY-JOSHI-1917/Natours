@@ -78,6 +78,19 @@ const AdminPanel = () => {
     }
   };
 
+  const [photoBase64, setPhotoBase64] = useState("");
+
+const handlePhotoUpload = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPhotoBase64(reader.result); // Base64 encoded string
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
   return (
     <div className="admin-panel">
       <h1>Admin Panel</h1>
@@ -190,6 +203,10 @@ const AdminPanel = () => {
             <Button close onClick={() => setShowTourModal(false)} />
           </div>
           <div className="modal-body">
+            <FormGroup>
+              <label>Photo</label>
+              <input type="file" name="photo" accept="image/*" onChange={(e) => handlePhotoUpload(e)} />
+            </FormGroup>
             <FormGroup>
               <label>Title</label>
               <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
