@@ -10,7 +10,7 @@ const AdminPanel = () => {
   const [showTourModal, setShowTourModal] = useState(false);
   const [currentTour, setCurrentTour] = useState(null);
 
-  const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/bookedtour`);
+  const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/tour`);
   const { data: fetchedBookedTour } = useFetch(`${BASE_URL}/booking/`);
   console.log(fetchedBookedTour)
   const { data: fetchedUsers } = useFetch(`${BASE_URL}/users`);
@@ -101,6 +101,7 @@ const AdminPanel = () => {
           <tbody>
             {tours.map((tour) => (
               <tr key={tour._id}>
+                <td><img style={{ width: "200px" ,borderRadius:"5px"}} src={tour.photo} alt="" /></td>
                 <td>{tour.title}</td>
                 <td>{tour.city}</td>
                 <td>₹{tour.price}</td>
