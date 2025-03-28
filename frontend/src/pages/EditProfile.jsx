@@ -92,12 +92,12 @@ const EditProfile = () => {
     const handlePhotoChange = async (event) => {
         const uploadedPhoto = event.target.files[0];
         if (!uploadedPhoto) return;
+        console.log(uploadedPhoto)
 
         try {
             const user_id = user.data._id;
             const formData = new FormData();
             formData.append("image", uploadedPhoto);
-
             const res = await fetch(`${BASE_URL}/users/upload-photo/${user_id}`, {
                 method: "PUT",
                 credentials: "include",

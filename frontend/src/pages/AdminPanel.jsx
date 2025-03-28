@@ -7,7 +7,8 @@ const AdminPanel = () => {
   const [tours, setTours] = useState([]);
   const [users, setUsers] = useState([]);
   const [bookedTour, setBookedTours] = useState([]);
-  const [showTourModal, setShowTourModal] = useState(false);
+  const [showAddTourModal, setShowAddTourModal] = useState(false);
+  const [showUpdateTourModal, setShowUpdateTourModal] = useState(false);
   const [currentTour, setCurrentTour] = useState(null);
 
   const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/tour`);
@@ -55,41 +56,158 @@ const AdminPanel = () => {
     }
   };
 
-  const handleAddOrUpdateTour = async (e) => {
+  //handle add Tour
+  // const [photoBase64, setPhotoBase64] = useState("");
+
+  // const handlePhotoUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPhotoBase64(reader.result);
+  //       console.log(reader.result)// Base64 encoded string
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+
+  const handleAddTour = async (e) => {
     e.preventDefault();
+    // const tourData = Object.fromEntries(formData.entries());
+    // tourData.photo = photofile;
+    // console.log(tourData.pho)
+    // console.log(photofile)
+    // console.log("tour data  ::", tourData)
+    // const tourData = Object.fromEntries(formData.entries());
+    // const photoBase64 = e.target.photo.files[0];
+    // formData.append('photo', photoBase64);
+    // console.log(photoBase64)
+    // console.log("This is tourData:: ", tourData)
+    try {
+      const formData = new FormData(e.target);
+      formData.append("featured", e.target.featured.checked);
+      // console.log(formData)
+      const res = await fetch(`${BASE_URL}/tours`, {
+        method: "POST",
+        // headers: { "Content-Type": "multipart/form-data" },
+        body: formData,
+        // credentials: "include",
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        setTours([...tours, result.data]);
+        setShowAddTourModal(false);
+        alert("Tour added successfully!");
+      }
+    } catch (err) {
+      alert("Failed to add tour.");
+    }
+  };
+
+
+  // const handleAddTour = async (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.target);
+  //   const tourData = Object.fromEntries(formData.entries());
+
+  //   try {
+  //     const res = await fetch(`${BASE_URL}/tours`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(tourData),
+  //       credentials: "include",
+  //     });
+
+  //     const result = await res.json();
+  //     if (res.ok) {
+  //       setTours([...tours, result.data]); // Append new tour
+  //       setShowTourModal(false);
+  //       alert("Tour added successfully!");
+  //     }
+  //   } catch (err) {
+  //     alert("Failed to add tour.");
+  //   }
+  // };
+
+  /////////handle update tour
+
+  const handleUpdateTour = async (e) => {
+    e.preventDefault();
+    if (!currentTour) return;
+
     const formData = new FormData(e.target);
     const tourData = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch(`${BASE_URL}/tours/${currentTour ? currentTour._id : ""}`, {
-        method: currentTour ? "PUT" : "POST",
+      const res = await fetch(`${BASE_URL}/tours/${currentTour._id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(tourData),
         credentials: "include",
       });
+
       const result = await res.json();
       if (res.ok) {
-        setTours(currentTour ? tours.map((t) => (t._id === result.data._id ? result.data : t)) : [...tours, result.data]);
-        setShowTourModal(false);
-        alert(`Tour ${currentTour ? "updated" : "added"} successfully!`);
+        setTours(tours.map((t) => (t._id === result.data._id ? result.data : t)));
+        setShowUpdateTourModal(false);
+        alert("Tour updated successfully!");
       }
     } catch (err) {
-      alert("Failed to save tour.");
+      alert("Failed to update tour.");
     }
   };
 
-  const [photoBase64, setPhotoBase64] = useState("");
+  // const handleUpdateTour = async (e) => {
+  //   e.preventDefault();
+  //   if (!currentTour) return; // Ensure we have a tour to update
 
-const handlePhotoUpload = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPhotoBase64(reader.result); // Base64 encoded string
-    };
-    reader.readAsDataURL(file);
-  }
-};
+  //   const formData = new FormData(e.target);
+  //   const tourData = Object.fromEntries(formData.entries());
+
+  //   try {
+  //     const res = await fetch(`${BASE_URL}/tours/${currentTour._id}`, {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(tourData),
+  //       credentials: "include",
+  //     });
+
+  //     const result = await res.json();
+  //     if (res.ok) {
+  //       setTours(tours.map((t) => (t._id === result.data._id ? result.data : t))); // Update specific tour
+  //       setShowTourModal(false);
+  //       alert("Tour updated successfully!");
+  //     }
+  //   } catch (err) {
+  //     alert("Failed to update tour.");
+  //   }
+  // };
+
+
+  // const handleAddOrUpdateTour = async (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.target);
+  //   const tourData = Object.fromEntries(formData.entries());
+
+  //   try {
+  //     const res = await fetch(`${BASE_URL}/tours/${currentTour ? currentTour._id : ""}`, {
+  //       method: currentTour ? "PUT" : "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(tourData),
+  //       credentials: "include",
+  //     });
+  //     const result = await res.json();
+  //     if (res.ok) {
+  //       setTours(currentTour ? tours.map((t) => (t._id === result.data._id ? result.data : t)) : [...tours, result.data]);
+  //       setShowTourModal(false);
+  //       alert(`Tour ${currentTour ? "updated" : "added"} successfully!`);
+  //     }
+  //   } catch (err) {
+  //     alert("Failed to save tour.");
+  //   }
+  // };
 
   return (
     <div className="admin-panel">
@@ -98,12 +216,14 @@ const handlePhotoUpload = (e) => {
       {/* Tours Section */}
       <section>
         <h2 style={{ backgroundColor: "lightcoral" }}>Manage Tours</h2>
-        <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button>
+        <Button color="primary" onClick={() => setShowAddTourModal(true)}>Add Tour</Button>
+        {/* <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button> */}
         <Table>
           <thead>
             <tr>
               <th>Title</th>
               <th>City</th>
+              <th>Address</th>
               <th>Price</th>
               <th>Address</th>
               <th>Season</th>
@@ -114,7 +234,7 @@ const handlePhotoUpload = (e) => {
           <tbody>
             {tours.map((tour) => (
               <tr key={tour._id}>
-                <td><img style={{ width: "200px" ,borderRadius:"5px"}} src={tour.photo} alt="" /></td>
+                <td><img style={{ width: "200px", borderRadius: "5px" }} src={tour.photo} alt="" /></td>
                 <td>{tour.title}</td>
                 <td>{tour.city}</td>
                 <td>₹{tour.price}</td>
@@ -122,7 +242,7 @@ const handlePhotoUpload = (e) => {
                 <td>{tour.season}</td>
                 <td>{tour.featured ? "True" : "False"}</td>
                 <td>
-                  <Button color="warning" onClick={() => { setCurrentTour(tour); setShowTourModal(true); }}>Edit</Button>
+                  <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}>Edit</Button>
                   <Button color="danger" onClick={() => handleDeleteTour(tour._id)}>Delete</Button>
                 </td>
               </tr>
@@ -196,8 +316,93 @@ const handlePhotoUpload = (e) => {
       </section>
 
       {/* Add/Edit Tour Modal */}
-      <Modal isOpen={showTourModal} toggle={() => setShowTourModal(false)}>
-        <Form onSubmit={handleAddOrUpdateTour}>
+      {/*Add tour */}
+      <Modal isOpen={showAddTourModal} toggle={() => setShowAddTourModal(false)}>
+        <Form onSubmit={handleAddTour}>
+          <div className="modal-header">
+            <h5>Add Tour</h5>
+            <Button close onClick={() => setShowAddTourModal(false)} />
+          </div>
+          <div className="modal-body">
+            <FormGroup>
+              <label>Photo</label>
+              <input type="file" name="photo" accept="image/*" />
+            </FormGroup>
+            <FormGroup>
+              <label>Title</label>
+              <input type="text" name="title" required />
+            </FormGroup>
+            <FormGroup>
+              <label>City</label>
+              <input type="text" name="city" required />
+            </FormGroup>
+            <FormGroup>
+              <label>Address</label>
+              <input type="text" name="address" required />
+            </FormGroup>
+            <FormGroup>
+              <label>Price</label>
+              <input type="number" name="price" required />
+            </FormGroup>
+            <FormGroup>
+              <label>Description</label>
+              <textarea name="desc" required />
+            </FormGroup>
+            <FormGroup>
+              <label>Max Group Size</label>
+              <input type="number" name="maxGroupSize" required />
+            </FormGroup>
+            <FormGroup>
+              <label>Season</label>
+              <select name="season" required>
+                <option value="">Select Season</option>
+                <option value="summer">Summer</option>
+                <option value="winter">Winter</option>
+                <option value="monsoon">Monsoon</option>
+              </select>
+            </FormGroup>
+            <FormGroup>
+              <label>Featured</label>
+              <input type="checkbox" name="featured" />
+            </FormGroup>
+          </div>
+          <div className="modal-footer">
+            <Button type="submit" color="primary">Add</Button>
+          </div>
+        </Form>
+      </Modal>
+
+      {/*Update tour*/}
+      <Modal isOpen={showUpdateTourModal} toggle={() => setShowUpdateTourModal(false)}>
+        <Form onSubmit={handleUpdateTour}>
+          <div className="modal-header">
+            <h5>Update Tour</h5>
+            <Button close onClick={() => setShowUpdateTourModal(false)} />
+          </div>
+          <div className="modal-body">
+            <FormGroup>
+              <label>Title</label>
+              <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>City</label>
+              <input type="text" name="city" defaultValue={currentTour?.city || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>Address</label>
+              <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>Price</label>
+              <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
+            </FormGroup>
+          </div>
+          <div className="modal-footer">
+            <Button type="submit" color="primary">Update</Button>
+          </div>
+        </Form>
+      </Modal>
+      {/* <Form onSubmit={handleAddOrUpdateTour}>
           <div className="modal-header">
             <h5>{currentTour ? "Edit Tour" : "Add Tour"}</h5>
             <Button close onClick={() => setShowTourModal(false)} />
@@ -248,9 +453,9 @@ const handlePhotoUpload = (e) => {
           <div className="modal-footer">
             <Button type="submit" color="primary">{currentTour ? "Update" : "Add"}</Button>
           </div>
-        </Form>
-      </Modal>
-    </div>
+        </Form> */}
+      {/* </Modal> */}
+    </div >
   );
 };
 
