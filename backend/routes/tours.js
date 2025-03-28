@@ -17,7 +17,7 @@ router.delete("/:id", deleteTour);
 router.get("/:id", getSingleTour);
 
 //getAll Tour
-router.get("/admin/bookedtour", getAllTour);
+router.get("/admin/tour", getAllTour);
 router.get("/", getAllTourForUser);
 
 router.get("/search/getTourBySearch", getTourBySearch);

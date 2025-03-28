@@ -6,14 +6,18 @@ import useFetch from "../hooks/useFetch";
 const AdminPanel = () => {
   const [tours, setTours] = useState([]);
   const [users, setUsers] = useState([]);
+  const [bookedTour, setBookedTours] = useState([]);
   const [showTourModal, setShowTourModal] = useState(false);
   const [currentTour, setCurrentTour] = useState(null);
 
-  const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/bookedtour`);
+  const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/tour`);
+  const { data: fetchedBookedTour } = useFetch(`${BASE_URL}/booking/`);
+  console.log(fetchedBookedTour)
   const { data: fetchedUsers } = useFetch(`${BASE_URL}/users`);
   useEffect(() => {
     setTours(fetchedTours || []);
     setUsers(fetchedUsers || []);
+    setBookedTours(fetchedBookedTour || []);
   }, [fetchedTours, fetchedUsers]);
 
   const handleDeleteTour = async (id) => {
@@ -80,7 +84,7 @@ const AdminPanel = () => {
 
       {/* Tours Section */}
       <section>
-        <h2>Manage Tours</h2>
+        <h2 style={{ backgroundColor: "lightcoral" }}>Manage Tours</h2>
         <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button>
         <Table>
           <thead>
@@ -88,15 +92,22 @@ const AdminPanel = () => {
               <th>Title</th>
               <th>City</th>
               <th>Price</th>
+              <th>Address</th>
+              <th>Season</th>
+              <th>Featured</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {tours.map((tour) => (
               <tr key={tour._id}>
+                <td><img style={{ width: "200px" ,borderRadius:"5px"}} src={tour.photo} alt="" /></td>
                 <td>{tour.title}</td>
                 <td>{tour.city}</td>
                 <td>₹{tour.price}</td>
+                <td>{tour.address}</td>
+                <td>{tour.season}</td>
+                <td>{tour.featured ? "True" : "False"}</td>
                 <td>
                   <Button color="warning" onClick={() => { setCurrentTour(tour); setShowTourModal(true); }}>Edit</Button>
                   <Button color="danger" onClick={() => handleDeleteTour(tour._id)}>Delete</Button>
@@ -107,9 +118,42 @@ const AdminPanel = () => {
         </Table>
       </section>
 
+      {/*Managed Booked Tours*/}
+      <section>
+        <h2 style={{ backgroundColor: "lightcoral", marginBottom: "20px" }}>Manage Booked Tours</h2>
+        <Table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>User FullName</th>
+              <th>User Email</th>
+              <th>Guest Size</th>
+              <th>Contact</th>
+              <th>Payment Mode</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookedTour.map((bookedtour) => (
+              <tr key={bookedtour._id}>
+                <td>{bookedtour.tourName}</td>
+                <td>{bookedtour.fullName}</td>
+                <td>{bookedtour.userEmail}</td>
+                <td>{bookedtour.guestSize}</td>
+                <td>{bookedtour.phone}</td>
+                <td>{bookedtour.paymentMode}</td>
+                <td>
+                  {/* <Button color="warning" onClick={() => { setCurrentTour(bookedtour); setShowTourModal(true); }}>Edit</Button> */}
+                  <Button color="danger" onClick={() => handleDeleteTour(bookedtour._id)}>Delete</Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </section>
       {/* Users Section */}
       <section>
-        <h2>Manage Users</h2>
+        <h2 style={{ backgroundColor: "lightcoral" }}>Manage Users</h2>
         <Table>
           <thead>
             <tr>
@@ -117,6 +161,7 @@ const AdminPanel = () => {
               <th>Email</th>
               <th>contact</th>
               <th>Address</th>
+              <th>role</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -127,6 +172,7 @@ const AdminPanel = () => {
                 <td>{user.email}</td>
                 <td>{user.contact || <pre>    -    </pre>}</td>
                 <td>{user.address || <pre>    -    </pre>}</td>
+                <td>{user.role}</td>
                 <td>
                   <Button color="danger" onClick={() => handleDeleteUser(user._id)}>Delete</Button>
                 </td>
@@ -170,12 +216,12 @@ const AdminPanel = () => {
             </FormGroup>
             <FormGroup>
               <label>Season</label>
-                <select name="season" defaultValue={currentTour?.season || ""} required>
-                  <option value="">Select Season</option>
-                  <option value="summer">Summer</option>
-                  <option value="winter">Winter</option>
-                  <option value="monsoon">Monsoon</option>
-                </select>
+              <select name="season" defaultValue={currentTour?.season || ""} required>
+                <option value="">Select Season</option>
+                <option value="summer">Summer</option>
+                <option value="winter">Winter</option>
+                <option value="monsoon">Monsoon</option>
+              </select>
             </FormGroup>
             <FormGroup>
               <label>Featured</label>
