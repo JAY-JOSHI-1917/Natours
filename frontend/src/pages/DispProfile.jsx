@@ -68,6 +68,9 @@ const DisplayProfile = () => {
 
     return (
         <div className='Profile-Container'>
+            <button className='back-btn' onClick={() => window.history.back()}><i class="ri-arrow-left-s-fill"></i>
+                    <b>Go Back</b>
+                </button>
             <section className='Profile'>
                 <div>
                     <h1>Your Profile</h1>
