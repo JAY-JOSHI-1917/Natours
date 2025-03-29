@@ -1,23 +1,87 @@
 import Tour from "../models/Tour.js";
-
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../Cloudinary/cloudinary.js";
 // create new tour
-export const createTour = async (req, res) => {
-  const newTour = new Tour(req.body);
 
+export const createTour = async (req, res) => {
+  const photo = req.file;
+  console.log(photo);
   try {
+    if (!photo) {
+      return res.status(400).json({ error: "Image file is required" });
+    }
+
+    const fileUri = getDataUri(photo);
+    const result = await cloudinary.uploader.upload(fileUri.content);
+    const newTour = new Tour({
+      ...req.body,
+      photo: result.secure_url,
+    });
     const savedTour = await newTour.save();
 
     res.status(200).json({
       success: true,
-      message: "Successfully created",
+      message: "Tour successfully created",
       data: savedTour,
     });
   } catch (err) {
+    console.error("Error creating tour:", err);
     res
       .status(500)
-      .json({ success: false, message: "Failed to Create. Try Again" });
+      .json({ success: false, message: "Failed to create. Try again." });
   }
 };
+
+// export const createTour = async (req, res) => {
+//   const imagefile = req.body;
+//   console.log(imagefile); // Assuming the image file is sent in the request
+//   if (!imagefile) {
+//     return res.status(400).json({ error: "Image is required" });
+//   }
+
+//   const fileUri = getDataUri(imagefile);
+//   try {
+//     // Upload image to Cloudinary
+//     const result = await cloudinary.uploader.upload(fileUri.content);
+
+//     // Create a new tour with the uploaded image URL
+//     const newTour = new Tour({
+//       ...req.body,
+//       image: result.secure_url, // Assuming you have an 'image' field in your Tour model
+//     });
+
+//     const savedTour = await newTour.save();
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Successfully created",
+//       data: savedTour,
+//     });
+//   } catch (err) {
+//     console.error("Error creating tour:", err);
+//     res
+//       .status(500)
+//       .json({ success: false, message: "Failed to Create. Try Again" });
+//   }
+// };
+
+// export const createTour = async (req, res) => {
+//   const newTour = new Tour(req.body);
+
+//   try {
+//     const savedTour = await newTour.save();
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Successfully created",
+//       data: savedTour,
+//     });
+//   } catch (err) {
+//     res
+//       .status(500)
+//       .json({ success: false, message: "Failed to Create. Try Again" });
+//   }
+// };
 
 //update Tour
 export const updateTour = async (req, res) => {
@@ -118,7 +182,6 @@ export const getAllTourForUser = async (req, res) => {
 
 // get tour by search
 export const getTourBySearch = async (req, res) => {
-
   const query = req.query.query.toLowerCase();
   const tours = await Tour.find({
     $or: [
@@ -146,13 +209,12 @@ export const getTourBySearch = async (req, res) => {
     });
   }
 };
-
-
 export const getFeaturedTour = async (req, res) => {
   const page = parseInt(req.query.page);
   try {
     const tours = await Tour.find({ featured: true })
-      .populate("reviews").limit(4);
+      .populate("reviews")
+      .limit(4);
     res.status(200).json({
       success: true,
       message: "Successfully. ",
@@ -194,7 +256,6 @@ export const getToursBySeason = async (req, res) => {
   }
 };
 
-
 export const getTourCount = async (req, res) => {
   try {
     const tourCount = await Tour.estimatedDocumentCount();
@@ -207,5 +268,4 @@ export const getTourCount = async (req, res) => {
   }
 };
 
-
-//Seasonal Tour 
+//Seasonal Tour

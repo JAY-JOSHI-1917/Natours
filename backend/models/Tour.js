@@ -15,13 +15,13 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    distance: {
-      type: Number,
-      required: true,
-    },
+    // distance: {
+    //   type: Number,
+    //   required: true,
+    // },
     photo: {
       type: String,
-      required: true,
+      required: false,
     },
     desc: {
       type: String,
@@ -37,7 +37,7 @@ const tourSchema = new mongoose.Schema(
     },
     seasons: {
       type: String,
-      required: true,
+      // required: true,
     },
     reviews: [
       {
