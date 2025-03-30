@@ -248,11 +248,11 @@ const AdminPanel = () => {
           <Table>
             <thead>
               <tr>
+                <th>Image Of Tour</th>
                 <th>Title</th>
                 <th>City</th>
                 <th>Address</th>
                 <th>Price</th>
-                <th>Address</th>
                 <th>Season</th>
                 <th>Featured</th>
                 <th>Actions</th>
@@ -266,7 +266,6 @@ const AdminPanel = () => {
                   <td>{tour.city}</td>
                   <td>{tour.address}</td>
                   <td>₹{tour.price}</td>
-                <td>{tour.address}</td>
                   <td>{tour.season}</td>
                   <td>{tour.featured ? "True" : "False"}</td>
                   <td>
