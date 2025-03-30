@@ -20,7 +20,7 @@ const TourCard = ({ tour, isBookedTour }) => {
   const handleCancelTour = async (tourId) => {
     try {
       const bookedTourId = tourId.tourId;
-      const response = await fetch(`${BASE_URL}/booking/cancel/${user._id}/${bookedTourId}`, {
+      const response = await fetch(`${BASE_URL}/booking/cancel/${user.data._id}/${bookedTourId}`, {
         method: "DELETE",
         credentials: "include"
       });

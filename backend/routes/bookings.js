@@ -11,7 +11,7 @@ router.get('/getBooking/:id', getBookingByTourId);
 // // Update specific booking for a user and tour
 router.put('/updateBooking/:userId/:tourId', updateBookingByTourId);
 router.delete('/cancel/:userId/:tourId', cancelBooking);
-router.delete("/delete/:bookingId", deleteBooking);
+router.delete("/deleteBookedtour/:bookingId", deleteBooking);
 router.get('/', getAllBooking);
 
 export default router

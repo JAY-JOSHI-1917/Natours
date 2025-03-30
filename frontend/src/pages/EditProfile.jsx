@@ -9,12 +9,12 @@ import { BASE_URL } from '../utils/config';
 
 const EditProfile = () => {
     const { user, dispatch } = useContext(AuthContext);
-    const [username, setUsername] = useState(user.username || '');
-    const [email, setEmail] = useState(user.email || '');
-    const [contact, setContact] = useState(user.contact || '');
-    const [password, setPassword] = useState(user.password || '');
-    const [address, setAddress] = useState(user.address || '');
-    const [photo, setPhoto] = useState(user.photo || '');
+    const [username, setUsername] = useState(user.data.username || '');
+    const [email, setEmail] = useState(user.data.email || '');
+    const [contact, setContact] = useState(user.data.contact || '');
+    const [password, setPassword] = useState(user.data.password || '');
+    const [address, setAddress] = useState(user.data.address || '');
+    const [photo, setPhoto] = useState(user.data.photo || '');
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -45,10 +45,15 @@ const EditProfile = () => {
             if (!res.ok) alert(result.message);
 
             alert(`${field} updated successfully!`);
-
             dispatch({
                 type: "UPDATE_USER",
-                payload: { ...user, [field]: value }, // Merge old user data with new field
+                payload: {
+                    ...user,
+                    data: {
+                        ...user.data,  // Preserve existing fields
+                        [field]: value // Update only the required field
+                    }
+                }, // Merge old user data with new field
             });
         } catch (err) {
             alert(`Failed to update ${field}: ${err.message}`);
@@ -227,7 +232,7 @@ const EditProfile = () => {
                     <div className="Photo-box">
                         {photo ? (
                             <img
-                                src={user.photo}
+                                src={user.data.photo}
                                 alt="Profile"
                                 className="Photo"
                             />

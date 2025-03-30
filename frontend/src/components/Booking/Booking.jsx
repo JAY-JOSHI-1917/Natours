@@ -64,9 +64,14 @@ const Booking = ({ tour, avgRating }) => {
     }
 
     try {
-      const user_id = user._id;
+      const user_id = user.data._id;
+      const user_email = user.data.email;
 
-      console.log(user)
+      // console.log(user_id)
+      // console.log(user_email)
+      booking.userId = user_id;
+      booking.userEmail = user_email;
+      // console.log("After addign userid and email", booking)
       const res = await fetch(`${BASE_URL}/booking`, {
         method: "PUT",
         headers: { "content-type": "application/json" },

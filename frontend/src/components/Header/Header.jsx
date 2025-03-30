@@ -59,7 +59,7 @@ const Header = () => {
             {!isAdmin && (
               <div className="navigation">
                 <ul className="menu d-flex align-items-center gap-5">
-                  <SearchBar/>
+                  <SearchBar />
                   {nav__links.map((item, index) => (
                     <li className="nav__item" key={index}>
                       <NavLink
@@ -83,7 +83,7 @@ const Header = () => {
                   <>
                     <Link to="/displayProfile">
                       <img
-                        src={user.photo || userIcon}
+                        src={user.data.photo || userIcon}
                         alt="Profile"
                         className="profile__image"
                       />

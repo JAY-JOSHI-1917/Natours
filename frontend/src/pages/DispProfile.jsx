@@ -10,7 +10,7 @@ import TourCard from '../shared/TourCard';
 
 const DisplayProfile = () => {
     const { user, dispatch } = useContext(AuthContext);
-    console.log(user.data._id)
+    // console.log(user.data.photo)
 
     const isAdmin = user?.role === "admin";
 
@@ -69,8 +69,8 @@ const DisplayProfile = () => {
     return (
         <div className='Profile-Container'>
             <button className='back-btn' onClick={() => window.history.back()}><i class="ri-arrow-left-s-fill"></i>
-                    <b>Go Back</b>
-                </button>
+                <b>Go Back</b>
+            </button>
             <section className='Profile'>
                 <div>
                     <h1>Your Profile</h1>
@@ -78,7 +78,7 @@ const DisplayProfile = () => {
                 <div className="Profile-Form">
                     <div className="Photo-box">
                         {photo ? (
-                            <img src={user.photo} alt="Profile" className="Photo" />
+                            <img src={user.data.photo} alt="Profile" className="Photo" />
                         ) : (
                             <div className="Photo">
                                 <img src={userIcon} alt="Profile" />
@@ -97,22 +97,22 @@ const DisplayProfile = () => {
                 </Link>
             </section>
 
-            {!isAdmin && ( 
+            {!isAdmin && (
                 <section className='booked-tours'>
-                <h1>Booked Tours</h1>
-                {loading && <p>Loading booked tours...</p>}
-                {error && <p>Error: {error}</p>}
+                    <h1>Booked Tours</h1>
+                    {loading && <p>Loading booked tours...</p>}
+                    {error && <p>Error: {error}</p>}
 
-                {bookedTours.length > 0 ? (
-                    <div className="tour-list">
-                        {bookedTours.map((tour, index) => (
-                            tour && tour._id ? <TourCard className="profile-tour-card" key={tour._id} tour={tour} isBookedTour={true} /> : <p key={index}>Failed to load tour data.</p>
-                        ))}
-                    </div>
-                ) : (
-                    !loading && <p>No booked tours found.</p>
-                )}
-            </section>
+                    {bookedTours.length > 0 ? (
+                        <div className="tour-list">
+                            {bookedTours.map((tour, index) => (
+                                tour && tour._id ? <TourCard className="profile-tour-card" key={tour._id} tour={tour} isBookedTour={true} /> : <p key={index}>Failed to load tour data.</p>
+                            ))}
+                        </div>
+                    ) : (
+                        !loading && <p>No booked tours found.</p>
+                    )}
+                </section>
             )}
         </div>
     );

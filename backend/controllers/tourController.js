@@ -1,4 +1,5 @@
 import Tour from "../models/Tour.js";
+import Booking from "../models/Booking.js";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../Cloudinary/cloudinary.js";
 // create new tour
@@ -110,15 +111,26 @@ export const updateTour = async (req, res) => {
 export const deleteTour = async (req, res) => {
   const id = req.params.id;
   try {
+    // Check if tour has any bookings
+    const existingBooking = await Booking.findOne({ tourId: id });
+
+    if (existingBooking) {
+      return res.status(400).json({
+        success: false,
+        message: "Cannot delete tour as it has active bookings",
+      });
+    }
+
+    // If no bookings exist, proceed with deletion
     await Tour.findByIdAndDelete(id);
     res.status(200).json({
       success: true,
-      message: "Successfully deleted ",
+      message: "Successfully deleted",
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "failed to delete ",
+      message: "Failed to delete",
     });
   }
 };

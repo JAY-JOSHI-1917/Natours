@@ -10,13 +10,20 @@ const UpdateBooking = () => {
     const tourId = location.state?.tourId;
     const { user } = useContext(AuthContext);
     const [bookingData, setBookingData] = useState({
-        name: '',
-        email: '',
+        tourName: '',
+        fullName: '',
+        userEmail: '',
+        phone: 1,
         date: '',
         guests: 1,
 
     });
     const [updatedBookingData, setupdatedBookingData] = useState({
+        // fullName: '',
+        // userEmail: '',
+        // phone: 1,
+        // date: '',
+        // guests: 1,
         name: '',
         email: '',
         date: '',
@@ -48,7 +55,7 @@ const UpdateBooking = () => {
 
     const fetchBookingData = async () => {
         try {
-            const userId = user._id;
+            const userId = user.data._id;
             const res = await fetch(`${BASE_URL}/booking/getBooking/${userId}?bookedtourId=${tourId}`);
 
             if (!res.ok) {
@@ -83,7 +90,7 @@ const UpdateBooking = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${BASE_URL}/booking/updateBooking/${user._id}/${tourId}`, {
+            const response = await fetch(`${BASE_URL}/booking/updateBooking/${user.data._id}/${tourId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -161,7 +168,7 @@ const UpdateBooking = () => {
                             </div>
                             <button type="submit">Update Booking</button>
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
         </div >

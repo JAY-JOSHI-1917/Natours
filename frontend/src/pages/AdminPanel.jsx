@@ -22,7 +22,31 @@ const AdminPanel = () => {
     setTours(fetchedTours || []);
     setUsers(fetchedUsers || []);
     setBookedTours(fetchedBookedTour || []);
-  }, [fetchedTours, fetchedUsers]);
+  }, [fetchedTours, fetchedUsers, fetchedBookedTour]);
+
+  const refreshData = async () => {
+    try {
+      // Fetch tours
+      const toursRes = await fetch(`${BASE_URL}/tours/admin/tour`);
+      const toursData = await toursRes.json();
+      setTours(toursData.data || []);
+
+      // Fetch booked tours
+      const bookedToursRes = await fetch(`${BASE_URL}/booking/`);
+      const bookedToursData = await bookedToursRes.json();
+      setBookedTours(bookedToursData.data || []);
+
+      // Fetch users
+      const usersRes = await fetch(`${BASE_URL}/users`);
+      const usersData = await usersRes.json();
+      setUsers(usersData.data || []);
+    } catch (err) {
+      console.error("Error refreshing data:", err);
+    }
+  };
+
+  ///////////////////////////Tour Delete Logic///////////////////////////////////////////////
+
   const handleDeleteTour = async (id) => {
     const confirmed = window.confirm("Are you sure you want to delete this tour?");
     if (!confirmed) return;
@@ -31,9 +55,35 @@ const AdminPanel = () => {
       const res = await fetch(`${BASE_URL}/tours/${id}`, {
         method: "DELETE",
       });
+      const data = await res.json();
       if (res.ok) {
+        await refreshData();
         setTours(tours.filter((tour) => tour._id !== id));
         alert("Tour deleted successfully!");
+      }
+      else {
+        alert(data.message);
+      }
+    } catch (err) {
+      alert("Failed to delete tour.");
+    }
+  };
+
+
+  ///////////////////////////Booked Tour Delete Logic///////////////////////////////////////////////
+
+  const handleBookedDeleteTour = async (id) => {
+    const confirmed = window.confirm("Are you sure you want to delete this tour?");
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`${BASE_URL}/booking/deleteBookedtour/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        await refreshData();
+        // setBookedTours(tours.filter((tour) => tour._id !== id));
+        alert("Booked tour deleted successfully!");
       }
     } catch (err) {
       alert("Failed to delete tour.");
@@ -237,13 +287,14 @@ const AdminPanel = () => {
       </div>
 
       {/* Conditionally Render Sections */}
+
       {activeSection === "manage-tours" && (
         <section id="manage-tours" className="manage-tours">
           <div className="manage-tours-heading">
-          <h2>Add Tour :</h2>
-          <Button color="primary" onClick={() => setShowAddTourModal(true)}>Add Tour</Button>
+            <h2>Add Tour :</h2>
+            <Button color="primary" onClick={() => setShowAddTourModal(true)}>Add Tour</Button>
           </div>
-        {/* <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button> */}
+          {/* <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button> */}
           <h2>Existing Tours :</h2>
           <Table>
             <thead>
@@ -261,7 +312,7 @@ const AdminPanel = () => {
             <tbody>
               {tours.map((tour) => (
                 <tr key={tour._id}>
-                <td><img style={{ width: "200px", borderRadius: "5px" }} src={tour.photo} alt="" /></td>
+                  <td><img style={{ width: "200px", borderRadius: "5px" }} src={tour.photo} alt="" /></td>
                   <td>{tour.title}</td>
                   <td>{tour.city}</td>
                   <td>{tour.address}</td>
@@ -269,8 +320,8 @@ const AdminPanel = () => {
                   <td>{tour.season}</td>
                   <td>{tour.featured ? "True" : "False"}</td>
                   <td>
-                  <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}>Edit</Button>
-                  <Button color="danger" onClick={() => handleDeleteTour(tour._id)}>Delete</Button>
+                    <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}>Edit</Button>
+                    <Button color="danger" onClick={() => handleDeleteTour(tour._id)}>Delete</Button>
                   </td>
                 </tr>
               ))}
@@ -284,6 +335,7 @@ const AdminPanel = () => {
           <Table>
             <thead>
               <tr>
+                <th>Booked Tour Image</th>
                 <th>Title</th>
                 <th>User FullName</th>
                 <th>User Email</th>
@@ -294,23 +346,74 @@ const AdminPanel = () => {
               </tr>
             </thead>
             <tbody>
-              {bookedTour.map((bookedtour) => (
-                <tr key={bookedtour._id}>
-                  <td>{bookedtour.tourName}</td>
-                  <td>{bookedtour.fullName}</td>
-                  <td>{bookedtour.userEmail}</td>
-                  <td>{bookedtour.guestSize}</td>
-                  <td>{bookedtour.phone}</td>
-                  <td>{bookedtour.paymentMode}</td>
-                  <td>
-                  {/* <Button color="warning" onClick={() => { setCurrentTour(bookedtour); setShowTourModal(true); }}>Edit</Button> */}
-                  <Button color="danger" onClick={() => handleDeleteTour(bookedtour._id)}>Delete</Button>
-                  </td>
-                </tr>
-              ))}
+              {bookedTour.map((bookedtour) => {
+                // Find the corresponding tour based on tourId
+                const tour = tours.find((t) => t._id === bookedtour.tourId);
+
+                return (
+                  <tr key={bookedtour._id}>
+                    <td>
+                      {/* Display the tour image if found */}
+                      {tour?.photo ? (
+                        <img
+                          src={tour.photo}
+                          alt="Tour"
+                          style={{ width: "150px", borderRadius: "5px", objectFit: "cover" }}
+                        />
+                      ) : (
+                        "No Image"
+                      )}
+                    </td>
+                    <td>{bookedtour.tourName}</td>
+                    <td>{bookedtour.fullName}</td>
+                    <td>{bookedtour.userEmail}</td>
+                    <td>{bookedtour.guestSize}</td>
+                    <td>{bookedtour.phone}</td>
+                    <td>{bookedtour.paymentMode}</td>
+                    <td>
+                      <Button color="danger" onClick={() => handleBookedDeleteTour(bookedtour._id)}>
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </section>
+
+        // <section id="manage-booked-tours">
+        //   <Table>
+        //     <thead>
+        //       <tr>
+        //         <th>Title</th>
+        //         <th>User FullName</th>
+        //         <th>User Email</th>
+        //         <th>Guest Size</th>
+        //         <th>Contact</th>
+        //         <th>Payment Mode</th>
+        //         <th>Actions</th>
+        //       </tr>
+        //     </thead>
+        //     <tbody>
+        //       {bookedTour.map((bookedtour) => (
+        //         <tr key={bookedtour._id}>
+        //           <td>{bookedtour.tourId}</td>
+        //           <td>{bookedtour.tourName}</td>
+        //           <td>{bookedtour.fullName}</td>
+        //           <td>{bookedtour.userEmail}</td>
+        //           <td>{bookedtour.guestSize}</td>
+        //           <td>{bookedtour.phone}</td>
+        //           <td>{bookedtour.paymentMode}</td>
+        //           <td>
+        //             {/* <Button color="warning" onClick={() => { setCurrentTour(bookedtour); setShowTourModal(true); }}>Edit</Button> */}
+        //             <Button color="danger" onClick={() => handleDeleteTour(bookedtour._id)}>Delete</Button>
+        //           </td>
+        //         </tr>
+        //       ))}
+        //     </tbody>
+        //   </Table>
+        // </section>
       )}
 
       {activeSection === "manage-users" && (
@@ -319,6 +422,7 @@ const AdminPanel = () => {
           <Table>
             <thead>
               <tr>
+                <th>User Profile Photo</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Contact</th>
@@ -330,13 +434,14 @@ const AdminPanel = () => {
             <tbody>
               {users.map((user) => (
                 <tr key={user._id}>
+                  <td><img style={{ width: "200px", borderRadius: "5px" }} src={user.photo} alt="" /></td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                <td>{user.contact || <pre>    -    </pre>}</td>
-                <td>{user.address || <pre>    -    </pre>}</td>
+                  <td>{user.contact || <pre>    -    </pre>}</td>
+                  <td>{user.address || <pre>    -    </pre>}</td>
                   <td>{user.role}</td>
                   <td>
-                  <Button color="danger" onClick={() => handleDeleteUser(user._id)}>Delete</Button>
+                    <Button color="danger" onClick={() => handleDeleteUser(user._id)}>Delete</Button>
                   </td>
                 </tr>
               ))}
