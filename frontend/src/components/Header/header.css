@@ -32,6 +32,22 @@
   color: var(--secondary-color);
 }
 
+.nav__item span {
+  text-decoration: none;
+  color: var(--heading-color);
+  font-weight: 500;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.nav__item span:hover {
+  color: #ba7e29;
+}
+
+.nav__item span .active__link {
+  color: var(--secondary-color);
+}
+
 .mobile__menu {
   font-size: 1.3rem;
   color: var(--heading-color);

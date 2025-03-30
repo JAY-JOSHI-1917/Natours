@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Modal, Form, FormGroup } from "reactstrap";
 import { BASE_URL } from "../utils/config";
 import useFetch from "../hooks/useFetch";
+import "../styles/admin-panel.css"
 
 const AdminPanel = () => {
   const [tours, setTours] = useState([]);
@@ -10,17 +11,18 @@ const AdminPanel = () => {
   const [showAddTourModal, setShowAddTourModal] = useState(false);
   const [showUpdateTourModal, setShowUpdateTourModal] = useState(false);
   const [currentTour, setCurrentTour] = useState(null);
+  const [activeSection, setActiveSection] = useState("manage-tours"); // Track the active section
 
   const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/tour`);
   const { data: fetchedBookedTour } = useFetch(`${BASE_URL}/booking/`);
   console.log(fetchedBookedTour)
   const { data: fetchedUsers } = useFetch(`${BASE_URL}/users`);
+
   useEffect(() => {
     setTours(fetchedTours || []);
     setUsers(fetchedUsers || []);
     setBookedTours(fetchedBookedTour || []);
   }, [fetchedTours, fetchedUsers]);
-
   const handleDeleteTour = async (id) => {
     const confirmed = window.confirm("Are you sure you want to delete this tour?");
     if (!confirmed) return;
@@ -211,110 +213,138 @@ const AdminPanel = () => {
 
   return (
     <div className="admin-panel">
-      <h1>Admin Panel</h1>
 
-      {/* Tours Section */}
-      <section>
-        <h2 style={{ backgroundColor: "lightcoral" }}>Manage Tours</h2>
-        <Button color="primary" onClick={() => setShowAddTourModal(true)}>Add Tour</Button>
+      {/* Section Switching Buttons */}
+      <div className="section-buttons d-flex justify-content-around mb-4">
+        <Button
+          color={activeSection === "manage-tours" ? "primary" : "secondary"}
+          onClick={() => setActiveSection("manage-tours")}
+        >
+          Manage Tours
+        </Button>
+        <Button
+          color={activeSection === "manage-booked-tours" ? "primary" : "secondary"}
+          onClick={() => setActiveSection("manage-booked-tours")}
+        >
+          Manage Booked Tours
+        </Button>
+        <Button
+          color={activeSection === "manage-users" ? "primary" : "secondary"}
+          onClick={() => setActiveSection("manage-users")}
+        >
+          Manage Users
+        </Button>
+      </div>
+
+      {/* Conditionally Render Sections */}
+      {activeSection === "manage-tours" && (
+        <section id="manage-tours" className="manage-tours">
+          <div className="manage-tours-heading">
+          <h2>Add Tour :</h2>
+          <Button color="primary" onClick={() => setShowAddTourModal(true)}>Add Tour</Button>
+          </div>
         {/* <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button> */}
-        <Table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>Price</th>
-              <th>Address</th>
-              <th>Season</th>
-              <th>Featured</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tours.map((tour) => (
-              <tr key={tour._id}>
+          <h2>Existing Tours :</h2>
+          <Table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Price</th>
+                <th>Address</th>
+                <th>Season</th>
+                <th>Featured</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tours.map((tour) => (
+                <tr key={tour._id}>
                 <td><img style={{ width: "200px", borderRadius: "5px" }} src={tour.photo} alt="" /></td>
-                <td>{tour.title}</td>
-                <td>{tour.city}</td>
-                <td>₹{tour.price}</td>
+                  <td>{tour.title}</td>
+                  <td>{tour.city}</td>
+                  <td>{tour.address}</td>
+                  <td>₹{tour.price}</td>
                 <td>{tour.address}</td>
-                <td>{tour.season}</td>
-                <td>{tour.featured ? "True" : "False"}</td>
-                <td>
+                  <td>{tour.season}</td>
+                  <td>{tour.featured ? "True" : "False"}</td>
+                  <td>
                   <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}>Edit</Button>
                   <Button color="danger" onClick={() => handleDeleteTour(tour._id)}>Delete</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </section>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </section>
+      )}
 
-      {/*Managed Booked Tours*/}
-      <section>
-        <h2 style={{ backgroundColor: "lightcoral", marginBottom: "20px" }}>Manage Booked Tours</h2>
-        <Table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>User FullName</th>
-              <th>User Email</th>
-              <th>Guest Size</th>
-              <th>Contact</th>
-              <th>Payment Mode</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookedTour.map((bookedtour) => (
-              <tr key={bookedtour._id}>
-                <td>{bookedtour.tourName}</td>
-                <td>{bookedtour.fullName}</td>
-                <td>{bookedtour.userEmail}</td>
-                <td>{bookedtour.guestSize}</td>
-                <td>{bookedtour.phone}</td>
-                <td>{bookedtour.paymentMode}</td>
-                <td>
+      {activeSection === "manage-booked-tours" && (
+        <section id="manage-booked-tours">
+          <Table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>User FullName</th>
+                <th>User Email</th>
+                <th>Guest Size</th>
+                <th>Contact</th>
+                <th>Payment Mode</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookedTour.map((bookedtour) => (
+                <tr key={bookedtour._id}>
+                  <td>{bookedtour.tourName}</td>
+                  <td>{bookedtour.fullName}</td>
+                  <td>{bookedtour.userEmail}</td>
+                  <td>{bookedtour.guestSize}</td>
+                  <td>{bookedtour.phone}</td>
+                  <td>{bookedtour.paymentMode}</td>
+                  <td>
                   {/* <Button color="warning" onClick={() => { setCurrentTour(bookedtour); setShowTourModal(true); }}>Edit</Button> */}
                   <Button color="danger" onClick={() => handleDeleteTour(bookedtour._id)}>Delete</Button>
-                </td>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </section>
+      )}
+
+      {activeSection === "manage-users" && (
+        <section id="manage-users">
+          <h2>Manage Users</h2>
+          <Table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Role</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </section>
-      {/* Users Section */}
-      <section>
-        <h2 style={{ backgroundColor: "lightcoral" }}>Manage Users</h2>
-        <Table>
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Email</th>
-              <th>contact</th>
-              <th>Address</th>
-              <th>role</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
                 <td>{user.contact || <pre>    -    </pre>}</td>
                 <td>{user.address || <pre>    -    </pre>}</td>
-                <td>{user.role}</td>
-                <td>
+                  <td>{user.role}</td>
+                  <td>
                   <Button color="danger" onClick={() => handleDeleteUser(user._id)}>Delete</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </section>
-
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </section>
+      )}
       {/* Add/Edit Tour Modal */}
       {/*Add tour */}
       <Modal isOpen={showAddTourModal} toggle={() => setShowAddTourModal(false)}>
