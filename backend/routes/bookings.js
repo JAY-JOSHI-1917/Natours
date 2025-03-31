@@ -23,6 +23,6 @@ router.delete("/cancel/:userId/:tourId", cancelBooking);
 router.delete("/deleteBookedtour/:bookingId", deleteBooking);
 router.get("/", getAllBooking);
 
-router.get("/update-booking-status", updateBookingStatus);
+router.get("/updatebookingstatus", updateBookingStatus);
 
 export default router;

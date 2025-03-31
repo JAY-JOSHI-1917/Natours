@@ -19,6 +19,23 @@ const AdminPanel = () => {
   const { data: fetchedUsers } = useFetch(`${BASE_URL}/users`);
 
   useEffect(() => {
+    // Add async function to handle the API call
+    const updateBookingStatus = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/booking/update-booking-status`);
+        const data = await response.json();
+        console.log("update Booking api response::", data.message);
+      } catch (error) {
+        console.error("Error updating booking status:", error);
+      }
+    };
+
+    // Call the async function
+    updateBookingStatus();
+  }, [fetchedBookedTour]);
+
+
+  useEffect(() => {
     setTours(fetchedTours || []);
     setUsers(fetchedUsers || []);
     setBookedTours(fetchedBookedTour || []);

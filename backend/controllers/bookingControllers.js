@@ -172,7 +172,8 @@ export const updateBookingStatus = async () => {
         const bookings = await Booking.find({});
         const currentDate = new Date();
 
-        for (let booking of bookings) {
+      for (let booking of bookings) {
+          console.log(booking)
             const startDate = new Date(booking.tourStartingDate);
             const endDate = new Date(booking.tourEndingDate);
             const daysSinceEnd = (currentDate - endDate) / (1000 * 60 * 60 * 24); // Days since end date
