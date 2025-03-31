@@ -7,6 +7,8 @@ import TourCard from "./../shared/TourCard";
 // import SearchBar from "./../shared/SearchBar";
 // import NewsLetter from "./../shared/Newsletter";
 
+import Slider from "react-slick";
+
 import { Container, Row, Col } from "reactstrap";
 import useFetch from "../hooks/useFetch";
 import { BASE_URL } from "../utils/config";
@@ -23,6 +25,13 @@ const Tours = () => {
     const pages = Math.ceil(tourCount / 8);
     setPageCount(pages);
   }, [page, tourCount, tours]);
+
+
+
+
+
+
+
 
   return (
     <>

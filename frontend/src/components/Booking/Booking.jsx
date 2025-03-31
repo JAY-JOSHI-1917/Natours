@@ -5,10 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { BASE_URL } from "../../utils/config";
 
+import { formatDate } from "../../utils/dateUtils";
+
 const Booking = ({ tour, avgRating }) => {
   const { _id, price, reviews, title } = tour;
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+
+  const handleDateChange = (e) => {
+    const selectedDate = new Date(e.target.value);
+    selectedDate.setDate(selectedDate.getDate() + 2); // Add 2 days to the selected date
+    const formattedEndDate = formatDate(selectedDate);
+
+    setBooking((prev) => ({
+      ...prev,
+      bookAt: e.target.value,
+      endDate: formattedEndDate,
+    }));
+  };
 
   const [booking, setBooking] = useState({
     userId: user && user._id,
@@ -50,6 +64,11 @@ const Booking = ({ tour, avgRating }) => {
   const handleClick = async (e) => {
     e.preventDefault();
     console.log("Booking Data before submission:", booking);
+
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(booking.phone)) {
+      return alert("Phone number must be exactly 10 digits.");
+    }
 
     if (!booking.fullName || !booking.phone || !booking.bookAt || !booking.guestSize) {
       return alert("Please fill in all required fields before proceeding.");
@@ -104,7 +123,15 @@ const Booking = ({ tour, avgRating }) => {
             <input type="text" placeholder="Full Name" id="fullName" required onChange={handleChange} />
           </FormGroup>
           <FormGroup>
-            <input type="number" placeholder="Phone" id="phone" required onChange={handleChange} />
+            <input
+              type="tel"
+              placeholder="Phone"
+              id="phone"
+              required
+              pattern="[0-9]{10}" /* Ensures exactly 10 digits */
+              title="Phone number must be 10 digits"
+              onChange={handleChange}
+            />
           </FormGroup>
           <FormGroup className="d-flex align-items-center gap-3">
             <input type="date" id="bookAt" required onChange={handleChange} min={minDate} />

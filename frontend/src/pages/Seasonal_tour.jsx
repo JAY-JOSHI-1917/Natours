@@ -8,6 +8,7 @@ import { BASE_URL } from "../utils/config";
 import TourCard from '../shared/TourCard';
 import Subtitle from '../shared/Subtitle';
 import Slider from 'react-slick';
+import "../styles/seasonal-tour.css";
 
 const Seasonal_tour = () => {
 
@@ -44,14 +45,12 @@ const Seasonal_tour = () => {
   const { data: monssonTours } = useFetch(`${BASE_URL}/tours/search/getTourBySeason?season=monsoon`);
   return (
     <>
-      <CommonSection title={"Seasonal Tours"} />
-
       <section>
-        <Container>
+        <Container className="season-container">
           <Row>
             <Col lg="12" className="mb-5">
               <Subtitle subtitle={"Explore"} />
-              <h2 className="featured__tour-title">Winter Tours</h2>
+              <h2 className="featured__tour-title" id='winter'>Winter Tours</h2>
             </Col>
 
             {/* <Slider {...settings}> */}
@@ -65,8 +64,8 @@ const Seasonal_tour = () => {
           </Row>
           <Row>
             <Col lg="12" className="mb-5">
-              {/* <Subtitle subtitle={"Explore"} /> */}
-              <h2 className="featured__tour-title">Summer Tours</h2>
+              <Subtitle subtitle={"Explore"} />
+              <h2 className="featured__tour-title" id='summer'>Summer Tours</h2>
             </Col>
             {summerTours?.map((tour) => (
               <Col lg="3" className="mb-4" key={tour._id}>
@@ -76,8 +75,8 @@ const Seasonal_tour = () => {
           </Row>
           <Row>
             <Col lg="12" className="mb-5">
-              {/* <Subtitle subtitle={"Explore"} /> */}
-              <h2 className="featured__tour-title">Monsoon Tours</h2>
+              <Subtitle subtitle={"Explore"} />
+              <h2 className="featured__tour-title" id='monsoon'>Monsoon Tours</h2>
             </Col>
             {monssonTours?.map((tour) => (
               <Col lg="3" className="mb-4" key={tour._id}>
