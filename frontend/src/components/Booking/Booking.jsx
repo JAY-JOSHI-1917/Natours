@@ -18,7 +18,7 @@ const Booking = ({ tour, avgRating }) => {
     fullName: "",
     phone: "",
     guestSize: 1,
-    bookAt: "",
+    tourStartingDate: "",
     paymentMode: "",
   });
 
@@ -46,12 +46,12 @@ const Booking = ({ tour, avgRating }) => {
   };
 
   const totalAmount = Number(price) * Number(booking.guestSize);
-
+  booking.totalPayableAmount = totalAmount;
   const handleClick = async (e) => {
     e.preventDefault();
     console.log("Booking Data before submission:", booking);
 
-    if (!booking.fullName || !booking.phone || !booking.bookAt || !booking.guestSize) {
+    if (!booking.fullName || !booking.phone || !booking.tourStartingDate || !booking.guestSize) {
       return alert("Please fill in all required fields before proceeding.");
     }
 
@@ -71,7 +71,7 @@ const Booking = ({ tour, avgRating }) => {
       // console.log(user_email)
       booking.userId = user_id;
       booking.userEmail = user_email;
-      // console.log("After addign userid and email", booking)
+      console.log("After addign userid and email", booking)
       const res = await fetch(`${BASE_URL}/booking`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
@@ -107,7 +107,7 @@ const Booking = ({ tour, avgRating }) => {
             <input type="number" placeholder="Phone" id="phone" required onChange={handleChange} />
           </FormGroup>
           <FormGroup className="d-flex align-items-center gap-3">
-            <input type="date" id="bookAt" required onChange={handleChange} min={minDate} />
+            <input type="date" id="tourStartingDate" required onChange={handleChange} min={minDate} />
             <input type="number" placeholder="Number of Guest" id="guestSize" required onChange={handleChange} />
           </FormGroup>
         </Form>
