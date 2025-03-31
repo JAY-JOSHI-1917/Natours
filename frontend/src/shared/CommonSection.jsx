@@ -1,55 +1,81 @@
 import React, { useEffect } from "react";
 import "./common-section.css";
+import Hammer from "hammerjs";
+import MicroSlider from "micro-slider";
 
 const CommonSection = () => {
   useEffect(() => {
-    // Dynamically load the Micro Slider script
-    const microSliderScript = document.createElement("script");
-    microSliderScript.src = "https://unpkg.com/micro-slider@1.0.0/dist/micro-slider.js";
-    microSliderScript.async = true;
-    document.body.appendChild(microSliderScript);
+    // Ensure scripts load in correct order
+    const loadScripts = async () => {
+      const loadScript = (src) =>
+        new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.src = src;
+          script.async = true;
+          script.onload = resolve;
+          document.body.appendChild(script);
+        });
 
-    // Dynamically load the Hammer.js script
-    const hammerScript = document.createElement("script");
-    hammerScript.src = "https://unpkg.com/hammerjs@2.0.8/hammer.min.js";
-    hammerScript.async = true;
-    document.body.appendChild(hammerScript);
+      // Load external libraries
+      await loadScript("https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js");
+      await loadScript("https://cdn.jsdelivr.net/npm/micro-slider@1.0.9/dist/micro-slider.min.js");
 
-    // Dynamically load the custom slider.js script
-    const customSliderScript = document.createElement("script");
-    customSliderScript.src = "/src/utils/slider.js"; // Adjusted path based on your project structure
-    customSliderScript.async = true;
-    document.body.appendChild(customSliderScript);
+      // Your slider initialization logic
+      const CaroS = document.querySelector(".Carousel-slider");
+      if (CaroS) {
+        const CaroSlider = new MicroSlider(CaroS, { indicators: true, indicatorText: "" });
+        const hammer = new Hammer(CaroS);
+        const CaroSTimer = 2000;
+        let CaroAutoplay = setInterval(() => CaroSlider.next(), CaroSTimer);
 
-    // Cleanup scripts on component unmount
-    return () => {
-      document.body.removeChild(microSliderScript);
-      document.body.removeChild(hammerScript);
-      document.body.removeChild(customSliderScript);
+        // Event Listeners
+        CaroS.onmouseenter = () => clearInterval(CaroAutoplay);
+        CaroS.onmouseleave = () => {
+          clearInterval(CaroAutoplay);
+          CaroAutoplay = setInterval(() => CaroSlider.next(), CaroSTimer);
+        };
+        CaroS.onclick = () => clearInterval(CaroAutoplay);
+        hammer.on("swipe", () => {
+          clearInterval(CaroAutoplay);
+          CaroAutoplay = setInterval(() => CaroSlider.next(), CaroSTimer);
+        });
+
+        // Handle slider item clicks
+        document.querySelectorAll(".slider-item").forEach((el) =>
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            const href = el.dataset.href;
+            const target = el.dataset.target;
+            if (href !== "#") window.open(href, target);
+          })
+        );
+      }
     };
-  }, []);
+
+    loadScripts();
+
+    // Cleanup function
+    return () => {
+      document.querySelectorAll(".slider-item").forEach((el) =>
+        el.removeEventListener("click", () => {})
+      );
+    };
+  }, []); // Runs once when the component mounts
 
   return (
-    <section className="slider">
-      <div className="list">
-        <div className="item item-1"></div>
-        <div className="item item-2"></div>
-        <div className="item item-3"></div>
-        <div className="item item-4"></div>
-        <div className="item item-5"></div>
-        <div className="item item-6"></div>
-        <div className="item item-7"></div>
-      </div>
-      <ul className="indicators">
-        <li className="active"></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </section>
+    <div id="Carousel-slider">
+      <section>
+        <div className="Carousel-slider">
+          <div className="slider-item superHero1" data-href="#" data-target="_self"></div>
+          <div className="slider-item superHero2" data-href="#" data-target="_self"></div>
+          <div className="slider-item superHero3" data-href="#" data-target="_self"></div>
+          <div className="slider-item superHero4" data-href="#" data-target="_self"></div>
+          <div className="slider-item superHero5" data-href="#" data-target="_self"></div>
+          <div className="slider-item superHero6" data-href="#" data-target="_self"></div>
+          <div className="slider-item superHero7" data-href="#" data-target="_self"></div>
+        </div>
+      </section>
+    </div>
   );
 };
 
