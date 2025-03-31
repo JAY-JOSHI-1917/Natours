@@ -340,6 +340,7 @@ const AdminPanel = () => {
                 <th>User Email</th>
                 <th>tour Starting date</th>
                 <th>tour Ending date</th>
+                <th>Booker Tour Status</th>
                 <th>Guest Size</th>
                 <th>Contact</th>
                 <th>Total Payable Amount</th>
@@ -360,6 +361,7 @@ const AdminPanel = () => {
                     {/* <td>{bookedtour.bookAt}</td> */}
                     <td>{bookedtour.tourStartingDate}</td>
                     <td>{bookedtour.tourEndingDate}</td>
+                    <td>{bookedtour.status}</td>
                     <td>{bookedtour.guestSize}</td>
                     <td>{bookedtour.phone}</td>
                     <td>{bookedtour.totalPayableAmount}</td>

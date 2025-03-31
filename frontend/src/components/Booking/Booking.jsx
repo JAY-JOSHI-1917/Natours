@@ -70,7 +70,7 @@ const Booking = ({ tour, avgRating }) => {
       return alert("Phone number must be exactly 10 digits.");
     }
 
-    if (!booking.fullName || !booking.phone || !booking.bookAt || !booking.guestSize) {
+    if (!booking.fullName || !booking.phone || !booking.tourStartingDate || !booking.guestSize) {
       return alert("Please fill in all required fields before proceeding.");
     }
 
