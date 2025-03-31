@@ -166,3 +166,42 @@ export const deleteBooking = async (req, res) => {
       .json({ success: false, message: "Failed to delete booking." });
   }
 };
+
+export const updateBookingStatus = async () => {
+    try {
+        const bookings = await Booking.find({});
+        const currentDate = new Date();
+
+        for (let booking of bookings) {
+            const startDate = new Date(booking.tourStartingDate);
+            const endDate = new Date(booking.tourEndingDate);
+            const daysSinceEnd = (currentDate - endDate) / (1000 * 60 * 60 * 24); // Days since end date
+            const daysUntilStart = (startDate - currentDate) / (1000 * 60 * 60 * 24); // Days until start
+
+            let newStatus;
+            if (daysUntilStart > 0) {
+                newStatus = "Pending"; // Tour hasn't started yet
+            } else if (currentDate >= startDate && currentDate <= endDate) {
+                newStatus = "Ongoing"; // Tour is currently happening
+            } else if (daysSinceEnd > 3) {
+                newStatus = "Completed"; // Tour ended more than 3 days ago
+            } else {
+                newStatus = booking.status; // Keep current status
+            }
+
+            if (booking.status !== newStatus) {
+                booking.status = newStatus;
+                await booking.save();
+            }
+        }
+
+        console.log("Booking statuses updated.");
+    } catch (error) {
+        console.error("Error updating booking statuses:", error);
+    }
+};
+
+// // Run this function when the server starts
+// updateBookingStatus();
+
+// module.exports = updateBookingStatus;

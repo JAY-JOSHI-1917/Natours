@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/home.css";
 
 import { Container, Row, Col, Button } from "reactstrap";
@@ -22,9 +22,27 @@ import FeaturedTourList from "../components/Featured-tours/FeaturedTourList.jsx"
 // import MasonryImagesGallery from "../components/Image-gallery/MasonryImagesGallery.jsx";
 import Gallery from "../shared/Gallery.jsx";
 import Testimonial from "../components/Testimonial/Testimonials.jsx";
+import { BASE_URL } from "../utils/config.js";
 // import Tours from "./Tours.jsx";
 
 const Home = () => {
+
+  useEffect(() => {
+    // Add async function to handle the API call
+    const updateBookingStatus = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/bookings/update-booking-status`);
+        const data = await response.json();
+        console.log(data.message);
+      } catch (error) {
+        console.error("Error updating booking status:", error);
+      }
+    };
+
+    // Call the async function
+    updateBookingStatus();
+  }, []);
+
   return (
     <>
       {/* ============ Hero Section ============ */}
