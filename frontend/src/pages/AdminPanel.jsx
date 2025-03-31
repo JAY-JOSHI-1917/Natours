@@ -335,12 +335,14 @@ const AdminPanel = () => {
           <Table>
             <thead>
               <tr>
-                <th>Booked Tour Image</th>
                 <th>Title</th>
                 <th>User FullName</th>
                 <th>User Email</th>
+                <th>tour Starting date</th>
+                <th>tour Ending date</th>
                 <th>Guest Size</th>
                 <th>Contact</th>
+                <th>Total Payable Amount</th>
                 <th>Payment Mode</th>
                 <th>Actions</th>
               </tr>
@@ -348,27 +350,19 @@ const AdminPanel = () => {
             <tbody>
               {bookedTour.map((bookedtour) => {
                 // Find the corresponding tour based on tourId
-                const tour = tours.find((t) => t._id === bookedtour.tourId);
+                // const tour = tours.find((t) => t._id === bookedtour.tourId);
 
                 return (
                   <tr key={bookedtour._id}>
-                    <td>
-                      {/* Display the tour image if found */}
-                      {tour?.photo ? (
-                        <img
-                          src={tour.photo}
-                          alt="Tour"
-                          style={{ width: "150px", borderRadius: "5px", objectFit: "cover" }}
-                        />
-                      ) : (
-                        "No Image"
-                      )}
-                    </td>
                     <td>{bookedtour.tourName}</td>
                     <td>{bookedtour.fullName}</td>
                     <td>{bookedtour.userEmail}</td>
+                    {/* <td>{bookedtour.bookAt}</td> */}
+                    <td>{bookedtour.tourStartingDate}</td>
+                    <td>{bookedtour.tourEndingDate}</td>
                     <td>{bookedtour.guestSize}</td>
                     <td>{bookedtour.phone}</td>
+                    <td>{bookedtour.totalPayableAmount}</td>
                     <td>{bookedtour.paymentMode}</td>
                     <td>
                       <Button color="danger" onClick={() => handleBookedDeleteTour(bookedtour._id)}>
