@@ -15,24 +15,9 @@ const AdminPanel = () => {
 
   const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/tour`);
   const { data: fetchedBookedTour } = useFetch(`${BASE_URL}/booking/`);
-  console.log(fetchedBookedTour)
   const { data: fetchedUsers } = useFetch(`${BASE_URL}/users`);
 
-  useEffect(() => {
-    // Add async function to handle the API call
-    const updateBookingStatus = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/booking/update-booking-status`);
-        const data = await response.json();
-        console.log("update Booking api response::", data.message);
-      } catch (error) {
-        console.error("Error updating booking status:", error);
-      }
-    };
 
-    // Call the async function
-    updateBookingStatus();
-  }, [fetchedBookedTour]);
 
 
   useEffect(() => {
@@ -73,6 +58,7 @@ const AdminPanel = () => {
         method: "DELETE",
       });
       const data = await res.json();
+      console.log(data)
       if (res.ok) {
         await refreshData();
         setTours(tours.filter((tour) => tour._id !== id));
@@ -99,8 +85,9 @@ const AdminPanel = () => {
       });
       if (res.ok) {
         await refreshData();
-        // setBookedTours(tours.filter((tour) => tour._id !== id));
-        alert("Booked tour deleted successfully!");
+        alert("Booked tour Deleted Successfully...");
+      } else {
+        alert("You cannot delete booked tour as its Status : Pending | On Going")
       }
     } catch (err) {
       alert("Failed to delete tour.");
@@ -550,57 +537,57 @@ const AdminPanel = () => {
         </Form>
       </Modal>
       {/* <Form onSubmit={handleAddOrUpdateTour}>
-          <div className="modal-header">
-            <h5>{currentTour ? "Edit Tour" : "Add Tour"}</h5>
-            <Button close onClick={() => setShowTourModal(false)} />
-          </div>
-          <div className="modal-body">
-            <FormGroup>
-              <label>Photo</label>
-              <input type="file" name="photo" accept="image/*" onChange={(e) => handlePhotoUpload(e)} />
-            </FormGroup>
-            <FormGroup>
-              <label>Title</label>
-              <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>City</label>
-              <input type="text" name="city" defaultValue={currentTour?.city || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>Address</label>
-              <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>Price</label>
-              <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>Description</label>
-              <textarea name="desc" defaultValue={currentTour?.desc || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>Max Group Size</label>
-              <input type="number" name="maxGroupSize" defaultValue={currentTour?.maxGroupSize || ""} required />
-            </FormGroup>
-            <FormGroup>
-              <label>Season</label>
-              <select name="season" defaultValue={currentTour?.season || ""} required>
-                <option value="">Select Season</option>
-                <option value="summer">Summer</option>
-                <option value="winter">Winter</option>
-                <option value="monsoon">Monsoon</option>
-              </select>
-            </FormGroup>
-            <FormGroup>
-              <label>Featured</label>
-              <input type="checkbox" name="featured" defaultChecked={currentTour?.featured || false} />
-            </FormGroup>
-          </div>
-          <div className="modal-footer">
-            <Button type="submit" color="primary">{currentTour ? "Update" : "Add"}</Button>
-          </div>
-        </Form> */}
+            <div className="modal-header">
+              <h5>{currentTour ? "Edit Tour" : "Add Tour"}</h5>
+              <Button close onClick={() => setShowTourModal(false)} />
+            </div>
+            <div className="modal-body">
+              <FormGroup>
+                <label>Photo</label>
+                <input type="file" name="photo" accept="image/*" onChange={(e) => handlePhotoUpload(e)} />
+              </FormGroup>
+              <FormGroup>
+                <label>Title</label>
+                <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
+              </FormGroup>
+              <FormGroup>
+                <label>City</label>
+                <input type="text" name="city" defaultValue={currentTour?.city || ""} required />
+              </FormGroup>
+              <FormGroup>
+                <label>Address</label>
+                <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
+              </FormGroup>
+              <FormGroup>
+                <label>Price</label>
+                <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
+              </FormGroup>
+              <FormGroup>
+                <label>Description</label>
+                <textarea name="desc" defaultValue={currentTour?.desc || ""} required />
+              </FormGroup>
+              <FormGroup>
+                <label>Max Group Size</label>
+                <input type="number" name="maxGroupSize" defaultValue={currentTour?.maxGroupSize || ""} required />
+              </FormGroup>
+              <FormGroup>
+                <label>Season</label>
+                <select name="season" defaultValue={currentTour?.season || ""} required>
+                  <option value="">Select Season</option>
+                  <option value="summer">Summer</option>
+                  <option value="winter">Winter</option>
+                  <option value="monsoon">Monsoon</option>
+                </select>
+              </FormGroup>
+              <FormGroup>
+                <label>Featured</label>
+                <input type="checkbox" name="featured" defaultChecked={currentTour?.featured || false} />
+              </FormGroup>
+            </div>
+            <div className="modal-footer">
+              <Button type="submit" color="primary">{currentTour ? "Update" : "Add"}</Button>
+            </div>
+          </Form> */}
       {/* </Modal> */}
     </div >
   );

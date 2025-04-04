@@ -145,16 +145,28 @@ export const getAllBooking = async (req, res) => {
 
 export const deleteBooking = async (req, res) => {
   try {
-    const { bookingId } = req.params; // Renamed to bookingId (since it's an _id)
+    const { bookingId } = req.params;
 
-    // Find and delete the booking by its _id
-    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+    // First, find the booking to check its status
+    const booking = await Booking.findById(bookingId);
 
-    if (!deletedBooking) {
+    if (!booking) {
       return res
         .status(404)
         .json({ success: false, message: "Booking not found." });
     }
+
+    // Check if the booking status is "Completed"
+    if (booking.status !== "Completed") {
+      return res.status(403).json({
+        success: false,
+        message:
+          "Only completed tours can be deleted. Current status: pending | On Going",
+      });
+    }
+
+    // If status is "Completed", proceed with deletion
+    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
 
     res
       .status(200)
@@ -167,39 +179,97 @@ export const deleteBooking = async (req, res) => {
   }
 };
 
-export const updateBookingStatus = async () => {
-    try {
-        const bookings = await Booking.find({});
-        const currentDate = new Date();
+export const updateBookingStatus = async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+    const currentDate = new Date();
+    let updatedCount = 0;
 
-      for (let booking of bookings) {
-          console.log(booking)
-            const startDate = new Date(booking.tourStartingDate);
-            const endDate = new Date(booking.tourEndingDate);
-            const daysSinceEnd = (currentDate - endDate) / (1000 * 60 * 60 * 24); // Days since end date
-            const daysUntilStart = (startDate - currentDate) / (1000 * 60 * 60 * 24); // Days until start
+    console.log("Starting status update...");
+    console.log(`Found ${bookings.length} bookings`);
 
-            let newStatus;
-            if (daysUntilStart > 0) {
-                newStatus = "Pending"; // Tour hasn't started yet
-            } else if (currentDate >= startDate && currentDate <= endDate) {
-                newStatus = "Ongoing"; // Tour is currently happening
-            } else if (daysSinceEnd > 3) {
-                newStatus = "Completed"; // Tour ended more than 3 days ago
-            } else {
-                newStatus = booking.status; // Keep current status
-            }
-
-            if (booking.status !== newStatus) {
-                booking.status = newStatus;
-                await booking.save();
-            }
+    for (const booking of bookings) {
+      try {
+        // Validate dates before creating Date objects
+        if (!booking.tourStartingDate || !booking.tourEndingDate) {
+          console.log(`Skipping booking ${booking._id} - Missing date values`);
+          continue;
         }
 
-        console.log("Booking statuses updated.");
-    } catch (error) {
-        console.error("Error updating booking statuses:", error);
+        // Safely create Date objects
+        const startDate = new Date(booking.tourStartingDate);
+        const endDate = new Date(booking.tourEndingDate);
+        const today = new Date(currentDate);
+
+        // Validate that dates are valid
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+          console.log(`Skipping booking ${booking._id} - Invalid date values`);
+          continue;
+        }
+
+        // Remove time parts for date-only comparison
+        startDate.setUTCHours(0, 0, 0, 0);
+        endDate.setUTCHours(0, 0, 0, 0);
+        today.setUTCHours(0, 0, 0, 0);
+
+        console.log("\n------------------------");
+        console.log(`Processing Booking: ${booking._id}`);
+        console.log(`Tour Name: ${booking.tourName}`);
+        console.log(`Start Date: ${startDate}`); // Using toString() instead of toISOString()
+        console.log(`End Date: ${endDate}`);
+        console.log(`Current Status: ${booking.status}`);
+
+        let newStatus;
+        // Determine new status
+        if (today < startDate) {
+          newStatus = "pending";
+        } else if (today >= startDate && today <= endDate) {
+          newStatus = "Ongoing";
+        } else if (today > endDate) {
+          newStatus = "Completed";
+        }
+
+        console.log(`Calculated New Status: ${newStatus}`);
+
+        // Update if status has changed
+        if (booking.status !== newStatus && newStatus) {
+          const updatedBooking = await Booking.findByIdAndUpdate(
+            booking._id,
+            { status: newStatus },
+            { new: true }
+          );
+          updatedCount++;
+          console.log(`Successfully updated booking to ${newStatus}`);
+          console.log("Updated Booking:", {
+            id: updatedBooking._id,
+            status: updatedBooking.status,
+            startDate: updatedBooking.tourStartingDate,
+            endDate: updatedBooking.tourEndingDate,
+          });
+        } else {
+          console.log("No status update needed");
+        }
+      } catch (bookingError) {
+        console.error(`Error processing booking ${booking._id}:`, bookingError);
+        continue; // Skip to next booking if there's an error
+      }
     }
+
+    console.log(`\nUpdate complete. Updated ${updatedCount} bookings`);
+
+    res.status(200).json({
+      success: true,
+      message: `Updated ${updatedCount} booking statuses`,
+      currentTime: currentDate.toString(),
+    });
+  } catch (error) {
+    console.error("Error in updateBookingStatus:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update booking statuses",
+      error: error.message,
+    });
+  }
 };
 
 // // Run this function when the server starts
