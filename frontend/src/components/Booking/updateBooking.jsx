@@ -9,6 +9,7 @@ const UpdateBooking = () => {
     const location = useLocation();
     const tourId = location.state?.tourId;
     const { user } = useContext(AuthContext);
+    const [bookingTourId, setbookingTourId] = useState("");
     const [bookingData, setBookingData] = useState({
         tourName: '',
         fullName: '',
@@ -64,6 +65,8 @@ const UpdateBooking = () => {
             }
 
             const result = await res.json();
+            // console.log(result.data[0]._id)
+            setbookingTourId(result.data[0]._id);
             const finalResult = result.data || {};
             setBookingData(finalResult[0]);
 

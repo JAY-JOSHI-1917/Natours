@@ -31,6 +31,11 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    totalGuestSize: {
+      type: Number,
+      required: true,
+      default: 30,
+    },
     maxGroupSize: {
       type: Number,
       required: true,

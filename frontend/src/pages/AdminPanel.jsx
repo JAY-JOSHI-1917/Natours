@@ -307,6 +307,8 @@ const AdminPanel = () => {
                 <th>Title</th>
                 <th>City</th>
                 <th>Address</th>
+                <th>Total Guest </th>
+                <th> max Group size </th>
                 <th>Price</th>
                 <th>Season</th>
                 <th>Featured</th>
@@ -320,6 +322,8 @@ const AdminPanel = () => {
                   <td>{tour.title}</td>
                   <td>{tour.city}</td>
                   <td>{tour.address}</td>
+                  <td>{tour.totalGuestSize}</td>
+                  <td>{tour.maxGroupSize}</td>
                   <td>₹{tour.price}</td>
                   <td>{tour.season}</td>
                   <td>{tour.featured ? "True" : "False"}</td>

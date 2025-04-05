@@ -35,6 +35,8 @@ const allSuggestions = [
   "Uttarakhand",
   "Ziro Valley",
   "Arunachal Pradesh",
+  "BMW",
+  "Ferrari FXX K EVO"
   // Add more suggestions as needed
 ];
 
