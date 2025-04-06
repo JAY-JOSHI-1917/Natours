@@ -90,7 +90,7 @@ const Booking = ({ tour, avgRating }) => {
       // console.log(user_email)
       booking.userId = user_id;
       booking.userEmail = user_email;
-      console.log("After addign userid and email", booking)
+      // console.log("After addign userid and email", booking)
       const res = await fetch(`${BASE_URL}/booking`, {
         method: "PUT",
         headers: { "content-type": "application/json" },

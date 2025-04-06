@@ -146,6 +146,7 @@ export const getBookingByTourId = async (req, res) => {
     const booking = await Booking.find({
       userId: userId,
       tourId: bookedtourId,
+      status: "Pending" || "On Going",
     });
     // console.log(booking)
     if (booking) {
@@ -159,19 +160,27 @@ export const getBookingByTourId = async (req, res) => {
 };
 
 // Update Booking By Tour ID and User ID
+
 export const updateBookingByTourId = async (req, res) => {
   const { userId, tourId } = req.params;
   const { name, email, date, guests, paymentMode } = req.body;
 
   try {
-    const findingBooking = await Booking.find({
-      userId: userId,
-      tourId: tourId,
-      status: "Pending" || "On Going",
+    const existingBooking = await Booking.findOne({
+      userId,
+      tourId,
+      status: { $in: ["Pending", "On Going"] },
     });
-    // console.log(findingBooking);
-    const booking = await Booking.findOneAndUpdate(
-      { userId, tourId },
+
+    if (!existingBooking) {
+      return res.status(404).json({ message: "Booking not found." });
+    }
+
+    const oldGuestSize = existingBooking.guestSize || 0;
+
+    // Update the booking
+    const updatedBooking = await Booking.findOneAndUpdate(
+      { _id: existingBooking._id },
       {
         fullName: name,
         userEmail: email,
@@ -181,18 +190,153 @@ export const updateBookingByTourId = async (req, res) => {
       },
       { new: true }
     );
-    console.log(booking);
-    if (!booking) {
-      return res.status(404).json({ message: "Booking not found." });
+
+    const newGuestSize = updatedBooking.guestSize || 0;
+    const guestDiff = Math.abs(newGuestSize - oldGuestSize);
+
+    let message = "Guest size has not changed";
+
+    if (guestDiff > 0) {
+      const tour = await Tour.findById(tourId);
+      if (tour) {
+        if (newGuestSize > oldGuestSize) {
+          // Guests increased in booking → reduce from tour
+          tour.totalGuestSize = Math.max(
+            0,
+            (tour.totalGuestSize || 0) - guestDiff
+          );
+          message =
+            "NEW Guests Size is larger than OLD — Tour totalGuests decreased.";
+        } else if (newGuestSize < oldGuestSize) {
+          // Guests reduced in booking → add back to tour
+          tour.totalGuestSize = (tour.totalGuestSize || 0) + guestDiff;
+          message =
+            "OLD Guests Size is larger than NEW — Tour totalGuests increased.";
+        }
+
+        await tour.save();
+      } else {
+        console.warn(`Tour with ID ${tourId} not found.`);
+        message += " (Tour not found)";
+      }
     }
 
-    res
-      .status(200)
-      .json({ message: "Booking updated successfully.", data: booking });
+    return res.status(200).json({
+      message,
+      guestDifference: guestDiff,
+      updatedBooking,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server Error.", error: error.message });
   }
 };
+
+// export const updateBookingByTourId = async (req, res) => {
+//   const { userId, tourId } = req.params;
+//   const { name, email, date, guests, paymentMode } = req.body;
+
+//   try {
+//     // Find the existing booking (with valid status)
+//     const existingBooking = await Booking.findOne({
+//       userId,
+//       tourId,
+//       status: { $in: ["Pending", "On Going"] },
+//     });
+
+//     if (!existingBooking) {
+//       return res.status(404).json({ message: "Booking not found." });
+//     }
+
+//     const oldGuestSize = existingBooking.guestSize || 0;
+
+//     // Update the booking
+//     const updatedBooking = await Booking.findOneAndUpdate(
+//       { _id: existingBooking._id },
+//       {
+//         fullName: name,
+//         userEmail: email,
+//         bookAt: date,
+//         guestSize: guests,
+//         paymentMode: paymentMode,
+//       },
+//       { new: true }
+//     );
+
+//     const newGuestSize = updatedBooking.guestSize || 0;
+
+//     const result = Math.abs(newGuestSize - oldGuestSize);
+
+//     const message =
+//       newGuestSize > oldGuestSize
+//         ? "NEW Guests Size is larger than OLD Guest Size"
+//         : newGuestSize < oldGuestSize
+//         ? "OLD Guests Size is larger than NEW Guest Size"
+//         : "Guest size has not changed";
+
+//     console.log(result);
+
+//     return res.status(200).json({
+//       message,
+//       guestDifference: result,
+//       updatedBooking,
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server Error.", error: error.message });
+//   }
+// };
+
+// export const updateBookingByTourId = async (req, res) => {
+//   const { userId, tourId } = req.params;
+//   const { name, email, date, guests, paymentMode } = req.body;
+
+//   try {
+//     const findingBooking = await Booking.find({
+//       userId: userId,
+//       tourId: tourId,
+//       status: { $in: ["Pending", "On Going"] },
+//     });
+//     console.log(findingBooking);
+//     const oldGuestSize = findingBooking[0].guestSize;
+//     const booking = await Booking.findOneAndUpdate(
+//       { userId, tourId, status: "Pending" || "On Going" },
+//       {
+//         fullName: name,
+//         userEmail: email,
+//         bookAt: date,
+//         guestSize: guests,
+//         paymentMode: paymentMode,
+//       },
+//       { new: true }
+//     );
+//     console.log(booking);
+//     const newGuestSize = booking.guestSize;
+//     if (oldGuestSize > newGuestSize) {
+//       const result = oldGuestSize - newGuestSize;
+//       console.log(result);
+//       res;
+//       res.status(200).json({
+//         message: "OLD Guests Size is larger then NEW Guest Size",
+//         data: result,
+//       });
+//     } else {
+//       const result = newGuestSize - oldGuestSize;
+//       console.log(result);
+//       res.status(200).json({
+//         message: "NEW Guests Size is larger then OLD Guest Size",
+//         data: result,
+//       });
+//     }
+//     if (!booking) {
+//       return res.status(404).json({ message: "Booking not found." });
+//     }
+
+//     res
+//       .status(200)
+//       .json({ message: "Booking updated successfully.", data: booking });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server Error.", error: error.message });
+//   }
+// };
 
 //Deleting the BookedTour
 
