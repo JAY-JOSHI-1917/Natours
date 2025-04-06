@@ -177,6 +177,8 @@ export const updateBookingByTourId = async (req, res) => {
     }
 
     const oldGuestSize = existingBooking.guestSize || 0;
+    const tourStartDate = new Date(date); // Assuming `date` is a valid date string
+    const tourEndDate = new Date(tourStartDate.getTime() + 3 * 24 * 60 * 60 * 1000); // Add 3 days
 
     // Update the booking
     const updatedBooking = await Booking.findOneAndUpdate(
@@ -187,10 +189,12 @@ export const updateBookingByTourId = async (req, res) => {
         bookAt: date,
         guestSize: guests,
         paymentMode: paymentMode,
+        tourStartingDate: tourStartDate,
+        tourEndingDate: tourEndDate,
       },
       { new: true }
     );
-
+    console.log(updatedBooking)
     const newGuestSize = updatedBooking.guestSize || 0;
     const guestDiff = Math.abs(newGuestSize - oldGuestSize);
 
