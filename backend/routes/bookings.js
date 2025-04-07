@@ -10,6 +10,7 @@ import {
   updateBookingByTourId,
   updateBookingStatus,
 } from "../controllers/bookingControllers.js";
+import { verifyAdmin } from "../utils/verifyToken.js";
 const router = express.Router();
 
 router.put("/", createBooking);
@@ -23,6 +24,6 @@ router.delete("/cancel/:userId/:tourId", cancelBooking);
 router.delete("/deleteBookedtour/:bookingId", deleteBooking);
 router.get("/", getAllBooking);
 
-router.get("/update-booking-status", updateBookingStatus);
+router.put("/update-booking-status", updateBookingStatus);
 
 export default router;

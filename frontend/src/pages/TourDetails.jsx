@@ -193,7 +193,7 @@ const TourDetails = () => {
                             </div>
 
                             <h6>{review.reviewText}</h6>
-                          </div>
+                          </div>~
                         </div>
                       ))}
                     </ListGroup>

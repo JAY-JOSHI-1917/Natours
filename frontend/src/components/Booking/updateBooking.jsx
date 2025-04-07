@@ -10,6 +10,7 @@ const UpdateBooking = () => {
     const location = useLocation();
     const tourId = location.state?.tourId;
     const { user } = useContext(AuthContext);
+    const [bookingTourId, setbookingTourId] = useState("");
     const [bookingData, setBookingData] = useState({
         tourName: '',
         fullName: '',
@@ -17,7 +18,6 @@ const UpdateBooking = () => {
         phone: 1,
         date: '',
         guests: 1,
-
     });
     const [updatedBookingData, setupdatedBookingData] = useState({
         // fullName: '',
@@ -65,6 +65,8 @@ const UpdateBooking = () => {
             }
 
             const result = await res.json();
+            // console.log(result.data[0]._id)
+            setbookingTourId(result.data[0]._id);
             const finalResult = result.data || {};
             setBookingData(finalResult[0]);
 
@@ -132,7 +134,8 @@ const UpdateBooking = () => {
                     <h5><b>User Email</b> <span>{bookingData.userEmail}</span></h5>
                     <h5><b>Total guest Size</b> <span>{bookingData.guestSize}</span></h5>
                     <h5><b>Contact</b> <span>{bookingData.phone}</span></h5>
-                    <h5><b>Tour confirm date</b> <span>{formatDate(bookingData.tourStartingDate)}</span></h5>
+                    <h5><b>Tour confirm Starting date</b> <span>{bookingData.tourStartingDate}</span></h5>
+                    <h5><b>Tour confirm Ending date</b> <span>{bookingData.tourEndingDate}</span></h5>
                     <h5><b>Payment Mode~</b> <span>{bookingData.paymentMode}</span></h5>
                 </div>
             </div>

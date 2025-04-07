@@ -26,14 +26,17 @@ import { BASE_URL } from "../utils/config.js";
 // import Tours from "./Tours.jsx";
 
 const Home = () => {
-
   useEffect(() => {
     // Add async function to handle the API call
     const updateBookingStatus = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/bookings/update-booking-status`);
+        // console.log("Calling update booking status API...");
+        const response = await fetch(`${BASE_URL}/booking/update-booking-status`, {
+          method: 'PUT',
+          // credentials: 'include'
+        });
         const data = await response.json();
-        console.log(data.message);
+        // console.log("Update response:", data);
       } catch (error) {
         console.error("Error updating booking status:", error);
       }
@@ -42,7 +45,6 @@ const Home = () => {
     // Call the async function
     updateBookingStatus();
   }, []);
-
   return (
     <>
       {/* ============ Hero Section ============ */}

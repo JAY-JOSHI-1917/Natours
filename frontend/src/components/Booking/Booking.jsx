@@ -90,7 +90,7 @@ const Booking = ({ tour, avgRating }) => {
       // console.log(user_email)
       booking.userId = user_id;
       booking.userEmail = user_email;
-      console.log("After addign userid and email", booking)
+      // console.log("After addign userid and email", booking)
       const res = await fetch(`${BASE_URL}/booking`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
@@ -116,69 +116,56 @@ const Booking = ({ tour, avgRating }) => {
         </span>
       </div>
 
-      <div className="booking__form">
-        <h5>Information</h5>
-        <Form className="booking__info-form" onSubmit={handleClick}>
-          <FormGroup>
-            <input type="text" placeholder="Full Name" id="fullName" required onChange={handleChange} />
-          </FormGroup>
-          <FormGroup>
-            <input
-              type="tel"
-              placeholder="Phone"
-              id="phone"
-              required
-              pattern="[0-9]{10}" /* Ensures exactly 10 digits */
-              title="Phone number must be 10 digits"
-              onChange={handleChange}
-            />
-          </FormGroup>
-          <FormGroup className="d-flex align-items-center gap-3">
-            <input type="date" id="tourStartingDate" required onChange={handleChange} min={minDate} />
-            <input type="number" placeholder="Number of Guest" id="guestSize" required onChange={handleChange} />
-          </FormGroup>
-        </Form>
+      {
+        tour.totalGuestSize === 0 ? (
+          <h5 className="text-danger text-center mt-3">Tour not available for booking</h5>
+        ) : (
+          <div className="booking__form">
+            <h5>Information</h5>
+            <Form className="booking__info-form" onSubmit={handleClick}>
+              <FormGroup>
+                <input type="text" placeholder="Full Name" id="fullName" required onChange={handleChange} />
+              </FormGroup>
+              <FormGroup>
+                <input
+                  type="tel"
+                  placeholder="Phone"
+                  id="phone"
+                  required
+                  pattern="[0-9]{10}"
+                  title="Phone number must be 10 digits"
+                  onChange={handleChange}
+                />
+              </FormGroup>
+              <FormGroup className="d-flex align-items-center gap-3">
+                <input type="date" id="tourStartingDate" required onChange={handleChange} min={minDate} />
+                <input type="number" placeholder="Number of Guest" id="guestSize" required onChange={handleChange} />
+              </FormGroup>
+            </Form>
 
-        <h5 className="payment-title">Payment Options</h5>
-        <div className="payment__options">
-          <div>
-            <input type="checkbox" id="checkbox1" onClick={() => handleCheckboxClick("checkbox1", "Paytm")} />
-            <button className="payment-btn paytm-btn"></button>
+            <h5 className="payment-title">Payment Options</h5>
+            <div className="payment__options">
+              <div>
+                <input type="checkbox" id="checkbox1" onClick={() => handleCheckboxClick("checkbox1", "Paytm")} />
+                <button className="payment-btn paytm-btn"></button>
+              </div>
+              <div>
+                <input type="checkbox" id="checkbox2" onClick={() => handleCheckboxClick("checkbox2", "UPI")} />
+                <button className="payment-btn upi-btn"></button>
+              </div>
+              <div>
+                <input type="checkbox" id="checkbox3" onClick={() => handleCheckboxClick("checkbox3", "PayPal")} />
+                <button className="payment-btn paypal-btn"></button>
+              </div>
+              <div>
+                <input type="checkbox" id="checkbox4" onClick={() => handleCheckboxClick("checkbox4", "PhonePe")} />
+                <button className="payment-btn phonepe-btn"></button>
+              </div>
+            </div>
           </div>
-          <div>
-            <input type="checkbox" id="checkbox2" onClick={() => handleCheckboxClick("checkbox2", "UPI")} />
-            <button className="payment-btn upi-btn"></button>
-          </div>
-          <div>
-            <input type="checkbox" id="checkbox3" onClick={() => handleCheckboxClick("checkbox3", "PayPal")} />
-            <button className="payment-btn paypal-btn"></button>
-          </div>
-          <div>
-            <input type="checkbox" id="checkbox4" onClick={() => handleCheckboxClick("checkbox4", "PhonePe")} />
-            <button className="payment-btn phonepe-btn"></button>
-          </div>
-        </div>
-      </div>
+        )
+      }
 
-      <div className="booking__bottom">
-        <ListGroup>
-          <ListGroupItem className="border-0 px-0">
-            <h5 className="d-flex align-items-center gap-1">
-              ₹{price} <i className="ri-close-line"></i> {booking.guestSize} Person(s)
-            </h5>
-            <span>₹{price}</span>
-          </ListGroupItem>
-
-          <ListGroupItem className="border-0 px-0 total">
-            <h5>Total</h5>
-            <span>₹{totalAmount}</span>
-          </ListGroupItem>
-        </ListGroup>
-
-        <Button className="btn primary__btn w-100 mt-4" onClick={handleClick}>
-          Book Now
-        </Button>
-      </div>
     </div>
   );
 };
