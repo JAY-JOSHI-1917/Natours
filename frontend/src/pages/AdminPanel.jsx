@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Modal, Form, FormGroup } from "reactstrap";
 import { BASE_URL } from "../utils/config";
 import useFetch from "../hooks/useFetch";
+import { formatDate } from "../utils/dateUtils";
 import "../styles/admin-panel.css"
 
 const AdminPanel = () => {
@@ -12,6 +13,24 @@ const AdminPanel = () => {
   const [showUpdateTourModal, setShowUpdateTourModal] = useState(false);
   const [currentTour, setCurrentTour] = useState(null);
   const [activeSection, setActiveSection] = useState("manage-tours"); // Track the active section
+
+
+
+  const [selectedCity, setSelectedCity] = useState(""); // State for selected city
+  const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
+
+  // Extract unique cities and addresses from the tours array
+  const uniqueCities = [...new Set(tours.map((tour) => tour.city))];
+  const uniqueAddresses = [...new Set(tours.map((tour) => tour.address))];
+
+  // Filter tours based on selected city and address
+  const filteredTours = tours.filter((tour) => {
+    const matchesCity = selectedCity ? tour.city === selectedCity : true;
+    const matchesAddress = selectedAddress ? tour.address === selectedAddress : true;
+    return matchesCity && matchesAddress;
+  });
+
+
 
   const { data: fetchedTours } = useFetch(`${BASE_URL}/tours/admin/tour`);
   const { data: fetchedBookedTour } = useFetch(`${BASE_URL}/booking/`);
@@ -190,12 +209,14 @@ const AdminPanel = () => {
     if (!currentTour) return;
 
     const formData = new FormData(e.target);
+    // formData.append("featured", e.target.featured.checked);
     const tourData = Object.fromEntries(formData.entries());
 
     try {
       const res = await fetch(`${BASE_URL}/tours/${currentTour._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
+        body: formData,
         body: JSON.stringify(tourData),
         credentials: "include",
       });
@@ -294,6 +315,41 @@ const AdminPanel = () => {
             <h2>Add Tour :</h2>
             <Button color="primary" onClick={() => setShowAddTourModal(true)}>Add Tour</Button>
           </div>
+
+          <div className="filters d-flex gap-3 mb-4">
+            <div>
+              <label htmlFor="cityFilter">Filter by City:</label>
+              <select
+                id="cityFilter"
+                className="form-select"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+              >
+                <option value="">All Cities</option>
+                {uniqueCities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="addressFilter">Filter by State:</label>
+              <select
+                id="addressFilter"
+                className="form-select"
+                value={selectedAddress}
+                onChange={(e) => setSelectedAddress(e.target.value)}
+              >
+                <option value="">All States</option>
+                {uniqueAddresses.map((address) => (
+                  <option key={address} value={address}>
+                    {address}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
           {/* <Button color="primary" onClick={() => { setCurrentTour(null); setShowTourModal(true); }}>Add Tour</Button> */}
           <h2>Existing Tours :</h2>
           <Table>
@@ -302,7 +358,7 @@ const AdminPanel = () => {
                 <th>Image Of Tour</th>
                 <th>Title</th>
                 <th>City</th>
-                <th>Address</th>
+                <th>State</th>
                 <th>Price</th>
                 <th>Season</th>
                 <th>Featured</th>
@@ -310,9 +366,15 @@ const AdminPanel = () => {
               </tr>
             </thead>
             <tbody>
-              {tours.map((tour) => (
+            {filteredTours.map((tour) => (
                 <tr key={tour._id}>
-                  <td><img style={{ width: "200px", borderRadius: "5px" }} src={tour.photo} alt="" /></td>
+                  <td>
+                    <img
+                      style={{ width: "200px", borderRadius: "5px" }}
+                      src={tour.photo}
+                      alt=""
+                    />
+                  </td>
                   <td>{tour.title}</td>
                   <td>{tour.city}</td>
                   <td>{tour.address}</td>
@@ -338,8 +400,8 @@ const AdminPanel = () => {
                 <th>Title</th>
                 <th>User FullName</th>
                 <th>User Email</th>
-                <th>tour Starting date</th>
-                <th>tour Ending date</th>
+                <th>Tour Starting date</th>
+                <th>Tour Ending date</th>
                 <th>Booker Tour Status</th>
                 <th>Guest Size</th>
                 <th>Contact</th>
@@ -359,8 +421,8 @@ const AdminPanel = () => {
                     <td>{bookedtour.fullName}</td>
                     <td>{bookedtour.userEmail}</td>
                     {/* <td>{bookedtour.bookAt}</td> */}
-                    <td>{bookedtour.tourStartingDate}</td>
-                    <td>{bookedtour.tourEndingDate}</td>
+                    <td>{formatDate(bookedtour.tourStartingDate)}</td>
+                    <td>{formatDate(bookedtour.tourEndingDate)}</td>
                     <td>{bookedtour.status}</td>
                     <td>{bookedtour.guestSize}</td>
                     <td>{bookedtour.phone}</td>
@@ -510,6 +572,13 @@ const AdminPanel = () => {
             <Button close onClick={() => setShowUpdateTourModal(false)} />
           </div>
           <div className="modal-body">
+
+
+
+          <FormGroup>
+              <label>Photo</label>
+              <input type="file" name="photo" accept="image/*" />
+            </FormGroup>
             <FormGroup>
               <label>Title</label>
               <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
@@ -526,6 +595,32 @@ const AdminPanel = () => {
               <label>Price</label>
               <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
             </FormGroup>
+            <FormGroup>
+              <label>Description</label>
+              <textarea name="desc" defaultValue={currentTour?.desc || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>Max Group Size</label>
+              <input type="number" name="maxGroupSize" defaultValue={currentTour?.maxGroupSize || ""} required />
+            </FormGroup>
+            <FormGroup>
+              <label>Season</label>
+              <select name="season" defaultValue={currentTour?.season || ""} required>
+                <option value="">Select Season</option>
+                <option value="summer">Summer</option>
+                <option value="winter">Winter</option>
+                <option value="monsoon">Monsoon</option>
+              </select>
+            </FormGroup>
+            <FormGroup>
+              <label>Featured</label>
+              <input type="checkbox" defaultValue={currentTour?.featured || ""} name="featured" />
+            </FormGroup>
+
+
+
+            
+            
           </div>
           <div className="modal-footer">
             <Button type="submit" color="primary">Update</Button>

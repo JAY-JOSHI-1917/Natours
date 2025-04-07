@@ -12,6 +12,8 @@ import {
   updateTour,
 } from "../controllers/tourController.js";
 import upload from "../middleware/multerConfig.js";
+
+import { getUniqueCities, getUniqueAddresses } from "../controllers/tourController.js";
 // import { verifyAdmin } from "../utils/verifyToken.js"
 
 const router = express.Router();
@@ -36,4 +38,8 @@ router.get("/search/getTourBySearch", getTourBySearch);
 router.get("/search/getFeaturedTours", getFeaturedTour);
 router.get("/search/getTourBySeason", getToursBySeason);
 router.get("/search/getTourCount", getTourCount);
+
+
+router.get("/unique-cities", getUniqueCities); // Endpoint for unique cities
+router.get("/unique-addresses", getUniqueAddresses); // Endpoint for unique addresses
 export default router;

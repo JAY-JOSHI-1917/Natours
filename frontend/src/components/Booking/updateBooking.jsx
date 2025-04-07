@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { BASE_URL } from '../../utils/config';
+import { formatDate } from "../../utils/dateUtils";
 import './updateBooking.css';
 
 const UpdateBooking = () => {
@@ -131,7 +132,7 @@ const UpdateBooking = () => {
                     <h5><b>User Email</b> <span>{bookingData.userEmail}</span></h5>
                     <h5><b>Total guest Size</b> <span>{bookingData.guestSize}</span></h5>
                     <h5><b>Contact</b> <span>{bookingData.phone}</span></h5>
-                    <h5><b>Tour confirm date</b> <span>{bookingData.tourStartingDate}</span></h5>
+                    <h5><b>Tour confirm date</b> <span>{formatDate(bookingData.tourStartingDate)}</span></h5>
                     <h5><b>Payment Mode~</b> <span>{bookingData.paymentMode}</span></h5>
                 </div>
             </div>
@@ -151,7 +152,7 @@ const UpdateBooking = () => {
                         </div>
                         <div>
                             <label>Date:</label>
-                            <input type="date" name="date" value={updatedBookingData.date} onChange={handleChange} required min={minDate} />
+                            <input type="date" name="date" value={formatDate(updatedBookingData.date)} onChange={handleChange} required min={minDate} />
                         </div>
                         <div>
                             <label>Guests:</label>

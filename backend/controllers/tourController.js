@@ -151,6 +151,30 @@ export const getSingleTour = async (req, res) => {
     });
   }
 };
+
+
+// Filter 
+
+// Get unique cities
+export const getUniqueCities = async (req, res) => {
+  try {
+    const cities = await Tour.distinct("city");
+    res.status(200).json(cities);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch unique cities" });
+  }
+};
+
+// Get unique addresses
+export const getUniqueAddresses = async (req, res) => {
+  try {
+    const addresses = await Tour.distinct("address");
+    res.status(200).json(addresses);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch unique addresses" });
+  }
+};
+
 //getAll Tour
 
 export const getAllTour = async (req, res) => {

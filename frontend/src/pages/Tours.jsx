@@ -28,7 +28,19 @@ const Tours = () => {
 
 
 
+  const [selectedCity, setSelectedCity] = useState(""); // State for selected city
+  const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
 
+  // Extract unique cities and addresses from the tours array
+  const uniqueCities = [...new Set(tours?.map((tour) => tour.city))];
+  const uniqueAddresses = [...new Set(tours?.map((tour) => tour.address))];
+
+  // Filter tours based on selected city and address
+  const filteredTours = tours?.filter((tour) => {
+    const matchesCity = selectedCity ? tour.city === selectedCity : true;
+    const matchesAddress = selectedAddress ? tour.address === selectedAddress : true;
+    return matchesCity && matchesAddress;
+  });
 
 
 
@@ -38,13 +50,49 @@ const Tours = () => {
       <CommonSection title={"All Tours"} />
       <section>
         <Container>
+
+        <div className="filters d-flex gap-3 mb-4">
+            <div>
+              <label htmlFor="cityFilter">Filter by City:</label>
+              <select
+                id="cityFilter"
+                className="form-select"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+              >
+                <option value="">All Cities</option>
+                {uniqueCities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="addressFilter">Filter by Address:</label>
+              <select
+                id="addressFilter"
+                className="form-select"
+                value={selectedAddress}
+                onChange={(e) => setSelectedAddress(e.target.value)}
+              >
+                <option value="">All Addresses</option>
+                {uniqueAddresses.map((address) => (
+                  <option key={address} value={address}>
+                    {address}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           {loading && <h4 className="text-center pt-5">Loading........</h4>}
           {error && <h4 className="text-center pt-5">{error}</h4>}
           {
             !loading &&
             !error &&
             <Row>
-              {tours?.map((tour) => (
+              {filteredTours?.map((tour) => (
                 <Col lg="3" className="mb-4" key={tour._id}>
                   <TourCard tour={tour} />
                 </Col>
