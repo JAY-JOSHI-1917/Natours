@@ -88,22 +88,51 @@ export const createTour = async (req, res) => {
 export const updateTour = async (req, res) => {
   const id = req.params.id;
   try {
+    console.log(req.body);
+    let updateData = { ...req.body };
+
+    // If a new photo is uploaded, process it
+    if (req.file) {
+      // Get the current tour to access the old photo URL
+      const currentTour = await Tour.findById(id);
+
+      // If there's an old photo, delete it from Cloudinary
+      if (currentTour && currentTour.photo) {
+        try {
+          // Extract public ID from the Cloudinary URL
+          const publicId = currentTour.photo.split("/").pop().split(".")[0];
+          await cloudinary.uploader.destroy(publicId);
+        } catch (error) {
+          console.error("Error deleting old photo:", error);
+          // Continue with the update even if deletion fails
+        }
+      }
+
+      // Upload new photo
+      const fileUri = getDataUri(req.file);
+      const result = await cloudinary.uploader.upload(fileUri.content);
+      updateData.photo = result.secure_url;
+    }
+
+    console.log(updateData);
     const updatedTour = await Tour.findByIdAndUpdate(
       id,
       {
-        $set: req.body,
+        $set: updateData,
       },
       { new: true }
     );
+
     res.status(200).json({
       success: true,
       message: "Successfully updated",
       data: updatedTour,
     });
   } catch (error) {
+    console.error("Error updating tour:", error);
     res.status(500).json({
       success: false,
-      message: "failed to update ",
+      message: "Failed to update",
     });
   }
 };
@@ -153,8 +182,7 @@ export const getSingleTour = async (req, res) => {
   }
 };
 
-
-// Filter 
+// Filter
 
 // Get unique cities
 export const getUniqueCities = async (req, res) => {
@@ -182,6 +210,7 @@ export const getAllTour = async (req, res) => {
   const page = parseInt(req.query.page);
   try {
     const tours = await Tour.find({});
+    // console.log(tours);
     res.status(200).json({
       success: true,
       count: tours.length,
@@ -199,23 +228,46 @@ export const getAllTour = async (req, res) => {
 export const getAllTourForUser = async (req, res) => {
   const page = parseInt(req.query.page);
   try {
-    const tours = await Tour.find({})
+    const tours = await Tour.find({visibility: "enable"}) // Only enabled tours
       .populate("reviews")
       .skip(page * 8)
       .limit(8);
     res.status(200).json({
       success: true,
       count: tours.length,
-      message: "Successfully. ",
+      message: "Successfully.",
       data: tours,
     });
   } catch (error) {
     res.status(404).json({
       success: false,
-      message: "Not Found ",
+      message: "Not Found",
     });
   }
 };
+
+// export const getAllTourForUser = async (req, res) => {
+//   const page = parseInt(req.query.page);
+//   try {
+//     const tours = await Tour.find({ })
+//       .populate("reviews")
+//       .skip(page * 8)
+//       .limit(8);
+//     // const finaltour = tours.filter({ visibility: "enable" });
+//     console.log(tours);
+//     res.status(200).json({
+//       success: true,
+//       count: tours.length,
+//       message: "Successfully. ",
+//       data: tours,
+//     });
+//   } catch (error) {
+//     res.status(404).json({
+//       success: false,
+//       message: "Not Found ",
+//     });
+//   }
+// };
 
 // get tour by search
 export const getTourBySearch = async (req, res) => {
@@ -288,7 +340,7 @@ export const getToursBySeason = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Server error. Could not fetch tours.",
+      message: "Server  error. Could not fetch tours.",
     });
   }
 };
@@ -306,3 +358,33 @@ export const getTourCount = async (req, res) => {
 };
 
 //Seasonal Tour
+export const toggleTourVisibility = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const tour = await Tour.findById(id);
+    if (!tour) {
+      return res.status(404).json({
+        success: false,
+        message: "Tour not found",
+      });
+    }
+
+    const newVisibility = tour.visibility === "enable" ? "disable" : "enable";
+    const updatedTour = await Tour.findByIdAndUpdate(
+      id,
+      { $set: { visibility: newVisibility } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `Tour visibility ${newVisibility}d successfully`,
+      data: updatedTour,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to toggle visibility",
+    });
+  }
+};

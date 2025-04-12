@@ -20,7 +20,6 @@ const Tours = () => {
   const { data: tours, loading, error } = useFetch(`${BASE_URL}/tours?page=${page}`)
   const { data: tourCount } = useFetch(`${BASE_URL}/tours/search/getTourCount`)
 
-
   useEffect(() => {
     const pages = Math.ceil(tourCount / 8);
     setPageCount(pages);
@@ -28,12 +27,12 @@ const Tours = () => {
 
 
 
-  const [selectedCity, setSelectedCity] = useState(""); // State for selected city
-  const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
+  // const [selectedCity, setSelectedCity] = useState(""); // State for selected city
+  // const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
 
-  // Extract unique cities and addresses from the tours array
-  const uniqueCities = [...new Set(tours?.map((tour) => tour.city))];
-  const uniqueAddresses = [...new Set(tours?.map((tour) => tour.address))];
+  // // Extract unique cities and addresses from the tours array
+  // const uniqueCities = [...new Set(tours?.map((tour) => tour.city))];
+  // const uniqueAddresses = [...new Set(tours?.map((tour) => tour.address))];
 
   // // Filter tours based on selected city and address
   // const filteredTours = tours?.filter((tour) => {
@@ -51,7 +50,7 @@ const Tours = () => {
       <section>
         <Container>
 
-        <div className="filters d-flex gap-3 mb-4">
+          <div className="filters d-flex gap-3 mb-4">
             {/* <div>
               <label htmlFor="cityFilter">Filter by City:</label>
               <select

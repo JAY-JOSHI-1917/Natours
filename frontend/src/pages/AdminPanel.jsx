@@ -213,15 +213,15 @@ const AdminPanel = () => {
     if (!currentTour) return;
 
     const formData = new FormData(e.target);
-    // formData.append("featured", e.target.featured.checked);
-    const tourData = Object.fromEntries(formData.entries());
+    // Convert checkbox value to boolean
+    formData.set("featured", e.target.featured.checked);
+    // Ensure visibility is a single value
+    formData.set("visibility", e.target.visibility.value);
 
     try {
       const res = await fetch(`${BASE_URL}/tours/${currentTour._id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
         body: formData,
-        body: JSON.stringify(tourData),
         credentials: "include",
       });
 
@@ -230,6 +230,8 @@ const AdminPanel = () => {
         setTours(tours.map((t) => (t._id === result.data._id ? result.data : t)));
         setShowUpdateTourModal(false);
         alert("Tour updated successfully!");
+      } else {
+        alert(result.message || "Failed to update tour.");
       }
     } catch (err) {
       alert("Failed to update tour.");
@@ -368,6 +370,7 @@ const AdminPanel = () => {
                 <th>Price</th>
                 <th>Season</th>
                 <th>Featured</th>
+                <th>Visibility</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -389,6 +392,7 @@ const AdminPanel = () => {
                   <td>₹{tour.price}</td>
                   <td>{tour.season}</td>
                   <td>{tour.featured ? "True" : "False"}</td>
+                  <td>{tour.visibility}</td>
                   <td>
                     <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}><i class="ri-edit-box-line"></i></Button>
                     <Button color="danger" onClick={() => handleDeleteTour(tour._id)}><i class="ri-delete-bin-5-line"></i></Button>
@@ -580,9 +584,6 @@ const AdminPanel = () => {
             <Button close onClick={() => setShowUpdateTourModal(false)} />
           </div>
           <div className="modal-body">
-
-
-
             <FormGroup>
               <label>Photo</label>
               <input type="file" name="photo" accept="image/*" />
@@ -626,72 +627,21 @@ const AdminPanel = () => {
             </FormGroup>
             <FormGroup>
               <label>Featured</label>
-              <input type="checkbox" defaultValue={currentTour?.featured || ""} name="featured" />
+              <input type="checkbox" name="featured" defaultChecked={currentTour?.featured || false} />
             </FormGroup>
-
-
-
-
-
+            <FormGroup>
+              <label>Visibility</label>
+              <select name="visibility" defaultValue={currentTour?.visibility || "enable"} required>
+                <option value="enable">Enable</option>
+                <option value="disable">Disable</option>
+              </select>
+            </FormGroup>
           </div>
           <div className="modal-footer">
             <Button type="submit" color="primary">Update</Button>
           </div>
         </Form>
       </Modal>
-      {/* <Form onSubmit={handleAddOrUpdateTour}>
-            <div className="modal-header">
-              <h5>{currentTour ? "Edit Tour" : "Add Tour"}</h5>
-              <Button close onClick={() => setShowTourModal(false)} />
-            </div>
-            <div className="modal-body">
-              <FormGroup>
-                <label>Photo</label>
-                <input type="file" name="photo" accept="image/*" onChange={(e) => handlePhotoUpload(e)} />
-              </FormGroup>
-              <FormGroup>
-                <label>Title</label>
-                <input type="text" name="title" defaultValue={currentTour?.title || ""} required />
-              </FormGroup>
-              <FormGroup>
-                <label>City</label>
-                <input type="text" name="city" defaultValue={currentTour?.city || ""} required />
-              </FormGroup>
-              <FormGroup>
-                <label>Address</label>
-                <input type="text" name="address" defaultValue={currentTour?.address || ""} required />
-              </FormGroup>
-              <FormGroup>
-                <label>Price</label>
-                <input type="number" name="price" defaultValue={currentTour?.price || ""} required />
-              </FormGroup>
-              <FormGroup>
-                <label>Description</label>
-                <textarea name="desc" defaultValue={currentTour?.desc || ""} required />
-              </FormGroup>
-              <FormGroup>
-                <label>Max Group Size</label>
-                <input type="number" name="maxGroupSize" defaultValue={currentTour?.maxGroupSize || ""} required />
-              </FormGroup>
-              <FormGroup>
-                <label>Season</label>
-                <select name="season" defaultValue={currentTour?.season || ""} required>
-                  <option value="">Select Season</option>
-                  <option value="summer">Summer</option>
-                  <option value="winter">Winter</option>
-                  <option value="monsoon">Monsoon</option>
-                </select>
-              </FormGroup>
-              <FormGroup>
-                <label>Featured</label>
-                <input type="checkbox" name="featured" defaultChecked={currentTour?.featured || false} />
-              </FormGroup>
-            </div>
-            <div className="modal-footer">
-              <Button type="submit" color="primary">{currentTour ? "Update" : "Add"}</Button>
-            </div>
-          </Form> */}
-      {/* </Modal> */}
     </div >
   );
 };
