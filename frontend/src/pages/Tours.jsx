@@ -69,14 +69,14 @@ const Tours = () => {
               </select>
             </div>
             <div>
-              <label htmlFor="addressFilter">Filter by Address:</label>
+              <label htmlFor="addressFilter">Filter by State:</label>
               <select
                 id="addressFilter"
                 className="form-select"
                 value={selectedAddress}
                 onChange={(e) => setSelectedAddress(e.target.value)}
               >
-                <option value="">All Addresses</option>
+                <option value="">All States</option>
                 {uniqueAddresses.map((address) => (
                   <option key={address} value={address}>
                     {address}

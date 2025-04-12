@@ -317,7 +317,7 @@ const AdminPanel = () => {
         <section id="manage-tours" className="manage-tours">
           <div className="manage-tours-heading">
             <h2>Add Tour :</h2>
-            <Button color="primary" onClick={() => setShowAddTourModal(true)}>Add Tour</Button>
+            <Button color="primary" onClick={() => setShowAddTourModal(true)}><i class="ri-add-box-fill"></i></Button>
           </div>
 
           <div className="filters d-flex gap-3 mb-4">
@@ -391,8 +391,8 @@ const AdminPanel = () => {
                   <td>{tour.season}</td>
                   <td>{tour.featured ? "True" : "False"}</td>
                   <td>
-                    <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}>Edit</Button>
-                    <Button color="danger" onClick={() => handleDeleteTour(tour._id)}>Delete</Button>
+                    <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}><i class="ri-edit-box-line"></i></Button>
+                    <Button color="danger" onClick={() => handleDeleteTour(tour._id)}><i class="ri-delete-bin-5-line"></i></Button>
                   </td>
                 </tr>
               ))}
