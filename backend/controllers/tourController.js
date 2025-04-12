@@ -107,6 +107,7 @@ export const updateTour = async (req, res) => {
     });
   }
 };
+
 //delete Tour
 export const deleteTour = async (req, res) => {
   const id = req.params.id;

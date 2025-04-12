@@ -363,7 +363,6 @@ const AdminPanel = () => {
                 <th>Title</th>
                 <th>City</th>
                 <th>State</th>
-                <th>Address</th>
                 <th>Total Guest </th>
                 <th> max Group size </th>
                 <th>Price</th>
@@ -373,7 +372,7 @@ const AdminPanel = () => {
               </tr>
             </thead>
             <tbody>
-            {filteredTours.map((tour) => (
+              {filteredTours.map((tour) => (
                 <tr key={tour._id}>
                   <td>
                     <img
@@ -584,7 +583,7 @@ const AdminPanel = () => {
 
 
 
-          <FormGroup>
+            <FormGroup>
               <label>Photo</label>
               <input type="file" name="photo" accept="image/*" />
             </FormGroup>
@@ -613,6 +612,10 @@ const AdminPanel = () => {
               <input type="number" name="maxGroupSize" defaultValue={currentTour?.maxGroupSize || ""} required />
             </FormGroup>
             <FormGroup>
+              <label>Total Guest Size</label>
+              <input type="number" name="totalGuestSize" defaultValue={currentTour?.totalGuestSize || ""} required />
+            </FormGroup>
+            <FormGroup>
               <label>Season</label>
               <select name="season" defaultValue={currentTour?.season || ""} required>
                 <option value="">Select Season</option>
@@ -628,8 +631,8 @@ const AdminPanel = () => {
 
 
 
-            
-            
+
+
           </div>
           <div className="modal-footer">
             <Button type="submit" color="primary">Update</Button>
