@@ -35,12 +35,12 @@ const Tours = () => {
   const uniqueCities = [...new Set(tours?.map((tour) => tour.city))];
   const uniqueAddresses = [...new Set(tours?.map((tour) => tour.address))];
 
-  // Filter tours based on selected city and address
-  const filteredTours = tours?.filter((tour) => {
-    const matchesCity = selectedCity ? tour.city === selectedCity : true;
-    const matchesAddress = selectedAddress ? tour.address === selectedAddress : true;
-    return matchesCity && matchesAddress;
-  });
+  // // Filter tours based on selected city and address
+  // const filteredTours = tours?.filter((tour) => {
+  //   const matchesCity = selectedCity ? tour.city === selectedCity : true;
+  //   const matchesAddress = selectedAddress ? tour.address === selectedAddress : true;
+  //   return matchesCity && matchesAddress;
+  // });
 
 
 
@@ -52,7 +52,7 @@ const Tours = () => {
         <Container>
 
         <div className="filters d-flex gap-3 mb-4">
-            <div>
+            {/* <div>
               <label htmlFor="cityFilter">Filter by City:</label>
               <select
                 id="cityFilter"
@@ -83,7 +83,7 @@ const Tours = () => {
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
           </div>
 
           {loading && <h4 className="text-center pt-5">Loading........</h4>}
@@ -92,7 +92,7 @@ const Tours = () => {
             !loading &&
             !error &&
             <Row>
-              {filteredTours?.map((tour) => (
+              {tours?.map((tour) => (
                 <Col lg="3" className="mb-4" key={tour._id}>
                   <TourCard tour={tour} />
                 </Col>
