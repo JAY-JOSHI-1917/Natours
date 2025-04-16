@@ -40,7 +40,7 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    seasons: {
+    season: {
       type: String,
       // required: true,
     },
@@ -54,6 +54,12 @@ const tourSchema = new mongoose.Schema(
     featured: {
       type: Boolean,
       default: false,
+    },
+    visibility: {
+      type: String,
+      enum: ["enable", "disable"],
+      default: "enable",
+      required: true,
     },
   },
   { timestamps: true }
