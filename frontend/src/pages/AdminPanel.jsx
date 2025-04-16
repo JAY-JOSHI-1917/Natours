@@ -524,6 +524,7 @@ const AdminPanel = () => {
             <Button close onClick={() => setShowAddTourModal(false)} />
           </div>
           <div className="modal-body">
+            <div className="admin-form">
             <FormGroup>
               <label>Photo</label>
               <input type="file" name="photo" accept="image/*" />
@@ -553,6 +554,10 @@ const AdminPanel = () => {
               <input type="number" name="maxGroupSize" required />
             </FormGroup>
             <FormGroup>
+              <label>Total Guest Size</label>
+              <input type="number" name="totalGuestSize" defaultValue={currentTour?.totalGuestSize || ""} required />
+            </FormGroup>
+            <FormGroup>
               <label>Season</label>
               <select name="season" required>
                 <option value="">Select Season</option>
@@ -565,6 +570,8 @@ const AdminPanel = () => {
               <label>Featured</label>
               <input type="checkbox" name="featured" />
             </FormGroup>
+
+          </div>
           </div>
           <div className="modal-footer">
             <Button type="submit" color="primary">Add</Button>
@@ -582,7 +589,7 @@ const AdminPanel = () => {
           <div className="modal-body">
 
 
-
+          <div className="admin-form">
             <FormGroup>
               <label>Photo</label>
               <input type="file" name="photo" accept="image/*" />
@@ -628,7 +635,7 @@ const AdminPanel = () => {
               <label>Featured</label>
               <input type="checkbox" defaultValue={currentTour?.featured || ""} name="featured" />
             </FormGroup>
-
+            </div>
 
 
 
