@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 // import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import Subtitle from "./../shared/Subtitle.jsx";
+import CommonSection from "../shared/CommonSection.jsx";
 
 import heroBGvid from "../assets/images/hero-bg-video.mp4";
 import FeaturedTourList from "../components/Featured-tours/FeaturedTourList.jsx";
@@ -59,7 +60,7 @@ const Home = () => {
           ></video>
         </div>
         <Container className="hero-bg-box">
-          <div className="hero-row">
+          {/* <div className="hero-row">
             <div className="hero__img-box">
               <img src={heroImg} alt="" className="hero-img" />
             </div>
@@ -75,7 +76,8 @@ const Home = () => {
             <div className="hero__img-box">
               <img src={heroImg02} alt="" className="hero-img" />
             </div>
-          </div>
+          </div> */}
+          <CommonSection/>
 
           <div className="hero__content">
             <div className="hero__subtitle d-flex align-items-center">

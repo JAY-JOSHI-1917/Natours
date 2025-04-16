@@ -17,18 +17,18 @@ const Tours = () => {
   const { data: tours, loading, error } = useFetch(`${BASE_URL}/tours?page=${page}`)
   const { data: tourCount } = useFetch(`${BASE_URL}/tours/search/getTourCount`)
 
-  const [selectedCity, setSelectedCity] = useState(""); // State for selected city
-  const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
-
-  // Extract unique cities and addresses from the tours array
+    const [selectedCity, setSelectedCity] = useState(""); // State for selected city
+    const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
+  
+    // Extract unique cities and addresses from the tours array
     const uniqueCities = [...new Set(tours.map((tour) => tour.city))];
     const uniqueAddresses = [...new Set(tours.map((tour) => tour.address))];
-
-  // Filter tours based on selected city and address
-  const filteredTours = tours?.filter((tour) => {
-    const matchesCity = selectedCity ? tour.city === selectedCity : true;
-    const matchesAddress = selectedAddress ? tour.address === selectedAddress : true;
-    return matchesCity && matchesAddress;
+  
+    // Filter tours based on selected city and address
+    const filteredTours = tours?.filter((tour) => {
+      const matchesCity = selectedCity ? tour.city === selectedCity : true;
+      const matchesAddress = selectedAddress ? tour.address === selectedAddress : true;
+      return matchesCity && matchesAddress;
     }) || [];
 
 
@@ -84,10 +84,10 @@ const Tours = () => {
             !error &&
             <Row>
               {filteredTours?.map((tour) => (
-                <Col lg="3" className="mb-4" key={tour._id}>
-                  <TourCard tour={tour} />
-                </Col>
-              ))}
+              <Col lg="3" className="mb-4" key={tour._id}>
+                <TourCard tour={tour} />
+               </Col>
+                ))}
 
               <Col lg="12">
                 <div className="pagination d-flex align-items-center justify-content-center mt-4 gap-3">

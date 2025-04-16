@@ -6,6 +6,29 @@
   top: 80px;
 }
 
+.booking__modal {
+  display: flex !important;
+  gap: 0 !important;
+}
+
+.booking__modal__note {
+  gap: 0 !important;
+}
+
+.included__list {
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column !important;
+  gap: 1rem;
+
+  margin-top: 1rem;
+}
+
+.include-btn {
+  border: none !important;
+  outline: none !important;
+}
+
 .booking__top h3 {
   font-size: 2rem;
   font-weight: 700;

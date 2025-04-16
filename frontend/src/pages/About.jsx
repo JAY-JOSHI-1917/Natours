@@ -5,7 +5,6 @@ import Subtitle from "./../shared/Subtitle.jsx";
 
 const About = () => {
   return <section className="about-section">
-
       <i class="ri-information-2-line"></i>    
     <div>
       <div className="about-us-title">      
@@ -19,6 +18,18 @@ const About = () => {
         <Subtitle subtitle={"Our Mission"} />
       </div>
       <p>We are dedicated to offering a simple and efficient platform that connects travelers with top-quality tour packages. Our platform is designed to make planning your trips easy and stress-free. Whether you're seeking an exciting adventure, a peaceful nature escape, or a mix of both, we have the perfect options for you. We take care of every detail to ensure your journey is smooth, enjoyable, and truly memorable. With us, traveling becomes less about logistics and more about experiencing the joy of discovery!</p>
+    </div>
+    <div>
+      <div className="about-us-title">      
+        <Subtitle subtitle={"What We Provide"} />
+      </div>
+        <p>We provide guided trekking and adventure activities in beautiful natural places. You can enjoy the stunning views of nature and have delicious meals during the trip. Our tours are designed to give you an exciting and memorable experience outdoors.</p>
+    </div>
+    <div>
+    <div className="about-us-title">      
+        <Subtitle subtitle={"Please note"} />
+      </div>
+        <p>Transportation to other places, including locations beyond the booked tour, is not included in our services. If tourists wish to explore additional spots in the city or nearby, they will need to arrange their own transport.</p>
     </div>
     <div>
       <div className="about-us-title">      

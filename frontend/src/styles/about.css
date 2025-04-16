@@ -1,8 +1,12 @@
 /* about.css */
 
 .about-section {
-    margin: 20px 0;
+    margin: 20px 0 100px 0;
     padding: 2rem 10rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .section h2 {

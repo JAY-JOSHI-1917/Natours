@@ -5,7 +5,7 @@
 .hero__back__vid-box {
   z-index: -999;
   overflow: hidden;
-  height: 100vh;
+  height: 100%;
   width: 99vw;
   opacity: 0.15;
   position: absolute;
@@ -17,7 +17,7 @@
 }
 
 .hero-bg-box {
-  margin-top: -2rem;
+  margin-top: -5rem;
 }
 
 .hero-row {
@@ -57,7 +57,7 @@
 .hero__content h1 {
   font-size: 3.2rem;
   font-weight: 600;
-  margin-top: 1rem;
+  margin-top: -10px;
   margin-bottom: 2rem;
   color: var(--heading-color);
 }

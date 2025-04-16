@@ -25,7 +25,7 @@ const CommonSection = () => {
       if (CaroS) {
         const CaroSlider = new MicroSlider(CaroS, { indicators: true, indicatorText: "" });
         const hammer = new Hammer(CaroS);
-        const CaroSTimer = 2000;
+        const CaroSTimer = 5000;
         let CaroAutoplay = setInterval(() => CaroSlider.next(), CaroSTimer);
 
         // Event Listeners
