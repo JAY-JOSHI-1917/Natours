@@ -17,7 +17,6 @@ const Tours = () => {
   const { data: tours, loading, error } = useFetch(`${BASE_URL}/tours?page=${page}`)
   const { data: tourCount } = useFetch(`${BASE_URL}/tours/search/getTourCount`)
 
-<<<<<<< HEAD
     const [selectedCity, setSelectedCity] = useState(""); // State for selected city
     const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
   
@@ -33,47 +32,18 @@ const Tours = () => {
     }) || [];
 
 
-=======
->>>>>>> 0b3696d9768496f5ca23b350f3eebdf7ae496225
   useEffect(() => {
     const pages = Math.ceil(tourCount / 8);
     setPageCount(pages);
   }, [page, tourCount, tours]);
 
-<<<<<<< HEAD
-=======
-
-
-  // const [selectedCity, setSelectedCity] = useState(""); // State for selected city
-  // const [selectedAddress, setSelectedAddress] = useState(""); // State for selected address
-
-  // // Extract unique cities and addresses from the tours array
-  // const uniqueCities = [...new Set(tours?.map((tour) => tour.city))];
-  // const uniqueAddresses = [...new Set(tours?.map((tour) => tour.address))];
-
-  // // Filter tours based on selected city and address
-  // const filteredTours = tours?.filter((tour) => {
-  //   const matchesCity = selectedCity ? tour.city === selectedCity : true;
-  //   const matchesAddress = selectedAddress ? tour.address === selectedAddress : true;
-  //   return matchesCity && matchesAddress;
-  // });
-
-
-
-
->>>>>>> 0b3696d9768496f5ca23b350f3eebdf7ae496225
   return (
     <>
       <section>
         <Container>
 
-<<<<<<< HEAD
         <div className="filters d-flex gap-3 mb-4">
             <div>
-=======
-          <div className="filters d-flex gap-3 mb-4">
-            {/* <div>
->>>>>>> 0b3696d9768496f5ca23b350f3eebdf7ae496225
               <label htmlFor="cityFilter">Filter by City:</label>
               <select
                 id="cityFilter"
