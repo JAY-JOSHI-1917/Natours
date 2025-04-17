@@ -67,7 +67,7 @@
 .BookedTourInformation h5 b {
     color: var(--primary-color);
     position: absolute;
-    top: -1.2rem;
+    top: -1.5rem;
     left: 1rem;
     background: linear-gradient( #eee,#fff);
     padding: 0.5rem;

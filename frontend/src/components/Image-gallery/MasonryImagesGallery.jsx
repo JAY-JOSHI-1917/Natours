@@ -4,7 +4,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 const MasonryImagesGallery = () => {
   return (
-    <ResponsiveMasonry columnsCountBreakPoints={{ 400: 3 }}>
+    <ResponsiveMasonry columnsCountBreakPoints={{ 400: 4 }}>
       <Masonry gutter="1rem">
         {galleryImages.map((item, index) => (
           <div
@@ -21,7 +21,9 @@ const MasonryImagesGallery = () => {
               src={item.src}
               alt=""
               style={{
-                width: "100%",
+                width: "350px",
+                height: "250px",
+                objectFit: "cover",
                 display: "block",
                 borderRadius: "10px",
                 marginBottom: "10px",

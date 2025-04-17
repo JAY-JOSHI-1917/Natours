@@ -153,7 +153,7 @@ const Booking = ({ tour, avgRating }) => {
                 flavorful meals during your trip.
               </li>
               <li>
-                ⏳ <strong>Duration: 2 Days:</strong> Each tour is carefully
+                ⏳ <strong>Duration: 3 Days:</strong> Each tour is carefully
                 designed to give you enough time for adventure and relaxation.
               </li>
             </ul>

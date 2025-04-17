@@ -14,7 +14,8 @@ const SearchResultList = () => {
 
   return (
     <>
-      <CommonSection title={"Tour Search Result"} />
+      {/* <CommonSection title={"Tour Search Result"} /> */}
+      <h1 style={{margin: "2rem 7rem"}}>Search Results</h1>
       <section>
         <Container>
           <Row>

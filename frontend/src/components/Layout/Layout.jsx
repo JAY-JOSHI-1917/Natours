@@ -5,6 +5,9 @@ import Routers from "../../router/Routers";
 import Footer from "./../Footer/Footer";
 import { AuthContext } from "../../context/AuthContext";
 
+// import CommonSection from "..";
+
+
 const Layout = () => {
   const location = useLocation();
   const { user } = useContext(AuthContext);
@@ -16,6 +19,7 @@ const Layout = () => {
   return (
     <>
       <Header />
+      {/* {location.pathname === "/" && <CommonSection />} */}
       <Routers />
       {!hideFooter && <Footer />}
     </>

@@ -322,7 +322,7 @@ const AdminPanel = () => {
             <Button color="primary" onClick={() => setShowAddTourModal(true)}><i class="ri-add-box-fill"></i></Button>
           </div>
 
-          <div className="filters d-flex gap-3 mb-4">
+          <div className="filters d-flex gap-3">
             <div>
               <label htmlFor="cityFilter">Filter by City:</label>
               <select
@@ -394,7 +394,7 @@ const AdminPanel = () => {
                   <td>{tour.featured ? "True" : "False"}</td>
                   <td>{tour.visibility}</td>
                   <td>
-                    <Button color="warning" onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}><i class="ri-edit-box-line"></i></Button>
+                    <Button color="warning" style={{ marginRight: "10px"}} onClick={() => { setCurrentTour(tour); setShowUpdateTourModal(true); }}><i class="ri-edit-box-line"></i></Button>
                     <Button color="danger" onClick={() => handleDeleteTour(tour._id)}><i class="ri-delete-bin-5-line"></i></Button>
                   </td>
                 </tr>
@@ -635,12 +635,12 @@ const AdminPanel = () => {
                 <option value="monsoon">Monsoon</option>
               </select>
             </FormGroup>
-            <FormGroup>
+            <FormGroup className="form-check">
               <label>Featured</label>
               <input type="checkbox" name="featured" defaultChecked={currentTour?.featured || false} />
             </FormGroup>
-            <FormGroup>
-              <label>Visibility</label>
+            <FormGroup className="form-visibility">
+              <label className="mb-2">Availability</label>
               <select name="visibility" defaultValue={currentTour?.visibility || "enable"} required>
                 <option value="enable">Enable</option>
                 <option value="disable">Disable</option>

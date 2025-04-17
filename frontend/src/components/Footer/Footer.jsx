@@ -16,6 +16,14 @@ const quick__links = [
     path: "/tours",
     display: "Tours",
   },
+  {
+    path: "/seasons",
+    display: "Seasons",
+  },
+  {
+    path: "/gallery",
+    display: "Gallery",
+  },
 ];
 const quick__links2 = [
   {
@@ -36,17 +44,25 @@ const Footer = () => {
       <Container>
         <Row>
           <Col lg="3">
-            <Link to={"/home"} className="foot__logo">
-              <img src={logo} alt="" />
+            <Link
+              to="/home"
+              className="foot__logo"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              <img src={logo} alt="Natours Logo" />
             </Link>
             <p>
-            Join <b style={
-              {
-                color: "var(--primary-color)",
-              }
-            }>NATOURS</b> for thrilling nature tours that will ignite your sense of adventure!
-            Let's explore the great outdoors and make every moment count. Your epic
-            journey into nature starts now!
+              Join{" "}
+              <b
+                style={{
+                  color: "var(--primary-color)",
+                }}
+              >
+                NATOURS
+              </b>{" "}
+              for thrilling nature tours that will ignite your sense of
+              adventure! Let's explore the great outdoors and make every moment
+              count. Your epic journey into nature starts now!
             </p>
             <div className="social__links d-flex align-items-center gap-4">
               <span>
@@ -105,7 +121,9 @@ const Footer = () => {
                     <i class="ri-map-pin-line"></i>
                   </span>
                   Address:
-                  <a href=" " className="mb-0">Gujarat, India</a>
+                  <a href=" " className="mb-0">
+                    Gujarat, India
+                  </a>
                 </h6>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
@@ -114,7 +132,9 @@ const Footer = () => {
                     <i class="ri-mail-line"></i>
                   </span>
                   Email:
-                  <a href=" " className="mb-0">natours.explore@gmail.com</a>
+                  <a href=" " className="mb-0">
+                    natours.explore@gmail.com
+                  </a>
                 </h6>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
@@ -123,7 +143,9 @@ const Footer = () => {
                     <i class="ri-phone-fill"></i>
                   </span>
                   Phone:
-                  <a href=" " className="mb-0">+91 9988776655</a>
+                  <a href=" " className="mb-0">
+                    +91 9988776655
+                  </a>
                 </h6>
               </ListGroupItem>
             </ListGroup>
